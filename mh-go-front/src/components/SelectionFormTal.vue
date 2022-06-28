@@ -16,9 +16,9 @@
                 <template #content>
                     <!-- here four of these cyclestates are needed and the labels have to display the tal picture + hold a gettable value / pseudo button has to emit event to cycle state in tal obj(store)-->
                     <div class="slotSelection" style="display: inline;">
-                        <SlotItem/>
-                        <SlotItem/>
-                        <SlotItem/>                        
+                        <SlotItemBtn @send="setSlotLvl(talisman, 0, $event)"/>
+                        <SlotItemBtn @send="setSlotLvl(talisman, 1, $event)"/>
+                        <SlotItemBtn @send="setSlotLvl(talisman, 2, $event)"/>                     
                     </div>
                     
                     <!-- items of TAL/tals array of selectionItems(custom class)-->
@@ -83,12 +83,14 @@
 <script>
     import { mapGetters, mapActions, mapMutations } from 'vuex';
     import SelectionItem from './SelectionItem.vue';
-    import SlotItem from './SlotItem.vue'
+    //import SlotItem from './SlotItem.vue'
+    import SlotItemBtn from './SlotItemBtn.vue';
 
     export default {
         components: {
             SelectionItem,
-            SlotItem
+            //SlotItem,
+            SlotItemBtn
         },
 
         computed:{
@@ -134,7 +136,6 @@
                 for(var i = 0; i < this.getTalismansLength; i++){
                     if(this.getTalismans[i] === talisman){
                         try{
-                            console.log()
                             talisman._skillSelectionArray = talisman._skillSelectionArray.filter(e => e._name != skillName) 
                         }
                         catch (error) {
@@ -155,12 +156,24 @@
                     this.ADD_TAL({
                         _name: talName,
                         _skillSelectionArray: [],
-                        _active: false
+                        _slots: [0,0,0]
                     })
                 }
             },
             deleteTal: function(talisman){
                 this.DELETE_TAL(talisman)
+            },
+            setSlotLvl: function(talisman, slotNum, slotLvl){                
+                for(var i = 0; i < this.getTalismansLength; i++){
+                    if(this.getTalismans[i] === talisman){
+                        try{
+                            talisman._slots[slotNum] = slotLvl
+                        }catch (error){
+                            alert (error)
+                            console.log(error)
+                        }
+                    }
+                }
             }
             //maybe helpful for selection to build later
             /*
@@ -220,39 +233,5 @@
         padding-top: 40px;
     }
 
-    .cyclestate {
-    display: inline-grid;
-    }
-    .cyclestate label {
-    grid-area: 1 / 1;
-    background-color: white; 
-    color: black;
-    z-index: 0;
-    opacity: 0;
-    }
-    .cyclestate input {
-    position: absolute;
-    z-index: -1;
-    }
-    .cyclestate input:checked + label {
-    opacity: 1;
-    }
-    .cyclestate input:first-of-type + label {
-    z-index: 2;
-    }
-    .cyclestate input:checked + label + input + label {
-    opacity: 0;
-    z-index: 2;
-    }
-    /* -- Unrelated and accessibility -- */
-    .cyclestate { border: none; padding: 0; }
-    .cyclestate legend { position: absolute; }
-    .cyclestate label { padding: 1em; text-align: center; display: inline-block; cursor: pointer; user-select: none;
-    }
-    .cyclestate label::before { content: '← '; }
-    .cyclestate label::after { content: ' →'; }
-    .cyclestate label::before, label::after { color: transparent; }
-    .cyclestate input:focus-visible + label { outline: solid; }
-    .cyclestate input:focus-visible + label::before,
-    .cyclestate input:focus-visible + label::after { color: currentcolor; }
+    
 </style>

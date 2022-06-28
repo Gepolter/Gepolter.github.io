@@ -5,7 +5,7 @@
     </div>
     <!-- wishlists/talismans: array of collapsibles v-for-->
     <div class="selectionArrayCollapsible">
-        <vue-collapsible-panel-group accordion>
+        <vue-collapsible-panel-group accordion v-model="panelIndex">
             <!--for every element in wl array one collapsible. !!!no events from collapsible...... why?!-->
             <vue-collapsible-panel v-for="wishlist in getWishlists" :key="wishlist._name" :expanded="false">
                 <template #title>
@@ -14,28 +14,29 @@
                     <button type="submit" style="display: inline;" @click="deleteWl(wishlist)">X</button>
                 </template>
                 <template #content>
-                    
+                    <!-- header for columns-->
+                    <div class="selectionHeader">
+                        <label>Prio</label>
+                        <label style="flex : 3;">Skill</label>
+                        <label>Lvl</label>
+                        <label>Del</label>
+                    </div>
                     <!-- items of wl/tals array of selectionItems(custom class)-->
                     <!-- this should be draggable to select prios-->
                     <div class="selectionItems">
-                        <SelectionItem 
-                            v-for="selectedSkill in wishlist._skillSelectionArray"
-                            :key="selectedSkill._name"
-                            :skillName="selectedSkill._name"
-                            :skillLvl="selectedSkill._selectedLvl"
-                            :skillPrio="selectedSkill._prio"
-                            @send="removeSkill(wishlist, $event)">
-                            
-                        </SelectionItem>
+                        <!--deleted: tag="SelectionItem" from draggable-->
                         <draggable
-                            v-model="wishlist._skillSelectionArray"
-                            @start="drag=true"
-                            @end="drag=false"
-                            item-key="_name">
-                            <template #item="{skill}">
-                                <div>{{skill}}</div>
+                            
+                            :list="wishlist._skillSelectionArray" 
+                            item-key="_name"
+                            :onUpdated = "reorderWl(wishlist._skillSelectionArray)">
+                            <template #item="{element}">
+                                <SelectionItem
+                                    :skillName= "element._name"
+                                    :skillLvl="element._selectedLvl"
+                                    :skillPrio="element._prio"
+                                    @send="removeSkill(wishlist, $event)"/>
                             </template>
-
                         </draggable>
                     </div>
                     <div class="selectionItemBuilder">
@@ -47,15 +48,15 @@
                             >
 
                         </v-select>
-                        <!--:reduce="getSkills => getSkills._maxLvl" -->
+                        <!--:reduce="getSkills => getSkills._maxLvl" deleted: color="#FB278D"-->
                         <div class="sliderDiv">
                             <v-slider 
                                 v-model="myLvl"
                                 :min = 1
                                 :max="selectedSkill._maxLvl"
                                 :height = 7
-                                color="#FB278D"
-                                track-color="#FEFEFE"
+                                
+                                track-color='#FEFEFE'
                                 tooltip = "always"
                                 :marks = "marks">
                                 
@@ -65,7 +66,7 @@
                             </v-slider>
                         </div>
 
-                        <button type="submit" class="btn btn__primary btn__lg" @click="addSkill(selectedSkill._name, myLvl, 1, wishlist)">
+                        <button type="submit" class="btn btn__primary btn__lg" @click="addSkill(selectedSkill._name, myLvl, wishlist)">
                             Add Skill
                         </button>
                     </div>
@@ -109,7 +110,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                 'DELETE_WL'
             ]),
             
-            addSkill: function(skillName, skillLvl, skillPrio, wishlist){
+            addSkill: function(skillName, skillLvl, wishlist){
                 //what wishlist is opened?
                 
                 for(var i = 0; i < this.getWishlistsLength; i++){
@@ -121,13 +122,17 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                             wishlist._skillSelectionArray.push({
                                 _name: skillName,
                                 _selectedLvl: skillLvl,
-                                _prio: skillPrio
+                                _prio: 0
                             })
                             //also set slider current lvl back to 1
+                            wishlist._skillSelectionArray[wishlist._skillSelectionArray.length-1]._prio = this.arrayPos(wishlist._skillSelectionArray, skillName)
                             this.resetSlider()
                         }
                     }
                 }
+            },
+            arrayPos:function(array, key){
+                return array.findIndex(p=>p._name == key)
             },
             removeSkill: function(wishlist, skillName){
                 for(var i = 0; i < this.getWishlistsLength; i++){
@@ -160,9 +165,14 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
             },
             deleteWl: function(wishlist){
                 this.DELETE_WL(wishlist)
-            }
+            },
+            reorderWl: function(skillArray){
+                for(var i = 0;i < skillArray.length; i++){
+                    skillArray[i]._prio = i+1
+                }
+            },
             //maybe helpful for selection to build later
-            /*
+            
             activateWl: function(wishlist){
                 console.log(this.getWishlistsLength)
                 for(var i = 0; i< this.getWishlistsLength;i++){
@@ -175,8 +185,8 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                         
                     }
                 }
-                wishlist._active = true
-            },*/
+                //wishlist._active = true
+            },
         },
         //why separate computed method?
         data() {
@@ -185,11 +195,20 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                 selectedSkill: {_name: "blank", _maxLvl: 3},
                 value: 0,
                 marks: stuff => stuff % 1 === 0,
-                text: ""
+                text: "",
+                //drag: false
                 //skillSelectionArray: [],
                 //wishlistArray:[]
-
+                panelIndex: 1
              }
+        },
+        props: {
+           
+        },
+        watch: {
+            panelIndex: function(){
+                console.log(this.panelIndex)
+            }
         },
         created(){
             this.fetchSkills()
@@ -252,4 +271,14 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
       padding-bottom: 20px;
       padding-top: 40px;
   }
+  .selectionHeader{
+    display: flex;
+    justify-content: space-between;
+  }
+  .selectionHeader > label{
+    flex: 1;
+    
+    
+  }
+
 </style>

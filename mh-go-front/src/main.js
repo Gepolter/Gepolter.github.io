@@ -13,6 +13,7 @@ import '@dafcoe/vue-collapsible-panel/dist/vue-collapsible-panel.css'
 
 import draggable from 'vuedraggable'
 
+import './assets/fonts/fonts.css'
 //.component('v-select-3', vSelect)
 createApp(App)
     .use(store)

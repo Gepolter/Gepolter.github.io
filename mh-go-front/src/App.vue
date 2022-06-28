@@ -8,7 +8,15 @@
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: monsterhunter, Avenir, Helvetica, Arial, sans-serif;
+  /*
+  @font-face {
+    
+    font-weight: 400;
+    font-style: normal;
+    font-display: auto;
+    src: local("monsterhunter"), url(./assets/fonts/monsterhunter.ttf) format("ttf");
+  }*/
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
