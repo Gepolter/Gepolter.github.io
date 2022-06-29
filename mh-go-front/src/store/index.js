@@ -18,6 +18,7 @@ export default createStore({
       },
       {buildTalisman: null}
     ],
+    builds:[],
     skills:[],
     wishlists:[],
     selectedWishlist: Object,
@@ -31,11 +32,15 @@ export default createStore({
     slotArrays:[]
   },
   getters: {
-    getBuild: (state) => state.build, 
+    getBuild: (state) => state.build,
+    getBuilds: (state) => state.builds,
+    getBuildsLength:(state) => state.builds.length,
+    /*
     getSpecificSkill: state => id =>{
       return state.skills.filter(q => q._id == id)[0]
-    },
+    },*/
     getSkills: (state) => state.skills,
+    findSkill: state => skill => state.skills.find(p => p._name === skill),
     getWishlists: (state) => state.wishlists,
     getWishlistsLength:(state) => state.wishlists.length,
     getSelectedWishlist:(state) => state.selectedWishlist,
@@ -53,12 +58,16 @@ export default createStore({
     getSlots: (state) => state.slots,
     getSlotsLength: (state) => state.slots.length,
     getSlotArrays: (state) => state.slotArrays,
+    getSlotArray: state => slotArray => state.slotArrays.find(p => p._name === slotArray),
     getSlotArraysLength: (state) => state.slotArrays.length
 
   },
   mutations: {
     SET_BUILD(state, build) {
       state.build = build
+    },
+    SET_BUILDS(state, builds) {
+      state.builds = builds
     },
     SET_SKILLS(state, skills) {
       state.skills = skills
@@ -104,7 +113,10 @@ export default createStore({
     setBuild({ commit}, newBuild) {
       commit("SET_BUILD", newBuild)
     },
-
+    setBuilds({ commit}, newBuilds) {
+      commit("SET_BUILDS", newBuilds)
+    },
+    
     async fetchSkills({commit}) {
       try {
         const data = await axios.get("http://localhost:3000/builder/skillsAll")

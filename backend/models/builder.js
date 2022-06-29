@@ -43,10 +43,10 @@ const armorSchema = new mongoose.Schema({
     "_id": String,
     "_set": String,
     "_type_id": String,
-    "_skillArray": [
+    "_skill_array": [
         //{String}
     ],
-    "_slotArrays_name": String
+    "_slot_array_name": String
 
 })
 const Armor = mongoose.model("Armor", armorSchema, 'armor')

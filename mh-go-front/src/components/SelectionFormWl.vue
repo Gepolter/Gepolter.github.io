@@ -5,7 +5,7 @@
     </div>
     <!-- wishlists/talismans: array of collapsibles v-for-->
     <div class="selectionArrayCollapsible">
-        <vue-collapsible-panel-group accordion v-model="panelIndex">
+        <vue-collapsible-panel-group accordion>
             <!--for every element in wl array one collapsible. !!!no events from collapsible...... why?!-->
             <vue-collapsible-panel v-for="wishlist in getWishlists" :key="wishlist._name" :expanded="false">
                 <template #title>
@@ -199,8 +199,8 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                 //drag: false
                 //skillSelectionArray: [],
                 //wishlistArray:[]
-                panelIndex: 1
-             }
+                
+            }
         },
         props: {
            
@@ -255,7 +255,18 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
     */
 </script>
 
+
+
 <style>
+
+/*
+overwrite collapsible style:
+--base-color
+--border-color
+--bg-color-header
+--bg-color-header-hover
+--bg-color-header-active
+*/
   .custom-step {
     width: 100%;
     height: 100%;

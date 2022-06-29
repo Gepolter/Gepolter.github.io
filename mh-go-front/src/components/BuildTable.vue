@@ -137,10 +137,10 @@
         white-space:nowrap
     }
 
-    /*@for $i from 1 through */
+    /*@for $i from 1 through 
     .cell:nth-child(n){
 
-    }
+    }/*
 /*
     .cell {
         display: flex;
