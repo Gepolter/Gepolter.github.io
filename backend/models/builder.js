@@ -7,7 +7,7 @@ const talismanSchema = new mongoose.Schema({
     "_id": String,
     "_name": String,
     "_skillArray":[
-        {String}
+        
     ],
     "_slotArrays_id":String
 })
@@ -88,9 +88,9 @@ module.exports = Slot
 
 const slotArraySchema = new mongoose.Schema({
     "_id": String,
-    "_slots": [
+    "_slots": {}
         //{"_slots_id": String}
-    ]
+    
     
 })
 const SlotArray = mongoose.model("slotArray", slotArraySchema, "slotArrays")

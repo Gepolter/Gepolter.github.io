@@ -5,19 +5,17 @@ import { createStore } from 'vuex'
 export default createStore({
   
   state: {
-    build:[
-      {chosenWpn: null},
-      {
-        buildArmor:[
-          {headGear: null},
-          {chestGear: null},
-          {armsGear: null},
-          {waistGear: null},
-          {legsGear: null}
-        ]
+    build:{
+      chosenWpn: null,
+      buildArmor:{
+        headGear: null,
+        chestGear: null,
+        armsGear: null,
+        waistGear: null,
+        egsGear: null
       },
-      {buildTalisman: null}
-    ],
+      buildTalisman: null
+    },
     builds:[],
     skills:[],
     wishlists:[],

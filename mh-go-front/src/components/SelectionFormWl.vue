@@ -153,7 +153,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
             },
             addWishlist: function(wlName){
                 if(this.getWishlists.some(e => e._name ===wlName) ){
-                    alert('Wishlist name already in use')
+                    //alert('Wishlist name already in use')
                 }
                 else{
                     this.ADD_WL({

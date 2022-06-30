@@ -25,7 +25,7 @@
                     <!-- this should be draggable to select prios-->
                     <div class="selectionItems">
                         <SelectionItem 
-                            v-for="selectedSkill in talisman._skillSelectionArray"
+                            v-for="selectedSkill in talisman._skill_array"
                             :key="selectedSkill._name"
                             :skillName="selectedSkill._name"
                             :skillLvl="selectedSkill._selectedLvl"
@@ -61,7 +61,7 @@
                             </v-slider>
                         </div>
 
-                        <button type="submit" class="btn btn__primary btn__lg" @click="addSkill(selectedSkill._name, myLvl, 1, talisman)">
+                        <button type="submit" class="btn btn__primary btn__lg" @click="addSkill(selectedSkill._name, myLvl, talisman)">
                             Add Skill
                         </button>
                     </div>
@@ -112,19 +112,19 @@
                 'DELETE_TAL'
             ]),
             
-            addSkill: function(skillName, skillLvl, skillPrio, talisman){
+            addSkill: function(skillName, skillLvl, talisman){
                 //what talisman is opened?
                 
                 for(var i = 0; i < this.getTalismansLength; i++){
                     if(this.getTalismans[i] === talisman){
-                        //check, if skillName is already in skillSelectionArray
-                        if(talisman._skillSelectionArray.some(e => e._name ===skillName) ){
+                        //check, if skillName is already in skill_array
+                        if(talisman._skill_array.some(e => e._name ===skillName) ){
                             alert('skill already in talisman')
                         }else{
-                            talisman._skillSelectionArray.push({
+                            talisman._skill_array.push({
                                 _name: skillName,
                                 _selectedLvl: skillLvl,
-                                _prio: skillPrio
+                                _is_deco: false
                             })
                             //also set slider current lvl back to 1
                             this.resetSlider()
@@ -136,7 +136,7 @@
                 for(var i = 0; i < this.getTalismansLength; i++){
                     if(this.getTalismans[i] === talisman){
                         try{
-                            talisman._skillSelectionArray = talisman._skillSelectionArray.filter(e => e._name != skillName) 
+                            talisman._skill_array = talisman._skill_array.filter(e => e._name != skillName) 
                         }
                         catch (error) {
                             alert (error)
@@ -150,13 +150,18 @@
             },
             addTalisman: function(talName){
                 if(this.getTalismans.some(e => e._name ===talName) ){
-                    alert('talisman name already in use')
+                    //alert('talisman name already in use') UNDO LATER
                 }
                 else{
                     this.ADD_TAL({
                         _name: talName,
-                        _skillSelectionArray: [],
-                        _slots: [0,0,0]
+                        _skill_array: [],
+                        _slots: {
+                            _slots_id_1: 0,
+                            _slots_id_2: 0,
+                            _slots_id_3: 0
+                        },
+                        _type_id: "5"
                     })
                 }
             },
@@ -167,7 +172,17 @@
                 for(var i = 0; i < this.getTalismansLength; i++){
                     if(this.getTalismans[i] === talisman){
                         try{
-                            talisman._slots[slotNum] = slotLvl
+                            switch(slotNum){
+                                case 0:
+                                    talisman._slots._slots_id_1 = slotLvl
+                                    break
+                                case 1:
+                                    talisman._slots._slots_id_2 = slotLvl
+                                    break
+                                case 2:
+                                    talisman._slots._slots_id_3 = slotLvl
+                                    break
+                            }
                         }catch (error){
                             alert (error)
                             console.log(error)
@@ -200,7 +215,7 @@
                 value: 0,
                 marks: stuff => stuff % 1 === 0,
                 text: ""
-                //skillSelectionArray: [],
+                //skill_array: [],
                 //talismanArray:[]
 
              }
