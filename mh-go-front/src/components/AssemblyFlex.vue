@@ -58,7 +58,10 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
             getArmor: 'getArmor',
             getSlotArrays: 'getSlotArrays',
             getSlotArray: 'getSlotArray',
-            getSlots: 'getSlots'
+            getSlots: 'getSlots',
+
+            //testing
+            findWeapon: 'findWeapon'
 
         })
     },
@@ -74,7 +77,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
             SelectionFormVue
         ]
         */
-            chosenWpn: null,
+            chosenWpn: this.findWeapon,
 
             wList: null,
             /*
@@ -90,30 +93,9 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
 
     methods: {
 
-        buildAlgorithm: function(){
-            
-            /*
-            var headGear = null
-            var chestGear = null
-            var armsGear = null
-            var waistGear = null
-            var legsGear = null
-            var buildTalisman = null
-                        
-            const buildArmor = [
-                [
-                    {headGear: null},
-                    {chestGear: null},
-                    {armsGear: null},
-                    {waistGear: null},
-                    {legsGear: null}
-                ],
-            ]
 
-            buildTalisman,
-            this.chosenWpn
-            */
-            var armorCopy = structuredClone(this.getArmor)
+
+        buildAlgorithm: function(){
             const build ={ 
                 buildWpn: this.chosenWpn,
                 buildArmor:{
@@ -130,17 +112,21 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
             this.getBuilds.push(build)
             //Vue.$set(this.getBuilds, 0, build)
 
-            const branchMemory = []
-            const typeExclusion = []
+            //const branchMemory = []
+            //const typeExclusion = []
             const evaluationList = []
             
-            const wipListList = [structuredClone(this.wList)]
-            var wlCounter = 0
-            
+            //before starting config, use fixed slots -> wpn slots
+            this.decoAlgorithm(this.chosenWpn, this.wList, build)
+            build.buildWpn
             //loop alt builds. elements are added in case of equal ratings
             for(let b = 0; b < this.getBuildsLength; b++){
+                
+                //not neccacary. if already chosen gear reappears later as valuable, why not use it?
+                /*
                 if(branchMemory.length !== 0){
                     for (let s in branchMemory){
+                        //TODO find
                         for (let i = 0; i < evaluationList.length(); i++){
                             if(s === evaluationList.at(i).at(0)){
                                 evaluationList.splice(i)
@@ -148,9 +134,8 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                             }   
                         }
                     }
-                }
+                }*/
                 //while current build b has null elements in armor =at(2), repeat this to select one armorpiece
-                
                 while(
                     this.getBuilds[b].buildArmor.headGear == null ||
                     this.getBuilds[b].buildArmor.chestGear == null ||
@@ -164,23 +149,17 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                     evaluationList.length = 0
 
                     for(let armor in this.getArmor){
-                        evaluationList.push(this.getArmor[armor])
-                    }
-                    for(let tal in this.getTalismans){
-                        evaluationList.push(this.getTalismans[tal])
-                    }
-                    //FILTER INSTEAD!!!
-                    //var filteredArmor = this.getArmor.filter(armor => armor._type_id != )
-                    //exclude set gearTypes  THESE ARE STRINGS FROM 1-7
-                    if(typeExclusion.length !== 0){
-                        for(let s in typeExclusion){
-                            for(let i = evaluationList.length()-1; i > -1; i--){
-                                if(s === evaluationList[i]._type_id){
-                                    evaluationList.splice(i)
-                                }
-                            }
+                        
+                        if(this.isGearTypeFree(this.getArmor[armor], this.getBuilds[b])){
+                            evaluationList.push(this.getArmor[armor])
                         }
                     }
+                    for(let tal in this.getTalismans){
+                        if(this.isGearTypeFree(this.getTalismans[tal], this.getBuilds[b])){
+                            evaluationList.push(this.getTalismans[tal])
+                        }
+                    }
+
 
                     //before adding deco skills, set all armor back to base skills
                     //other possibility: new skills get some tag _deco: true
@@ -190,63 +169,126 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                     //also recalculate rating based on wip wl
                     for(let armor in this.getArmor){
                         //then the algorithm adds as many skills from wl, as are fitting onto slot array 
-                        this.decoAlgorithm(this.getArmor[armor], wipListList[wlCounter], this.getBuilds[b])
-                        this.rateGear(this.getArmor[armor], wipListList[wlCounter])
+                        this.decoAlgorithm(this.getArmor[armor], this.wList, this.getBuilds[b])
+                        this.rateGear(this.getArmor[armor], this.wList, this.getBuilds[b])
                     }
                     console.log("armor done")
                     for(let talisman in this.getTalismans){
-                        this.decoAlgorithm(this.getTalismans[talisman], wipListList[wlCounter], this.getBuilds[b])
-                        this.rateGear(this.getTalismans[talisman], wipListList[wlCounter])                        
+                        this.decoAlgorithm(this.getTalismans[talisman], this.wList, this.getBuilds[b])
+                        this.rateGear(this.getTalismans[talisman], this.wList, this.getBuilds[b])                        
                     }
                     console.log("tal done")
-
+                    
                     //console.log(this.getBuilds)
                     
                     //check equal results. if equally good max lvls are there, save all to buildlist
-                    var highestRatedGear
-                    var secondHighestRatedGear
-                    do{
-                        highestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._rating > gear._rating ? maxGear : gear)
-                        evaluationList.splice(evaluationList.indexOf(highestRatedGear))
-                        secondHighestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._rating > gear._rating ? maxGear : gear)                            
-                        console.log(secondHighestRatedGear)
-
+                    var highestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._rating > gear._rating ? maxGear : gear)
+                    evaluationList.splice(evaluationList.indexOf(highestRatedGear))
+                    var secondHighestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._rating > gear._rating ? maxGear : gear)
+                    while(highestRatedGear._rating == secondHighestRatedGear._rating && evaluationList.length > 3){                        
                         
+                        //set highest, save build in builds, remove highest, loop
+                        this.setGearInBuild(secondHighestRatedGear, this.getBuilds[b])
+                        
+                        //store state of build
+                        this.getBuilds.push(structuredClone(this.getBuilds[b]))
+                        console.log("altBuildset")
+                        this.removeGearFromBuild(secondHighestRatedGear, this.getBuilds[b])
 
-
-
-
+                        //remove second highest from eval, set new secondhighest
+                        evaluationList.splice(evaluationList.indexOf(secondHighestRatedGear))
+                        secondHighestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._rating > gear._rating ? maxGear : gear)
                     }
-                    while(highestRatedGear._rating == secondHighestRatedGear._rating)
-                    
-
-                    this.bearkfunction()
-
+                    //after loops, secondhighest is the last
+                    this.setGearInBuild(highestRatedGear, this.getBuilds[b])
+                    console.log("gearPieceSet")
+                    console.log(this.getBuilds[b])
 
                 }
+                
+                
             }
         },
 
-        rateGear: function(gear, wishlist){
-            //rate gear according to how many skilllvls of wl are fulfilled
+        isGearTypeFree: function(gear, build){
+            console.log(gear)
+            console.log(build)
+            switch(gear._type_id){
+                case "0":
+                    return build.buildArmor.headGear != null ? false : true
+                    break
+                case "1":
+                    return build.buildArmor.chestGear != null ? false : true
+                    break
+                case "2":
+                    return build.buildArmor.armsGear != null ? false : true
+                    break
+                case "3":
+                    return build.buildArmor.waistGear != null ? false : true
+                    break
+                case "4":
+                    return build.buildArmor.legsGear != null ? false : true
+                    break
+                case "5":
+                    //console.log(return build.buildTalisman != null)
+                    return build.buildTalisman != null ? false : true
+                    break
+                case "6":
+                    return build.buildWpn != null ? false : true
+                    break
+            }
+        },
+        rateGear: function(gear, wishlist, build){
+            //rate gear according to how many OPEN skilllvls of wl are fulfilled
             //TODO optimize algorithm by multiplying rating with 1/prio or something
             gear._rating = 0
             
-            //if not talisman add skills up
-            if(gear._skill_array.hasOwnProperty('_selectedLvl')){
-                for(let skillIndex = 0; skillIndex < gear._skill_array.length; skillIndex ++){
-                    if(wishlist._skillSelectionArray.some(skill => skill._name === gear._skill_array[skillIndex]._skill_name)){
-                        gear._rating += gear._skill_array[skillIndex]._selectedLvl
+            //if gear= tal, access the ._selectedLvl property
+            
+            for(let skillIndex = 0; skillIndex < gear._skill_array.length; skillIndex ++){
+
+                if(wishlist._skillSelectionArray.some(skill => skill._name === gear._skill_array[skillIndex]._skill_name)){
+                    //only if totalgearskills dont exceed selectedlvl
+                    console.log("skill in wl found")
+                    console.log(gear._skill_array[skillIndex])
+                    if(gear._skill_array[skillIndex].hasOwnProperty('_selectedLvl')){
+                        console.log("native tal skill")
+                        console.log(build)
+                        console.log(this.totalSkillLevels(build, gear))
+                        console.log(this.totalSkillLevels(build, gear).find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl)
+                        console.log( wishlist._skillSelectionArray.find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._selectedLvl)
+                        if(wishlist._skillSelectionArray.find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._selectedLvl -
+                            this.totalSkillLevels(build, gear).find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl >= 0
+                        ){
+                            gear._rating += gear._skill_array[skillIndex]._selectedLvl
+                            console.log("native tal rating done")
+
+                        }else{
+                            gear._rating += gear._skill_array[skillIndex]._selectedLvl + 
+                            wishlist._skillSelectionArray.find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._selectedLvl -
+                            this.totalSkillLevels(build, gear).find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl
+                        }
+                    }else{
+                    
+                       console.log("no native tal skill") 
+                       console.log(this.totalSkillLevels(build, gear))
+                       console.log(this.totalSkillLevels(build, gear).find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl)
+                       console.log(wishlist._skillSelectionArray.find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._selectedLvl)
+                       if(this.totalSkillLevels(build, gear).find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl <= 
+                           wishlist._skillSelectionArray.find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._selectedLvl
+                        ){
+                            gear._rating += 1
+                            console.log("skill rating done")
+                        }//else needed bc totalskilllevels calculates ALL not just CURRENT skill. later duplicates not coutned
+                        
+                                      
                     }
+
                 }
-                
-            }else{
-                for(let skillIndex = 0; skillIndex < gear._skill_array.length; skillIndex ++){
-                    if(wishlist._skillSelectionArray.some(skill => skill._name === gear._skill_array[skillIndex]._skill_name)){
-                        gear._rating += 1
-                    }
-                }                
             }
+            console.log("gearrating:")
+            console.log(gear)
+            
         },
         /*
         decoArrayConfig: function(slots){
@@ -283,8 +325,8 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                 //console.log(decoArray)
             }
             //testing!!
-            build['buildTalisman'] = this.getTalismans[0]
-            build.buildArmor.armsGear = this.getArmor[2]
+            //build['buildTalisman'] = this.getTalismans[0]
+            //build.buildArmor.armsGear = this.getArmor[2]
             
 
            //loop gearslots big -> small
@@ -292,21 +334,28 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                 let repeatBcNoFit = true
                 //a=prio
                 for(let prio = 1; repeatBcNoFit === true && prio <= wishlist._skillSelectionArray.length; prio++){
+                    //var wlSkill = wishlist._skillSelectionArray.find(skill => skill._prio === prio)
+                    //var buildSkill = this.totalSkillLevels(build, gear).find(skill => skill._name === wlSkill._name)
+
                     OuterLoop:
-                    //l=skill
+
+                    
                     for(let wlSkill in wishlist._skillSelectionArray){
                         //is prio = a
                         if(prio === wishlist._skillSelectionArray[wlSkill]._prio){
                             
                             //check if overall skills of current gear already fullfill wl condition
-                            //better find skill l
-                            for(let buildSkill in this.totalSkillLevels(build, gear)){
+                            //better find wlSkill
+                            var currentSkillLevels = this.totalSkillLevels(build, gear)
+                            for(let buildSkill in currentSkillLevels){
                                 if(
-                                    wishlist._skillSelectionArray[wlSkill]._name == buildSkill._name &&
-                                    wishlist._skillSelectionArray[wlSkill]._selectedLvl <= buildSkill._lvl
+                                    wishlist._skillSelectionArray[wlSkill]._name == currentSkillLevels[buildSkill]._name && //buildSkill._name &&//
+                                    wishlist._skillSelectionArray[wlSkill]._selectedLvl <= currentSkillLevels[buildSkill]._lvl //buildSkill._lvl //
                                     //maxlvl criteria not needed. selectedLvl cant exceed maxlvl anyway
                                     ){
                                         console.log("breaks bc filled")
+                                        console.log(wishlist._skillSelectionArray[wlSkill]._name)
+                                        console.log(wishlist._skillSelectionArray)
                                         break OuterLoop
 
                                     }
@@ -336,6 +385,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                     }
                 }
             }
+            console.log(gear)
             console.log("decoAlgDone")
         },
 
@@ -344,18 +394,34 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
             
             //set gear to be tested
             this.setGearInBuild(gear, build)
-
             //build Talisman
+            console.log(gear)
+            console.log(build)
             if(build.buildTalisman != null){
-                //tal skill length
+                //check if deco or native
                 for(let i = 0; i < build.buildTalisman._skill_array.length; i++){
-                    //if skill present, +1 to skill lvl
-                    if(addedSkillList.some(skill => skill._name === build.buildTalisman._skill_array[i]._skill_name)){
-                        addedSkillList.find(({_name}) => _name === build.buildTalisman._skill_array[i]._skill_name)._lvl ++
-                    }else { //else add skill + lvl element = 1
-                        addedSkillList[i] = this.findSkill(build.buildTalisman._skill_array[i]._skill_name)
-                        addedSkillList[i]._lvl = build.buildTalisman._skill_array[i]._selectedLvl
-                    }                 
+                    //if skill present, + selected_lvl to skill lvl
+                    if(build.buildTalisman._skill_array[i]._is_deco == true){
+                        //console.log("talisman deco found")
+                        if(addedSkillList.some(skill => skill._name === build.buildTalisman._skill_array[i]._skill_name)){
+                            addedSkillList.find(skill => skill._name === build.buildTalisman._skill_array[i]._skill_name)._lvl =+ 1
+                            
+                        }else { //else add skill + lvl element = 1
+                            addedSkillList[addedSkillList.length] = this.findSkill(build.buildTalisman._skill_array[i]._skill_name)
+                            addedSkillList[addedSkillList.length-1]._lvl = 1        
+                        }
+                    }else{
+                        if(addedSkillList.some(skill => skill._name === build.buildTalisman._skill_array[i]._skill_name)){
+                            addedSkillList.find(skill => skill._name === build.buildTalisman._skill_array[i]._skill_name)._lvl =+ build.buildTalisman._skill_array[i]._selectedLvl
+                        }else { //else add skill + lvl element = 1
+                            addedSkillList[addedSkillList.length] = this.findSkill(build.buildTalisman._skill_array[i]._skill_name)
+                            addedSkillList[addedSkillList.length-1]._lvl = build.buildTalisman._skill_array[i]._selectedLvl
+                        }
+                        //console.log("native tal val added")
+                        //console.log(build.buildTalisman._skill_array)   
+                        //console.log(addedSkillList)              
+                        
+                    }
                 }
             }
             //buildWeapon
@@ -386,7 +452,6 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                 }
             }
             this.removeGearFromBuild(gear, build)
-
             return addedSkillList
         },
         setGearInBuild: function(gear, build){
@@ -407,7 +472,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                     build.buildArmor.legsGear = gear
                     break
                 case "5":
-                    build.buildTalsiman = gear
+                    build.buildTalisman = gear
                     break
                 case "6":
                     build.buildWpn = gear
@@ -432,7 +497,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                     build.buildArmor.legsGear = null
                     break
                 case "5":
-                    build.buildTalsiman = null
+                    build.buildTalisman = null
                     break
                 case "6":
                     build.buildWpn = null

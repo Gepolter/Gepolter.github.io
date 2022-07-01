@@ -26,8 +26,8 @@
                     <div class="selectionItems">
                         <SelectionItem 
                             v-for="selectedSkill in talisman._skill_array"
-                            :key="selectedSkill._name"
-                            :skillName="selectedSkill._name"
+                            :key="selectedSkill._skill_name"
+                            :skillName="selectedSkill._skill_name"
                             :skillLvl="selectedSkill._selectedLvl"
                             :skillPrio="selectedSkill._prio"
                             @send="removeSkill(talisman, $event)">
@@ -100,7 +100,11 @@
                 getTalismans: 'getTalismans',
                 getTalismansLength: 'getTalismansLength'
 
-            })
+            }),
+            
+            nativeSkills: function(talisman){
+                return talisman._skill_array.filter(skill => skill._is_deco == false)
+            }
         },
         methods: {
             ...mapActions({
@@ -122,7 +126,7 @@
                             alert('skill already in talisman')
                         }else{
                             talisman._skill_array.push({
-                                _name: skillName,
+                                _skill_name: skillName,
                                 _selectedLvl: skillLvl,
                                 _is_deco: false
                             })
@@ -136,7 +140,7 @@
                 for(var i = 0; i < this.getTalismansLength; i++){
                     if(this.getTalismans[i] === talisman){
                         try{
-                            talisman._skill_array = talisman._skill_array.filter(e => e._name != skillName) 
+                            talisman._skill_array = talisman._skill_array.filter(e => e._skill_name != skillName) 
                         }
                         catch (error) {
                             alert (error)

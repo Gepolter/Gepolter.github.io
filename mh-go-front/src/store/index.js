@@ -50,6 +50,8 @@ export default createStore({
     //getDecosLength: (state) => state.decos.length,
     getWeapons: (state) => state.weapons,
     getSelectedWeapon:(state) => state.selectedWeapon,
+    //testing
+    findWeapon:(state) => state.weapons[0],
     getWeaponsLength: (state) => state.weapons.length,
     getGearTypes: (state) => state.gearTypes,
     getGearTypesLength: (state) => state.gearTypes.length,
