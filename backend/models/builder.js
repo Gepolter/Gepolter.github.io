@@ -49,7 +49,7 @@ const armorSchema = new mongoose.Schema({
     "_slot_array_name": String
 
 })
-const Armor = mongoose.model("Armor", armorSchema, 'armor')
+const Armor = mongoose.model("Armor", armorSchema, 'armor_high_rank')
 module.exports = Armor
 
 //trying to rewrite algorithm in a way, that no deco objects are needed
