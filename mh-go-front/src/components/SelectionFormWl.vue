@@ -88,6 +88,7 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex';
     import SelectionItem from './SelectionItem.vue';
+    
 
     export default {
 
@@ -288,7 +289,7 @@ overwrite collapsible style:
   }
   .selectionHeader > label{
     flex: 1;
-    
+    border-bottom: 2px solid black;
     
   }
 

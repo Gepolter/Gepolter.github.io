@@ -27,10 +27,17 @@
     ul{
         display: flex;
         justify-content: space-between;
+        border-radius: 25px;
+        border: 2px solid black;
+        padding: 5px 10px 5px 5px;
+
     }
     li{
         flex: 1;
         border-right: black;    
     }
-    button{flex: 1;}
+    /*
+    button{
+
+    }*/
 </style>

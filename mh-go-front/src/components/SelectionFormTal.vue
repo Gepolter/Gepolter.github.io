@@ -5,7 +5,13 @@
     </div>
     <!-- talismans/talismans: array of collapsibles v-for-->
     <div class="selectionArrayCollapsible">
-        <vue-collapsible-panel-group accordion>
+        <vue-collapsible-panel-group 
+            accordion
+            border-color="#127c05"
+            bg-color-header="#127c05"
+            bg-color-header-hover="#127c05"
+            bg-color-body="#127c05"
+            >
             <!--for every element in TAL array one collapsible. !!!no events from collapsible...... why?!-->
             <vue-collapsible-panel v-for="talisman in getTalismans" :key="talisman._name" :expanded="false">
                 <template #title>
@@ -21,11 +27,16 @@
                         <SlotItemBtn @send="setSlotLvl(talisman, 2, $event)"/>                     
                     </div>
                     
+                    <div class ="selectionHeader">
+                        <label style="flex: 7">Skill</label>
+                        <label>Lvl</label>
+                        <label>Del</label>
+                    </div>
                     <!-- items of TAL/tals array of selectionItems(custom class)-->
                     <!-- this should be draggable to select prios-->
                     <div class="selectionItems">
                         <SelectionItem 
-                            v-for="selectedSkill in talisman._skill_array"
+                            v-for="selectedSkill in nativeSkills(talisman)"
                             :key="selectedSkill._skill_name"
                             :skillName="selectedSkill._skill_name"
                             :skillLvl="selectedSkill._selectedLvl"
@@ -50,15 +61,18 @@
                                 :min = 1
                                 :max="selectedSkill._maxLvl"
                                 :height = 7
-                                color="#FB278D"
-                                track-color="#FEFEFE"
-                                tooltip = "always"
-                                :marks = "marks">
-                                
+                                :marks = "marks"
+                                :rail-style="railStyle"
+                                :process-style="processStyle"
+                                :dot-size= 20
+                                :dot-style="dotStlye"
+                                :tooltip-style="tooltipStyle"
+                                >
                                 <template v-slot:step="{active}">
                                     <div :class="['custom-step', {active}]"></div>
                                 </template>
                             </v-slider>
+                            
                         </div>
 
                         <button type="submit" class="btn btn__primary btn__lg" @click="addSkill(selectedSkill._name, myLvl, talisman)">
@@ -76,6 +90,12 @@
             create talisman
         </button>
     </div>
+    <v-slider
+        :rail-style="railStlye"
+        :process-style="processStyle"
+        :dot-size = 20
+        :dot-style="dotStyle"
+        :marks="marks"></v-slider>
 
 
 </template>
@@ -102,11 +122,15 @@
 
             }),
             
-            nativeSkills: function(talisman){
-                return talisman._skill_array.filter(skill => skill._is_deco == false)
-            }
         },
         methods: {
+            nativeSkills: function(talisman){
+                if(talisman._skill_array.length != 0){
+                    return talisman._skill_array.filter(
+                        skill => skill._is_deco == false
+                    )
+                }
+            },
             ...mapActions({
                 fetchSkills: 'fetchSkills',
                 createTalisman: 'createTalisman'
@@ -218,15 +242,36 @@
                 selectedSkill: {_name: "blank", _maxLvl: 3},
                 value: 0,
                 marks: stuff => stuff % 1 === 0,
-                text: ""
+                text: "",
                 //skill_array: [],
                 //talismanArray:[]
+                /*
+                options:{
+                    railStyle: "railStyle"
+                },*/
+                railStyle:{
+                    border: "1px solid black",
+                    backgroundColor: "#fff"
+                },
+                processStyle:{
+                    border: "2px solid #1d2b48",
+                    backgroundColor: "#3498db"
+                },
+                dotStyle:{
+                    backgroundColor: "#333",
+                    borderColor: "f00"
+                },
+                tooltipStyle:{
+                    backgroundColor: "pink",
+                    borderColor:"pink"
+                }
+            
 
              }
         },
         created(){
             this.fetchSkills()
-            this.addTalisman("tal one", [])
+            this.addTalisman("tal one")
         }
     }
 
@@ -236,15 +281,16 @@
 
 
 <style>
+
     .custom-step {
         width: 100%;
         height: 100%;
         border-radius: 50%;
-        box-shadow: 0 0 0 3px #ccc;
+        box-shadow: 0 0 0 1px #ccc;
         background-color: #fff;
     }
     .custom-step.active {
-        box-shadow: 0 0 0 3px #3498db;
+        box-shadow: 0 0 0 1px #3498db;
         background-color: #3498db;
     }
     .sliderDiv {
@@ -252,5 +298,15 @@
         padding-top: 40px;
     }
 
-    
+    .selectionHeader{
+        display: flex;
+        justify-content: space-between;
+        color: var(--mh-light-blue);
+    }
+    .selectionHeader > label{
+        flex: 1;
+        border-bottom: 2px solid black;
+        
+        
+    }
 </style>

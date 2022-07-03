@@ -8,7 +8,7 @@
 
 <style lang="scss">
 #app {
-  font-family: monsterhunter, Avenir, Helvetica, Arial, sans-serif;
+  //font-family: "monsterhunter";//, Avenir, Helvetica, Arial, sans-serif;
   /*
   @font-face {
     
@@ -20,10 +20,11 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  --bg: #24 2526
-  --bg-accent: #484a4d
-  --text-color: #dadce1
+  color: #dadce1;
+  /*color: #2c3e50;*/
+  --bg: #242526;
+  --bg-accent: #484a4d;
+  --text-color: #dadce1;
 
 }
 

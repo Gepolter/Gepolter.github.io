@@ -119,7 +119,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
             //before starting config, use fixed slots -> wpn slots
             this.decoAlgorithm(this.chosenWpn, this.wList, build)
             this.rateGear(this.chosenWpn, this.wList, build)
-            this.rateFlatGear(this.chosenWpn, this.wList, build)
+            //this.rateFlatGear(this.chosenWpn, this.wList, build)
             
             build.buildWpn = this.chosenWpn
 
@@ -162,7 +162,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                     for(let gearPiece in evaluationList){
                         this.decoAlgorithm(evaluationList[gearPiece], this.wList, this.getBuilds[b])
                         this.rateGear(evaluationList[gearPiece], this.wList, this.getBuilds[b])
-                        this.rateFlatGear(evaluationList[gearPiece], this.wList, this.getBuilds[b])                        
+                        //this.rateFlatGear(evaluationList[gearPiece], this.wList, this.getBuilds[b])                        
                     }
                     
                     ////console.log("deco and rating done")
@@ -205,7 +205,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                 }
                 //after build completion, get buildrating
                 this.rateBuild(this.getBuilds[b])    
-                this.rateFlatBuild(this.getBuilds[b])    
+                //this.rateFlatBuild(this.getBuilds[b])    
                    
                 console.log("build completed")
                 console.log(this.getBuilds.length)
@@ -272,9 +272,10 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                 }
             }
         },
+        //control function
         rateFlatGear: function(gear, wishlist, build){
             //rate gear according to how many OPEN skilllvls of wl are fulfilled
-            //TODO optimize algorithm by multiplying rating with 1/prio or something
+            
             gear._flat_rating = 0
             for(let skillIndex = 0; skillIndex < gear._skill_array.length; skillIndex ++){
                 if(wishlist._skillSelectionArray.some(skill => skill._name === gear._skill_array[skillIndex]._skill_name)){
@@ -415,7 +416,6 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                                 
                                 gear._skill_array.push(
                                     {
-                                        
                                         _skill_name: wishlist._skillSelectionArray[wlSkill]._name,
                                         _is_deco: true
                                     }
