@@ -8,24 +8,41 @@
 
 <style lang="scss">
 #app {
-  //font-family: "monsterhunter";//, Avenir, Helvetica, Arial, sans-serif;
-  /*
-  @font-face {
-    
-    font-weight: 400;
-    font-style: normal;
-    font-display: auto;
-    src: local("monsterhunter"), url(./assets/fonts/monsterhunter.ttf) format("ttf");
-  }*/
+  font-family: "MonsterHunter";
+  color: var(--mh-white);
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #dadce1;
-  /*color: #2c3e50;*/
-  --bg: #242526;
-  --bg-accent: #484a4d;
-  --text-color: #dadce1;
+  
 
+  body {
+    background-color: var(--mh-gray);
+    //font-family: "monsterhunter", Avenir, sans-serif;
+  }
+
+  //vselect vars
+  --vs-controls-color: var(--mh-yellow);
+  --vs-border-color: var(--mh-dark-yellow);
+
+  --vs-dropdown-bg: linear-gradient(var(--mh-yellow), var(--mh-dark-yellow));
+  --vs-dropdown-color: black;
+  --vs-dropdown-option-color: black;
+
+  //--vs-selected-bg: green;
+  --vs-selected-color: #eeeeee;
+
+  --vs-search-input-color: #eeeeee;
+
+  --vs-dropdown-option--active-bg: var(--mh-light-blue);
+  --vs-dropdown-option--active-color: #eeeeee;
+
+  button{
+    background: radial-gradient(var(--mh-red), var(--mh-dark-red));
+    color: var(--mh-white);
+    border: 3px solid black;
+    font-family: inherit;
+  }
 }
 
 nav {

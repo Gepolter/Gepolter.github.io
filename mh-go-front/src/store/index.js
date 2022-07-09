@@ -12,10 +12,11 @@ export default createStore({
         chestGear: null,
         armsGear: null,
         waistGear: null,
-        egsGear: null
+        legsGear: null
       },
       buildTalisman: null
     },
+    buildSkills:[],
     builds:[],
     skills:[],
     wishlists:[],
@@ -31,6 +32,8 @@ export default createStore({
   },
   getters: {
     getBuild: (state) => state.build,
+    getBuildSkills: (state) => state.buildSkills,
+    getBuildSkillsLength: (state) => state.buildSkills.length,
     getBuilds: (state) => state.builds,
     getBuildsLength:(state) => state.builds.length,
     /*
@@ -65,6 +68,9 @@ export default createStore({
   mutations: {
     SET_BUILD(state, build) {
       state.build = build
+    },
+    SET_BUILD_SKILLS(state, buildSkills) {
+      state.buildSkills = buildSkills
     },
     SET_BUILDS(state, builds) {
       state.builds = builds
@@ -112,6 +118,9 @@ export default createStore({
   actions: {
     setBuild({ commit}, newBuild) {
       commit("SET_BUILD", newBuild)
+    },
+    setBuildSkills({commit}, newBuildSkills) {
+      commit("SET_BUILD_SKILLS", newBuildSkills)
     },
     setBuilds({ commit}, newBuilds) {
       commit("SET_BUILDS", newBuilds)

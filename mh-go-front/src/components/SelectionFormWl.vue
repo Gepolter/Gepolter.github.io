@@ -1,6 +1,6 @@
 <template>
 
-    <div  class="header" style="border-style: solid;">
+    <div  class="headerWl">
         wishlists
     </div>
     <!-- wishlists/talismans: array of collapsibles v-for-->
@@ -9,9 +9,11 @@
             <!--for every element in wl array one collapsible. !!!no events from collapsible...... why?!-->
             <vue-collapsible-panel v-for="wishlist in getWishlists" :key="wishlist._name" :expanded="false">
                 <template #title>
-                    {{wishlist._name}}
-                    <!--button type="submit" style="display: inline;" @click="activateWl(wishlist)">activate</button-->
-                    <button type="submit" style="display: inline;" @click="deleteWl(wishlist)">X</button>
+                    <div class="collapsibleHeader">
+                        {{wishlist._name}}
+                        <!--button type="submit" style="display: inline;" @click="activateWl(wishlist)">activate</button-->
+                        <button type="submit" style="display: inline;" @click="deleteWl(wishlist)">X</button>
+                    </div>
                 </template>
                 <template #content>
                     <!-- header for columns-->
@@ -73,14 +75,14 @@
                 </template>
             </vue-collapsible-panel>
         </vue-collapsible-panel-group>
+        <div class="addPanel">
+            <input v-model="text" placeholder="Wishlist Name"/>
+            <button type="submit" style="display: inline;" @click="addWishlist(text)">
+                create Wishlist
+            </button>
+        </div>
     </div>
 
-    <div class="addWlPanel">
-        <input v-model="text" placeholder="WL Name"/>
-        <button type="submit" style="display: inline;" @click="addWishlist(text)">
-            create Wishlist
-        </button>
-    </div>
 
 
 </template>
@@ -260,14 +262,11 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 <style>
 
-/*
-overwrite collapsible style:
---base-color
---border-color
---bg-color-header
---bg-color-header-hover
---bg-color-header-active
-*/
+  .headerWl{
+    border: 2px solid black;
+    background: linear-gradient(var(--mh-dark-yellow),var(--mh-yellow));
+    color: black;
+  }
   .custom-step {
     width: 100%;
     height: 100%;

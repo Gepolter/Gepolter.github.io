@@ -1,34 +1,34 @@
 <template>
 
-    <div  class="header" style="border-style: solid;">
+    <div  class="header">
         talismans
     </div>
     <!-- talismans/talismans: array of collapsibles v-for-->
     <div class="selectionArrayCollapsible">
-        <vue-collapsible-panel-group 
-            accordion
-            border-color="#127c05"
-            bg-color-header="#127c05"
-            bg-color-header-hover="#127c05"
-            bg-color-body="#127c05"
-            >
+        <vue-collapsible-panel-group accordion >
             <!--for every element in TAL array one collapsible. !!!no events from collapsible...... why?!-->
             <vue-collapsible-panel v-for="talisman in getTalismans" :key="talisman._name" :expanded="false">
                 <template #title>
-                    {{talisman._name}}
-                    <!--button type="submit" style="display: inline;" @click="activateTAL(talisman)">activate</button-->
-                    <button type="submit" style="display: inline;" @click="deleteTal(talisman)">X</button>
+                    <div class="collapsibleHeader">
+                        <div class="collapsibleHeaderName">
+                            {{talisman._name}}
+                        </div>
+                        <!--button type="submit" style="display: inline;" @click="activateTAL(talisman)">activate</button-->
+                        <div class="collapsibleHeaderBtn">
+                            <button type="submit" style="display: inline;" @click="deleteTal(talisman)">X</button>
+                        </div>
+                    </div>
                 </template>
                 <template #content>
                     <!-- here four of these cyclestates are needed and the labels have to display the tal picture + hold a gettable value / pseudo button has to emit event to cycle state in tal obj(store)-->
-                    <div class="slotSelection" style="display: inline;">
+                    <div class="slotSelection">
                         <SlotItemBtn @send="setSlotLvl(talisman, 0, $event)"/>
                         <SlotItemBtn @send="setSlotLvl(talisman, 1, $event)"/>
                         <SlotItemBtn @send="setSlotLvl(talisman, 2, $event)"/>                     
                     </div>
                     
                     <div class ="selectionHeader">
-                        <label style="flex: 7">Skill</label>
+                        <label style="flex:5">Skill</label>
                         <label>Lvl</label>
                         <label>Del</label>
                     </div>
@@ -60,16 +60,20 @@
                                 v-model="myLvl"
                                 :min = 1
                                 :max="selectedSkill._maxLvl"
-                                :height = 7
-                                :marks = "marks"
+                                :height = 20
+                                
                                 :rail-style="railStyle"
                                 :process-style="processStyle"
-                                :dot-size= 20
-                                :dot-style="dotStlye"
-                                :tooltip-style="tooltipStyle"
+                                :tooltip="'none'"
+                                :marks ="marks"
+                                :step-style="stepStyle"
                                 >
+                                <template v-slot:dot="{focus }">
+                                    <div :class="['custom-dot', {focus}]"></div>
+                                </template>
                                 <template v-slot:step="{active}">
-                                    <div :class="['custom-step', {active}]"></div>
+                                    <div :class="['custom-step', {active}]">
+                                    <img v-bind:src="marksImg"/></div>
                                 </template>
                             </v-slider>
                             
@@ -82,22 +86,13 @@
                 </template>
             </vue-collapsible-panel>
         </vue-collapsible-panel-group>
+        <div class="addPanel">
+            <input v-model="text" placeholder="Talisman Name"/>
+            <button type="submit" @click="addTalisman(text)">
+                create talisman
+            </button>
+        </div>
     </div>
-
-    <div class="addTalPanel">
-        <input v-model="text" placeholder="Tal Name"/>
-        <button type="submit" style="display: inline;" @click="addTalisman(text)">
-            create talisman
-        </button>
-    </div>
-    <v-slider
-        :rail-style="railStlye"
-        :process-style="processStyle"
-        :dot-size = 20
-        :dot-style="dotStyle"
-        :marks="marks"></v-slider>
-
-
 </template>
 
 <script>
@@ -241,29 +236,30 @@
                 myLvl: 1,
                 selectedSkill: {_name: "blank", _maxLvl: 3},
                 value: 0,
+
                 marks: stuff => stuff % 1 === 0,
                 text: "",
-                //skill_array: [],
-                //talismanArray:[]
-                /*
-                options:{
-                    railStyle: "railStyle"
-                },*/
+                marksImg: require('../assets/unique-armor-mhw-wiki.png'),
+
                 railStyle:{
-                    border: "1px solid black",
-                    backgroundColor: "#fff"
+                    //border: "3px solid #95844f",
+                    backgroundColor: "#13305a",
+                    color: "#95844f",
+                    border: "1px solid white"
                 },
                 processStyle:{
-                    border: "2px solid #1d2b48",
-                    backgroundColor: "#3498db"
+                    border: "3px solid #8c1818",
+                    backgroundColor: "#1d0503",
+                    color: "green",
+                    top:"-2px"
                 },
-                dotStyle:{
-                    backgroundColor: "#333",
-                    borderColor: "f00"
+                stepStyle:{
+                    color: "green",
+                    backgroundColor:"black",
+                    border: "2px solid black"
                 },
-                tooltipStyle:{
-                    backgroundColor: "pink",
-                    borderColor:"pink"
+                stepActiveStyle:{
+
                 }
             
 
@@ -281,32 +277,83 @@
 
 
 <style>
+    .header{
+        border: 2px solid black;
+        background: linear-gradient(var(--mh-dark-green),var(--mh-green));
+        color: black;
+    }
 
+    .custom-dot{
+        width: 100%;
+        height: 100%;
+        background-color: rgb(191, 191, 191);
+        box-shadow: 0 0 0 4px var(--mh-gray);
+        border: 1px solid var(--mh-gray);
+        border-radius: 50%;
+    }
     .custom-step {
         width: 100%;
         height: 100%;
-        border-radius: 50%;
-        box-shadow: 0 0 0 1px #ccc;
-        background-color: #fff;
+        border: 1px solid black;
+
+        background-color: var(--mh-light-blue);
     }
     .custom-step.active {
-        box-shadow: 0 0 0 1px #3498db;
-        background-color: #3498db;
+        width: 100%;
+        height: 100%;
+        border: 1px solid var(--mh-dark-red);
+        box-shadow: 0 0 0 4px var(--mh-dark-green);
+        background-color: #f0db98;
     }
     .sliderDiv {
         padding-bottom: 20px;
         padding-top: 40px;
+        padding-left: 15px;
+        padding: 20px 20px 40px 20px;
+    }
+    .selectionArrayCollapsible{
+        border: 3px solid black;
     }
 
     .selectionHeader{
+        text-align: center;
         display: flex;
         justify-content: space-between;
-        color: var(--mh-light-blue);
+        color: var(--mh-light-white);
+        background: radial-gradient(black,var(--mh-gray));
     }
     .selectionHeader > label{
         flex: 1;
-        border-bottom: 2px solid black;
-        
-        
+        border-bottom: 3px solid black;
+        text-align:start;
+        display: inline;
     }
+    .collapsibleHeader{
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, rgba(9,25,55,1) 0%, rgba(19,48,90,1) 100%);    
+        display: flex;
+        justify-content: space-between; 
+        border-top: 3px dashed var(--mh-yellow);
+    }
+    .slotSelection{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .addPanel{
+        border-top: 3px dashed var(--mh-yellow);
+    }
+    .addPanel > label{
+
+    }
+
+    /*
+    .collapsibleHeaderName{
+    }
+    .collapsibleHeaderBtn{        
+    }
+    */
+
+
 </style>

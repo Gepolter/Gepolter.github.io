@@ -1,19 +1,32 @@
 <template>
     <div class="flex-container">
         <div class="flex-component1">
-            <Buildtable/>
-            <v-select
-                :options="getWishlists"
-                label="_name"
-                v-model="wList"
-            ></v-select>
-            <v-select
-                :options="getWeapons"
-                label="_name"
-                v-model="chosenWpn"
 
-            ></v-select>
-            <button @click="buildAlgorithm()">Calculate Build</button>
+            <div class="buildOptions">
+                <label>Select Wishlist:</label>
+                <div style="width: 25%">
+                    <v-select
+                        :options="getWishlists"
+                        label="_name"
+                        v-model="wList"
+                        width="50px"
+                    ></v-select>
+                </div>
+                <label>Select Weapon</label>
+                <div style="width:25%">
+                    <v-select
+                        :options="getWeapons"
+                        label="_name"
+                        v-model="chosenWpn"
+                    ></v-select>
+                </div>
+            </div>
+            <div class="buildTable">
+                <Buildtable/>
+            </div>
+            <div>
+                <button @click="buildAlgorithm()" style="width:100%">Calculate Build</button>
+            </div>
              
         </div>
         
@@ -47,6 +60,8 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
         
         ...mapGetters({
             getBuild: 'getBuild',
+            getBuildSkills: 'getBuildSkills',
+            getBuildSkillsLength: 'getBuildSkillsLength',
             getBuilds: 'getBuilds',
             getBuildsLength: 'getBuildsLength',
             getSkills: 'getSkills',
@@ -79,7 +94,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
         */
             chosenWpn: this.findWeapon,
 
-            wList: null,
+            wList: null
             /*
             build: null,
             headGear: null,
@@ -212,8 +227,10 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
             }
 
             //after all builds are completed, find the one with max rating
-            console.log(this.getBuilds.reduce((maxBuild, build) => maxBuild._rating > build._rating ? maxBuild : build))
-            return this.getBuilds.reduce((maxBuild, build) => maxBuild._rating > build._rating ? maxBuild : build)
+            const finalBuild = this.getBuilds.reduce((maxBuild, build) => maxBuild._rating > build._rating ? maxBuild : build)
+            console.log(finalBuild)
+            this.setBuild(finalBuild)
+            this.setBuildSkills(this.totalSkillLevels(finalBuild))
         },
 
         isGearTypeFree: function(gear, build){
@@ -440,7 +457,9 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
             const addedSkillList = []
             
             //set gear to be tested
-            this.setGearInBuild(gear, build)
+            if(gear != null){
+                this.setGearInBuild(gear, build)
+            }
             //build Talisman
             //console.log(gear)
             //console.log(build)
@@ -500,7 +519,9 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                     }
                 }
             }
-            this.removeGearFromBuild(gear, build)
+            if(gear != null){
+                this.removeGearFromBuild(gear, build)
+            }
             return addedSkillList
         },
         setGearInBuild: function(gear, build){
@@ -561,6 +582,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
             fetchSlots: 'fetchSlots',
             fetchSlotArrays: 'fetchSlotArrays',
             setBuild: 'setBuild',
+            setBuildSkills: 'setBuildSkills',
             setBuilds: 'setBuilds',
         }),
         ...mapMutations([
@@ -586,22 +608,60 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
     }
     .flex-container{
         display: flex;
-        
-
     }
     .flex-component1{
         flex:3;
         padding-left: 1em;
         padding-right: 1em;
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        
+        /*
+        display: grid;
+        grid-template-columns: 1;
+        grid-template-rows: min-content;
+        */
+    }
+    .flex-component1 > div{
+        align-self: flex-start;
+        width: 100%;
     }
     .flex-component2{
         flex:1;
         padding-left: 2%;
         padding-right: 2%;
+        padding-bottom: 2%;
     }
     .flex-component3{
         flex:1;
         padding-left: 2%;
         padding-right: 2%;
+        padding-bottom: 2%;
+    }
+    .buildOptions{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 5px 10px 5px;
+        
+    }
+    /*
+    @media only screen and (max-width: 768px){
+        .buildTable {
+            transform:rotate(90deg);
+            position:relative;
+            transform-origin: 0% 120%;
+        }
+    }
+    */
+    .buildTable{
+        height: auto;
+        width: auto;
+    }
+    .buildOptions > label{
+        flex: 0.2;
     }
 </style>
