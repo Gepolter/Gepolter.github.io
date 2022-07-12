@@ -14,15 +14,15 @@
                 </div>
                 <label>Select weapon slots</label>
                 <div class="slotSelection" style="width:25%">
-                    <SlotItemBtn @send="setWpnSlotLvl(chosenWpn, 0, $event)"/>
-                    <SlotItemBtn @send="setWpnSlotLvl(chosenWpn, 1, $event)"/>
-                    <SlotItemBtn @send="setWpnSlotLvl(chosenWpn, 2, $event)"/>                     
+                    <SlotItemBtn @send="setWpnSlotLvl(findWeapon, 0, $event)"/>
+                    <SlotItemBtn @send="setWpnSlotLvl(findWeapon, 1, $event)"/>
+                    <SlotItemBtn @send="setWpnSlotLvl(findWeapon, 2, $event)"/>                     
                 </div>
                 <!--div style="width:25%">
                     <v-select
                         :options="getWeapons"
                         label="_name"
-                        v-model="chosenWpn"
+                        v-model="findWpn"
                     ></v-select>
                 </div-->
             </div>
@@ -101,7 +101,7 @@ import LoadingScreen from './LoadingScreen.vue'
 
     data() {
         return {
-            chosenWpn: this.findWeapon,
+            
 
             wList: null,
             isLoading: false
@@ -114,6 +114,7 @@ import LoadingScreen from './LoadingScreen.vue'
 
         buildAlgorithm: function(){
             this.isLoading = true
+            
             const build ={ 
                 buildWpn: null,
                 buildArmor:{
@@ -133,13 +134,13 @@ import LoadingScreen from './LoadingScreen.vue'
             //const branchMemory = []
             //const typeExclusion = []
             const evaluationList = []
-            
+
             //before starting config, use fixed slots -> wpn slots
-            this.decoAlgorithm(this.chosenWpn, this.wList, build)
-            this.rateGear(this.chosenWpn, this.wList, build)
-            //this.rateFlatGear(this.chosenWpn, this.wList, build)
+            this.decoAlgorithm(this.findWeapon, this.wList, build)
+            //this.rateGear(this.findWeapon, this.wList, build)
+            this.rateFlatGear(this.findWeapon, this.wList, build)
             
-            build.buildWpn = this.chosenWpn
+            build.buildWpn = this.findWeapon
 
             //loop alt builds. elements are added in case of equal ratings
             for(let b = 0; b < this.getBuildsLength; b++){
@@ -179,8 +180,8 @@ import LoadingScreen from './LoadingScreen.vue'
                     
                     for(let gearPiece in evaluationList){
                         this.decoAlgorithm(evaluationList[gearPiece], this.wList, this.getBuilds[b])
-                        this.rateGear(evaluationList[gearPiece], this.wList, this.getBuilds[b])
-                        //this.rateFlatGear(evaluationList[gearPiece], this.wList, this.getBuilds[b])                        
+                        //this.rateGear(evaluationList[gearPiece], this.wList, this.getBuilds[b])
+                        this.rateFlatGear(evaluationList[gearPiece], this.wList, this.getBuilds[b])                        
                     }
                     
                     ////console.log("deco and rating done")
@@ -297,7 +298,7 @@ import LoadingScreen from './LoadingScreen.vue'
         rateFlatGear: function(gear, wishlist, build){
             //rate gear according to how many OPEN skilllvls of wl are fulfilled
             
-            gear._flat_rating = 0
+            gear._rating = 0
             for(let skillIndex = 0; skillIndex < gear._skill_array.length; skillIndex ++){
                 if(wishlist._skillSelectionArray.some(skill => skill._name === gear._skill_array[skillIndex]._skill_name)){
                     var wishlistSkill = wishlist._skillSelectionArray.find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)
@@ -306,9 +307,9 @@ import LoadingScreen from './LoadingScreen.vue'
                         if(wishlistSkill._selectedLvl -
                             this.totalSkillLevels(build, gear).find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl >= 0
                         ){
-                            gear._flat_rating += gear._skill_array[skillIndex]._selectedLvl 
+                            gear._rating += gear._skill_array[skillIndex]._selectedLvl 
                         }else{
-                            gear._flat_rating += (gear._skill_array[skillIndex]._selectedLvl + 
+                            gear._rating += (gear._skill_array[skillIndex]._selectedLvl + 
                             wishlistSkill._selectedLvl -
                             this.totalSkillLevels(build, gear).find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl) 
                         }
@@ -316,7 +317,7 @@ import LoadingScreen from './LoadingScreen.vue'
                        if(this.totalSkillLevels(build, gear).find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl <= 
                            wishlistSkill._selectedLvl
                         ){
-                            gear._flat_rating += 1 
+                            gear._rating += 1 
                         }//else needed bc totalskilllevels calculates ALL not just CURRENT skill. later duplicates not coutned 
                     }
                 }
@@ -370,54 +371,55 @@ import LoadingScreen from './LoadingScreen.vue'
             }
         },
         decoAlgorithm: function(gear, wishlist, build) {
+            //console.log(gear)
+            
             this.clearDecos(gear)
 
-            //console.log(gear)
             //get decoArray of armor
             var decoArray = null
             if(gear.hasOwnProperty('_slot_array_name')){
                 if(gear._slot_array_name == ""){return}
                 decoArray = this.getSlotArray(gear._slot_array_name)
-                ////console.log("armor deco array")
-                ////console.log(decoArray)
             }else if(gear.hasOwnProperty('_slots')){
                 if(gear._slots == ""){return}
                 decoArray = {_slots: gear._slots}
-                ////console.log("tal deco array")
-                ////console.log(decoArray)
+            }else{
+                return
             }
-            //testing!!
-            //build['buildTalisman'] = this.getTalismans[0]
-            //build.buildArmor.armsGear = this.getArmor[2]
-            
+            //console.log(decoArray)
 
            //loop gearslots big -> small
             for(let gearSlot in decoArray._slots){
+                if(decoArray._slots[gearSlot] == 0){
+                    continue
+                }
+                
                 let repeatBcNoFit = true
                 //a=prio
                 for(let prio = 1; repeatBcNoFit === true && prio <= wishlist._skillSelectionArray.length; prio++){
                     //var wlSkill = wishlist._skillSelectionArray.find(skill => skill._prio === prio)
                     //var buildSkill = this.totalSkillLevels(build, gear).find(skill => skill._name === wlSkill._name)
 
-                    OuterLoop:
+                    //OuterLoop:
                     for(let wlSkill in wishlist._skillSelectionArray){
                         //is prio = a
                         if(prio === wishlist._skillSelectionArray[wlSkill]._prio){
-                            
                             //check if overall skills of current gear already fullfill wl condition
                             //TODO better find wlSkill
                             
                             var currentSkillLevels = this.totalSkillLevels(build, gear)
                             if(currentSkillLevels.some(skill => skill._name === wishlist._skillSelectionArray[wlSkill]._name)){
                                 if(wishlist._skillSelectionArray[wlSkill]._selectedLvl <= currentSkillLevels.find(skill => skill._name === wishlist._skillSelectionArray[wlSkill]._name)._lvl){
-                                    break OuterLoop
+                                    break //OuterLoop
                                 }
                             }
                             //console.log(currentSkillLevels.find(skill => skill._name === wishlist._skillSelectionArray[wlSkill]._name))
-                            skillDecoArr = this.findSkill(wishlist._skillSelectionArray[wlSkill]._name)._deco_array
-                            for(let i = skillDecoArr.length; i > 0; i++){
-                                if(skillDecoArr[i]._deco_lvl <= decoArray._slots[gearSlot]){
-                                    for(let i = 0; i < skillDecoArr[i]._skill_lvl; i++){
+                            var skillDecoArr = this.findSkill(wishlist._skillSelectionArray[wlSkill]._name)._deco_array
+                            //DecoSet:
+                            for(let i = skillDecoArr.length; i > 0; i--){
+                                //changed from >= to == 
+                                if(skillDecoArr[i-1]._deco_lvl >= decoArray._slots[gearSlot]){
+                                    for(let j = 0; j < skillDecoArr[i-1]._skill_lvl; j++){
                                         gear._skill_array.push(
                                             {
                                                 _skill_name: wishlist._skillSelectionArray[wlSkill]._name,
@@ -425,9 +427,14 @@ import LoadingScreen from './LoadingScreen.vue'
                                             }
                                         )
                                     }
+                                    repeatBcNoFit = false 
+                                    break //DecoSet
+                                }else{
+                                    repeatBcNoFit = true
                                 }
-                            }
 
+                            }
+                            /*
                             //check if skill fits slotLvl of gearSlot
                             if(this.findSkill(wishlist._skillSelectionArray[wlSkill]._name)._slot_id <= decoArray._slots[gearSlot]){
                                 //TODO: MAYBE check here, if the higher level decos overshoot again
@@ -442,18 +449,19 @@ import LoadingScreen from './LoadingScreen.vue'
                                 )
                                 ////console.log("deco set")
                                 ////console.log(gear)
+                                
 
                                 repeatBcNoFit = false
                             }else {
                                 repeatBcNoFit = true
                             }
+                            */
                         }
 
                     }
                 }
             }
             //console.log(gear)
-            //console.log("decoAlgDone")
         },
 
         totalSkillLevels: function(build, gear){

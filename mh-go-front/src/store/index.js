@@ -55,6 +55,7 @@ export default createStore({
     getSelectedWeapon:(state) => state.selectedWeapon,
     //testing
     findWeapon:(state) => state.weapons[0],
+    
     getWeaponsLength: (state) => state.weapons.length,
     getGearTypes: (state) => state.gearTypes,
     getGearTypesLength: (state) => state.gearTypes.length,
