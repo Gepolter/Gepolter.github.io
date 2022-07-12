@@ -33,10 +33,10 @@ module.exports = Wishlist
 const skillSchema = new mongoose.Schema({
     "_id": String,
     "_name": String,
-    "_slot_id": String,
-    "_maxLvl": Number
+    "_maxLvl": Number,
+    "_deco_array":Array
 }/*{collection: 'skills'}*/)
-const Skill = mongoose.model("Skill", skillSchema, "skills")
+const Skill = mongoose.model("Skill", skillSchema, "skills_master_rank")
 module.exports = Skill
 
 const armorSchema = new mongoose.Schema({

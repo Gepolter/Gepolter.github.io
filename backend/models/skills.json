@@ -1,0 +1,1408 @@
+[
+    {
+        "_id": 0,
+        "_name": "Wall Runner",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            },
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 1,
+        "_name": "Wirebug Whisperer",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 2,
+        "_name": "Item Prolonger",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 3,
+        "_name": "Recovery Speed",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 4,
+        "_name": "Recovery Up",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 5,
+        "_name": "Horn Maestro",
+        "_maxLvl": "1",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 6,
+        "_name": "Stamina Thief",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 7,
+        "_name": "Constitution",
+        "_maxLvl": "5",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 8,
+        "_name": "Affinity Sliding",
+        "_maxLvl": "1",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 9,
+        "_name": "Bombardier",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 10,
+        "_name": "Carving Pro",
+        "_maxLvl": "1",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 11,
+        "_name": "Master Mounter",
+        "_maxLvl": "1",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 12,
+        "_name": "Hunger Resistance",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 13,
+        "_name": "Free Meal",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 14,
+        "_name": "Muck Resistance",
+        "_maxLvl": "2",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 15,
+        "_name": "Diversion",
+        "_maxLvl": "1",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 16,
+        "_name": "Leap of Faith",
+        "_maxLvl": "1",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 17,
+        "_name": "Fortify",
+        "_maxLvl": "1",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 18,
+        "_name": "Geologist",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 19,
+        "_name": "Botanist",
+        "_maxLvl": "4",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 20,
+        "_name": "Blast Resistance",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 21,
+        "_name": "Sleep Resistance",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 22,
+        "_name": "Paralysis Resistance",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 23,
+        "_name": "Poison Resistance",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 24,
+        "_name": "Fire Resistance",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 25,
+        "_name": "Water Resistance",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 26,
+        "_name": "Thunder Resistance",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 27,
+        "_name": "Ice Resistance",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 28,
+        "_name": "Dragon Resistance",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 29,
+        "_name": "Rapid Morph",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 30,
+        "_name": "Recoil Down",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 31,
+        "_name": "Bludgeoner",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 32,
+        "_name": "Reload Speed",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 33,
+        "_name": "Stun Resistance",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 34,
+        "_name": "Tremor Resistance",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 35,
+        "_name": "Earplugs",
+        "_maxLvl": "5",
+        "_deco_array": [
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 36,
+        "_name": "Counterstrike",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 37,
+        "_name": "Bubbly Dance",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 38,
+        "_name": "Steadiness",
+        "_maxLvl": "2",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 39,
+        "_name": "Punishing Draw",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 40,
+        "_name": "Evade Extender",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 41,
+        "_name": "Evade Window",
+        "_maxLvl": "5",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 42,
+        "_name": "Flinch Free",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 43,
+        "_name": "Quick Sheath",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 44,
+        "_name": "Windproof",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 45,
+        "_name": "Slugger",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 46,
+        "_name": "Wide-Range",
+        "_maxLvl": "5",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "3"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "4"
+            }
+        ]
+    },
+    {
+        "_id": 47,
+        "_name": "Partbreaker",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 48,
+        "_name": "Blight Resistance",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 49,
+        "_name": "Speed Eating",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "2"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 50,
+        "_name": "Divine Blessing",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 51,
+        "_name": "Speed Sharpening",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 52,
+        "_name": "Poison Attack",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 53,
+        "_name": "Fire Attack",
+        "_maxLvl": "5",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "2"
+            },
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 54,
+        "_name": "Water Attack",
+        "_maxLvl": "5",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "2"
+            },
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 55,
+        "_name": "Thunder Attack",
+        "_maxLvl": "5",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "2"
+            },
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 56,
+        "_name": "Ice Attack",
+        "_maxLvl": "5",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "2"
+            },
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 57,
+        "_name": "Dragon Attack",
+        "_maxLvl": "5",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "2"
+            },
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "3"
+            }
+        ]
+    },
+    {
+        "_id": 58,
+        "_name": "Defense Boost",
+        "_maxLvl": "7",
+        "_deco_array": [
+            {
+                "_deco_lvl": "1",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "2"
+            },
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "3"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "5"
+            }
+        ]
+    },
+    {
+        "_id": 59,
+        "_name": "Aim Booster",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 60,
+        "_name": "Critical Element",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 61,
+        "_name": "Heroics",
+        "_maxLvl": "5",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 62,
+        "_name": "Special Ammo Boost",
+        "_maxLvl": "2",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 63,
+        "_name": "Load Shells",
+        "_maxLvl": "2",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 64,
+        "_name": "Guard Up",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 65,
+        "_name": "Guard",
+        "_maxLvl": "5",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 66,
+        "_name": "Stamina Surge",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 67,
+        "_name": "Power Prolonger",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 68,
+        "_name": "Maximum Might",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 69,
+        "_name": "Attack Boost",
+        "_maxLvl": "7",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 70,
+        "_name": "Critical Eye",
+        "_maxLvl": "7",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 71,
+        "_name": "Hellfire Cloak",
+        "_maxLvl": "4",
+        "_deco_array": [
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 72,
+        "_name": "Spare Shot",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 73,
+        "_name": "Razor Sharp",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 74,
+        "_name": "Protective Polish",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 75,
+        "_name": "Sleep Attack",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 76,
+        "_name": "Weakness Exploit",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 77,
+        "_name": "Agitator",
+        "_maxLvl": "5",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 78,
+        "_name": "Peak Performance",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 79,
+        "_name": "Resentment",
+        "_maxLvl": "5",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 80,
+        "_name": "Resuscitate",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 81,
+        "_name": "Blast Attack",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 82,
+        "_name": "Paralysis Attack",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 83,
+        "_name": "Latent Power",
+        "_maxLvl": "5",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 84,
+        "_name": "Normal/Rapid Up",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 85,
+        "_name": "Ammo Up",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 86,
+        "_name": "Offensive Guard",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 87,
+        "_name": "Mushroomancer",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 88,
+        "_name": "Critical Draw",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 89,
+        "_name": "Artillery",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 90,
+        "_name": "Marathon Runner",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 91,
+        "_name": "Focus",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 92,
+        "_name": "Mind's Eye",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 93,
+        "_name": "Jump Master",
+        "_maxLvl": "1",
+        "_deco_array": [
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 94,
+        "_name": "Rapid Fire Up",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 95,
+        "_name": "Pierce Up",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 96,
+        "_name": "Good Luck",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "1"
+            },
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 97,
+        "_name": "Spread Up",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 98,
+        "_name": "Handicraft",
+        "_maxLvl": "5",
+        "_deco_array": [
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 99,
+        "_name": "Master's Touch",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 100,
+        "_name": "Critical Boost",
+        "_maxLvl": "2",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "t"
+            }
+        ]
+    },
+    {
+        "_id": 101,
+        "_name": "Quick Breath",
+        "_maxLvl": "-",
+        "_deco_array": [
+            {
+                "_deco_lvl": "3",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 102,
+        "_name": "Bladescale Hone",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "2",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 103,
+        "_name": "Redirection",
+        "_maxLvl": "-",
+        "_deco_array": [
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "1"
+            }
+        ]
+    },
+    {
+        "_id": 104,
+        "_name": "Ballistics",
+        "_maxLvl": "3",
+        "_deco_array": [
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "2"
+            }
+        ]
+    },
+    {
+        "_id": 105,
+        "_name": "Bow Charge Plus",
+        "_maxLvl": "1",
+        "_deco_array": [
+            {
+                "_deco_lvl": "4",
+                "_skill_lvl": "1"
+            }
+        ]
+    }
+]
