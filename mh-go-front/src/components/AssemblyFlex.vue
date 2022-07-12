@@ -3,7 +3,7 @@
         <div class="flex-component1">
 
             <div class="buildOptions">
-                <label>Select Wishlist:</label>
+                <label>Select wishlist:</label>
                 <div style="width: 25%">
                     <v-select
                         :options="getWishlists"
@@ -12,20 +12,25 @@
                         width="50px"
                     ></v-select>
                 </div>
-                <label>Select Weapon</label>
-                <div style="width:25%">
+                <label>Select weapon slots</label>
+                <div class="slotSelection" style="width:25%">
+                    <SlotItemBtn @send="setWpnSlotLvl(chosenWpn, 0, $event)"/>
+                    <SlotItemBtn @send="setWpnSlotLvl(chosenWpn, 1, $event)"/>
+                    <SlotItemBtn @send="setWpnSlotLvl(chosenWpn, 2, $event)"/>                     
+                </div>
+                <!--div style="width:25%">
                     <v-select
                         :options="getWeapons"
                         label="_name"
                         v-model="chosenWpn"
                     ></v-select>
-                </div>
+                </div-->
             </div>
             <div class="buildTable">
                 <Buildtable/>
             </div>
             <div>
-                <button @click="buildAlgorithm()" style="width:100%">Calculate Build</button>
+                <button @click="buildAlgorithm()" style="width:100%">Calculate build</button>
             </div>
              
         </div>
@@ -38,24 +43,35 @@
         </div>
     
     </div>
+    <LoadingScreen v-if="isLoading"/>
 </template>
 
 
 <script>
 /* eslint-disable */
+//https://developer.paypal.com/api/nvp-soap/paypal-payments-standard/integration-guide/donate-step-1/
+//https://makeshiftinsights.com/blog/adsense-vue-js-app/#:~:text=First%2C%20install%20the%20vue-google-adsensepackage%20to%20your%20project%20as,page%29%3A%20npm%20install%20vue-script2%20vue-google-adsense%20--save%20Step%202.
+//https://support.google.com/adsense/answer/9274025?hl=en&visit_id=637932184737370532-2653476057&rd=1
+//https://dev.to/dd8888/how-to-create-a-simple-loading-screen-using-vue-4h7m
+//https://weekendprojects.dev/posts/css-rotate-animations-examples/
+//https://jsfiddle.net/78kt1p5j/1/
+//http://test-a-tag.com/
 //import SelectionFormVue from './SelectionForm.vue'
 import SelectionFormWl from './SelectionFormWl.vue'
-import SelectionFormTal from './SelectionFormTal.vue';
+import SelectionFormTal from './SelectionFormTal.vue'
 import Buildtable from './BuildTable.vue'
 
-import { mapGetters, mapActions, mapMutations } from 'vuex';
+
+import { mapGetters, mapActions, mapMutations } from 'vuex'
+import LoadingScreen from './LoadingScreen.vue'
 
     export default {
-        components: { 
-        SelectionFormWl,
-        SelectionFormTal,
-        Buildtable
-    },
+        components: {
+    SelectionFormWl,
+    SelectionFormTal,
+    Buildtable,
+    LoadingScreen
+},
     computed:{
         
         ...mapGetters({
@@ -85,24 +101,10 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
 
     data() {
         return {
-        /*
-        componentArray:[
-            SelectionFormVue,
-            SelectionFormVue,
-            SelectionFormVue
-        ]
-        */
             chosenWpn: this.findWeapon,
 
-            wList: null
-            /*
-            build: null,
-            headGear: null,
-            chestGear: null,
-            armsGear: null,
-            waistGear: null,
-            legsGear: null,
-            */
+            wList: null,
+            isLoading: false
         };
     },
 
@@ -111,6 +113,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 
         buildAlgorithm: function(){
+            this.isLoading = true
             const build ={ 
                 buildWpn: null,
                 buildArmor:{
@@ -231,6 +234,7 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
             console.log(finalBuild)
             this.setBuild(finalBuild)
             this.setBuildSkills(this.totalSkillLevels(finalBuild))
+            this.isLoading = false
         },
 
         isGearTypeFree: function(gear, build){
@@ -410,27 +414,26 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                                 }
                             }
                             //console.log(currentSkillLevels.find(skill => skill._name === wishlist._skillSelectionArray[wlSkill]._name))
-
-                            /*
-                            var currentSkillLevels = this.totalSkillLevels(build, gear)
-                            for(let buildSkill in currentSkillLevels){
-                                if(
-                                    wishlist._skillSelectionArray[wlSkill]._name == currentSkillLevels[buildSkill]._name && //buildSkill._name &&//
-                                    wishlist._skillSelectionArray[wlSkill]._selectedLvl <= currentSkillLevels[buildSkill]._lvl //buildSkill._lvl //
-                                    //maxlvl criteria not needed. selectedLvl cant exceed maxlvl anyway
-                                    ){
-                                        //console.log("breaks bc filled")
-                                        //console.log(wishlist._skillSelectionArray[wlSkill]._name)
-                                        //console.log(wishlist._skillSelectionArray)
-                                        break OuterLoop
-
+                            skillDecoArr = this.findSkill(wishlist._skillSelectionArray[wlSkill]._name)._deco_array
+                            for(let i = skillDecoArr.length; i > 0; i++){
+                                if(skillDecoArr[i]._deco_lvl <= decoArray._slots[gearSlot]){
+                                    for(let i = 0; i < skillDecoArr[i]._skill_lvl; i++){
+                                        gear._skill_array.push(
+                                            {
+                                                _skill_name: wishlist._skillSelectionArray[wlSkill]._name,
+                                                _is_deco: true
+                                            }
+                                        )
                                     }
+                                }
                             }
-                            */
+
                             //check if skill fits slotLvl of gearSlot
                             if(this.findSkill(wishlist._skillSelectionArray[wlSkill]._name)._slot_id <= decoArray._slots[gearSlot]){
+                                //TODO: MAYBE check here, if the higher level decos overshoot again
+
+
                                 //if it fits, set deco on armor -> next slot 
-                                
                                 gear._skill_array.push(
                                     {
                                         _skill_name: wishlist._skillSelectionArray[wlSkill]._name,
@@ -573,6 +576,16 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                     build.buildWpn = null
                     break
             }
+        },
+        setWpnSlotLvl: function(weapon, slotNum, slotLvl){
+            try{
+                newId = weapon._slots_id.replace(substring(slotNum, 1), slotLvl)
+                weapon._slots_id = newId
+            }catch (error){
+                alert (error)
+                console.log(error)
+            }
+                
         },
         ...mapActions({
             fetchSkills: 'fetchSkills',

@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const uuid = require("uuid")
+//const uuid = require("uuid")
 const {Skill, Armor, Weapon, Slot, SlotArray} = require('../models/builder')
 /*
 const Armor = require('../models/builder')
@@ -11,7 +11,7 @@ const SlotArray = require('../models/builder')
 //const Wishlist = require('../models/builder')
 */
 
-console.log(uuid.v4)
+//console.log(uuid.v4)
 
 
 // all routes
