@@ -43,9 +43,7 @@ const armorSchema = new mongoose.Schema({
     "_id": String,
     "_set": String,
     "_type_id": String,
-    "_skill_array": [
-        //{String}
-    ],
+    "_skill_array": [],
     "_slot_array_name": String
 
 })
@@ -66,7 +64,9 @@ modlule.exports = Deco
 const weaponSchema = new mongoose.Schema({
     "_id": String,
     "_name": String,
-    slotArrays_id: String
+    _slot_array_name: String,
+    _skill_array: Array,
+    _type_id: String
 
 })
 const Weapon = mongoose.model("weapon", weaponSchema)
@@ -88,10 +88,8 @@ module.exports = Slot
 
 const slotArraySchema = new mongoose.Schema({
     "_id": String,
-    "_slots": {}
-        //{"_slots_id": String}
-    
-    
+    "_name": String,
+    "_slots": Array   
 })
 const SlotArray = mongoose.model("slotArray", slotArraySchema, "slotArrays")
 module.exports = {Talisman, Wishlist, Armor, Skill, Weapon, Slot, SlotArray}

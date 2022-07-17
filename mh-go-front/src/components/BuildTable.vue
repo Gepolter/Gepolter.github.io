@@ -102,9 +102,9 @@ import { mapGetters } from 'vuex'
                     case 4:
                         return this.getBuild.buildArmor.headGear._name
                     case 5:
-                        return this.getBuild.buildArmor.armsGear._name
-                    case 6:
                         return this.getBuild.buildArmor.chestGear._name
+                    case 6:
+                        return this.getBuild.buildArmor.armsGear._name
                     case 7:
                         return this.getBuild.buildArmor.waistGear._name
                     case 8:
@@ -121,8 +121,6 @@ import { mapGetters } from 'vuex'
                 const build = this.getBuild
                 const buildSkills = this.getBuildSkills
 
-                console.log(build)
-                console.log(buildSkills)
                 switch (column){
                     //active Skills
                     case 1:

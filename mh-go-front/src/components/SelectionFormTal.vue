@@ -36,7 +36,7 @@
                     <!-- this should be draggable to select prios-->
                     <div class="selectionItems">
                         <SelectionItem 
-                            v-for="selectedSkill in nativeSkills(talisman)"
+                            v-for="selectedSkill in talisman._nat_skill_arr"
                             :key="selectedSkill._skill_name"
                             :skillName="selectedSkill._skill_name"
                             :skillLvl="selectedSkill._selectedLvl"
@@ -119,13 +119,26 @@
             
         },
         methods: {
+            /*
             nativeSkills: function(talisman){
-                if(talisman._skill_array.length != 0){
-                    return talisman._skill_array.filter(
-                        skill => skill._is_deco == false
-                    )
-                }
-            },
+                
+                //if(talisman._skill_array.length != 0){
+                    for(let i = 0; i < talSkillArrCopy.length; i ++){
+                        //get all non deco skills of same name -> length = lvl
+                        var addSkillArr = talSkillArrCopy.filter(e => e._skill_name == talSkillArrCopy[i]._skill_name && e._is_deco == false) 
+
+                        const skill = {
+                            _skill_name: addSkillArr[0]._skill_name,
+                            _selectedLvl: addSkillArr.length,
+                            
+                        }
+                        natSkillArr.push(skill)
+                        talSkillArrCopy = talSkillArrCopy.filter(e => e._skill_name != talSkillArrCopy[i]._skill_name && e._is_deco == false) 
+                    }
+
+                    return natSkillArr
+                //}
+            },*/
             ...mapActions({
                 fetchSkills: 'fetchSkills',
                 createTalisman: 'createTalisman'
@@ -137,29 +150,36 @@
             
             addSkill: function(skillName, skillLvl, talisman){
                 //what talisman is opened?
-                
+                //check, if skillName is already in skill_array
+                if(talisman._skill_array.some(e => e._skill_name ===skillName) ){
+                    alert('skill already in talisman')
+                }else{
+                    for(let j = 0; j < skillLvl; j++){
+                        talisman._skill_array.push({
+                            _skill_name: skillName,
+                            _is_deco: false
+                        })
+                    }
+                    talisman._nat_skill_arr.push({
+                        _skill_name: skillName,
+                        _is_deco: false,
+                        _selectedLvl: skillLvl
+                    })
+                    //also set slider current lvl back to 1
+                    this.resetSlider()
+                }
+                /*
                 for(var i = 0; i < this.getTalismansLength; i++){
                     if(this.getTalismans[i] === talisman){
-                        //check, if skillName is already in skill_array
-                        if(talisman._skill_array.some(e => e._name ===skillName) ){
-                            alert('skill already in talisman')
-                        }else{
-                            talisman._skill_array.push({
-                                _skill_name: skillName,
-                                _selectedLvl: skillLvl,
-                                _is_deco: false
-                            })
-                            //also set slider current lvl back to 1
-                            this.resetSlider()
-                        }
                     }
-                }
+                }*/
             },
             removeSkill: function(talisman, skillName){
                 for(var i = 0; i < this.getTalismansLength; i++){
                     if(this.getTalismans[i] === talisman){
                         try{
-                            talisman._skill_array = talisman._skill_array.filter(e => e._skill_name != skillName) 
+                            talisman._skill_array = talisman._skill_array.filter(e => e._skill_name != skillName && e._is_deco == false)  
+                            talisman._nat_skill_arr = talisman._nat_skill_arr.filter(e => e._skill_name != skillName && e._is_deco == false) 
                         }
                         catch (error) {
                             alert (error)
@@ -179,11 +199,8 @@
                     this.ADD_TAL({
                         _name: talName,
                         _skill_array: [],
-                        _slots: {
-                            _slots_id_1: 0,
-                            _slots_id_2: 0,
-                            _slots_id_3: 0
-                        },
+                        _nat_skill_arr: [],
+                        _slots: [0,1,2],
                         _type_id: "5"
                     })
                 }
@@ -195,6 +212,7 @@
                 for(var i = 0; i < this.getTalismansLength; i++){
                     if(this.getTalismans[i] === talisman){
                         try{
+                            /*
                             switch(slotNum){
                                 case 0:
                                     talisman._slots._slots_id_1 = slotLvl
@@ -206,6 +224,8 @@
                                     talisman._slots._slots_id_3 = slotLvl
                                     break
                             }
+                            */
+                            talisman._slots[slotNum] = slotLvl
                         }catch (error){
                             alert (error)
                             console.log(error)
@@ -213,22 +233,6 @@
                     }
                 }
             }
-            //maybe helpful for selection to build later
-            /*
-            activateTal: function(talisman){
-                console.log(this.getTalismansLength)
-                for(var i = 0; i< this.getTalismansLength;i++){
-                    console.log(this.getTalismans[i]._name)
-                    if(this.getTalismans[i]._name === talisman._name){
-                        this.getTalismans[i]._active = true
-                    }
-                    else{
-                        this.getTalismans[i]._active = false
-                        
-                    }
-                }
-                talisman._active = true
-            },*/
         },
         //why separate computed method?
         data() {

@@ -25,7 +25,6 @@ export default createStore({
     armor:[],
     //decos:[],
     weapons:[],
-    selectedWeapon: Object,
     gearTypes:[],
     slots:[],
     slotArrays:[]
@@ -52,7 +51,6 @@ export default createStore({
     //getDecos: (state) => state.decos,
     //getDecosLength: (state) => state.decos.length,
     getWeapons: (state) => state.weapons,
-    getSelectedWeapon:(state) => state.selectedWeapon,
     //testing
     findWeapon:(state) => state.weapons[0],
     
