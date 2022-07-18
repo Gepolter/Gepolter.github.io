@@ -110,9 +110,6 @@ import LoadingScreen from './LoadingScreen.vue'
     },
 
     methods: {
-
-
-
         buildAlgorithm: function(){
             const configWpn = this.findWeapon
             this.isLoading = true
@@ -139,7 +136,9 @@ import LoadingScreen from './LoadingScreen.vue'
 
             this.decoAlgorithm(configWpn, this.wList, build)
             //this.rateGear(configWpn, this.wList, build)
+            this.rateGear(configWpn, this.wList, build)
             this.rateFlatGear(configWpn, this.wList, build)
+            
             
             build.buildWpn = configWpn
 
@@ -160,10 +159,10 @@ import LoadingScreen from './LoadingScreen.vue'
                     evaluationList.length = 0
 
                     for(let armor in this.getArmor){
-                        
-                        console.log(armor)
-                        if(this.isGearTypeFree(this.getArmor[armor], this.getBuilds[b])){
-                            evaluationList.push(this.getArmor[armor])
+                        if(this.getArmor[armor] != null){
+                            if(this.isGearTypeFree(this.getArmor[armor], this.getBuilds[b])){
+                                evaluationList.push(this.getArmor[armor])
+                            }
                         }
                     }
                     for(let tal in this.getTalismans){
@@ -183,19 +182,20 @@ import LoadingScreen from './LoadingScreen.vue'
                     for(let gearPiece in evaluationList){
                         this.decoAlgorithm(evaluationList[gearPiece], this.wList, this.getBuilds[b])
                         //this.rateGear(evaluationList[gearPiece], this.wList, this.getBuilds[b])
+                        this.rateGear(evaluationList[gearPiece], this.wList, this.getBuilds[b])                        
                         this.rateFlatGear(evaluationList[gearPiece], this.wList, this.getBuilds[b])                        
                     }
                     
                     //check equal results. if equally good max lvls are there, save all to buildlist
-                    var highestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._rating > gear._rating ? maxGear : gear)
-                    var secondHighestRatedGear = {_rating : 0}
+                    var highestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._flat_rating > gear._flat_rating ? maxGear : gear)
+                    var secondHighestRatedGear = {_flat_rating : 0}
                     //with just one gearpiece left to set, maybe just one tal is left in eval list
                     if(evaluationList.length > 2){
                         evaluationList.splice(evaluationList.indexOf(highestRatedGear),1)
-                        secondHighestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._rating > gear._rating ? maxGear : gear)
+                        secondHighestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._flat_rating > gear._flat_rating ? maxGear : gear)
                     }
                     let plsDontFryCpu = 0
-                    while(highestRatedGear._rating == secondHighestRatedGear._rating && evaluationList.length > 3 && plsDontFryCpu < 1){                        
+                    while(highestRatedGear._flat_rating == secondHighestRatedGear._flat_rating && evaluationList.length > 3 && plsDontFryCpu < 1){                        
                         //onsole.log(evaluationList)
                         //set highest, save build in builds, remove highest, loop
                         this.setGearInBuild(secondHighestRatedGear, this.getBuilds[b])
@@ -208,7 +208,7 @@ import LoadingScreen from './LoadingScreen.vue'
 
                         //remove second highest from eval, set new secondhighest
                         evaluationList.splice(evaluationList.indexOf(secondHighestRatedGear), 1)
-                        secondHighestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._rating > gear._rating ? maxGear : gear)
+                        secondHighestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._flat_rating > gear._flat_rating ? maxGear : gear)
 
                         plsDontFryCpu ++
                     }
@@ -229,7 +229,7 @@ import LoadingScreen from './LoadingScreen.vue'
             }
 
             //after all builds are completed, find the one with max rating
-            const finalBuild = this.getBuilds.reduce((maxBuild, build) => maxBuild._rating > build._rating ? maxBuild : build)
+            const finalBuild = this.getBuilds.reduce((maxBuild, build) => maxBuild._flat_rating > build._flat_rating ? maxBuild : build)
             console.log(finalBuild)
             this.setBuild(finalBuild)
             this.setBuildSkills(this.totalSkillLevels(finalBuild))
@@ -267,6 +267,8 @@ import LoadingScreen from './LoadingScreen.vue'
         rateGear: function(gear, wishlist, build){
             //rate gear according to how many OPEN skilllvls of wl are fulfilled
             //TODO optimize algorithm by multiplying rating with 1/prio or something
+            const catchOverflow = []
+
             gear._rating = 0
             var skillArrLength = gear._skill_array.length
             for(let skillIndex = 0; skillIndex < skillArrLength; skillIndex ++){
@@ -276,35 +278,90 @@ import LoadingScreen from './LoadingScreen.vue'
                     //only if totalgearskills dont exceed selectedlvl
                     //console.log(this.totalSkillLevels(build, gear).find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl)
                     //console.log(wishlistSkill._selectedLvl)
-                    if(this.totalSkillLevels(build, gear).find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl < 
+                    if(this.totalSkillLevels(build, gear).find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl <= 
                         wishlistSkill._selectedLvl
                     ){
                         gear._rating += 1 * (1/wishlistSkill._prio)
+                    }else{
+                        //skilllvl exceeded give gear the difference of totalskilllvls without it, and the wishlvl of skill
+                        //console.log("test overflow")
+                        //console.log(gear._skill_array[skillIndex]._skill_name)
+                        //console.log(catchOverflow.some(skill => skill._name === gear._skill_array[skillIndex]._skill_name))
+                        if(!catchOverflow.some(skill => skill._skill_name === gear._skill_array[skillIndex]._skill_name)){
+                            
+                            console.log(gear._skill_array[skillIndex]._skill_name)
+                            console.log(this.totalSkillLevels(build, null))
+                            var totalExceptGear = this.totalSkillLevels(build, null)
+                            console.log(totalExceptGear)
+                            var priorLvls
+                            if(totalExceptGear.length == 0 || totalExceptGear.some(skill => skill._name === gear._skill_array[skillIndex]._skill_name) == false){
+                                priorLvls = 0
+                            }else{
+                                priorLvls = totalExceptGear.find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl
+                            }
+                            catchOverflow.push({
+                                _skill_name: gear._skill_array[skillIndex]._skill_name,
+                                _lvlToWantedRating: (wishlistSkill._selectedLvl - priorLvls) * (1/wishlistSkill._prio)
+                            })
+                            //console.log(gear)
+                            //console.log(wishlistSkill._selectedLvl)
+                        }
                     }
+
                 }
             }
+            for(let skill in catchOverflow){
+                gear._rating += catchOverflow[skill]._lvlToWantedRating
+                //console.log(catchOverflow)
+            }
         },
-        //control function
         rateFlatGear: function(gear, wishlist, build){
             //rate gear according to how many OPEN skilllvls of wl are fulfilled
-            
-            gear._rating = 0
+
+            const catchOverflow = []
+            gear._flat_rating = 0
+
             var skillArrLength = gear._skill_array.length
             for(let skillIndex = 0; skillIndex < skillArrLength; skillIndex ++){
                 if(wishlist._skillSelectionArray.some(skill => skill._name === gear._skill_array[skillIndex]._skill_name)){
-                    
-                    
-                    
                     var wishlistSkill = wishlist._skillSelectionArray.find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)
-                    //only if totalgearskills dont exceed selectedlvl
+                    //If gear exceeds selected lvl by one, but has 4 lvls of the skill, the previous lvls have to count
                     //console.log(this.totalSkillLevels(build, gear).find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl)
                     //console.log(wishlistSkill._selectedLvl)
-                    if(this.totalSkillLevels(build, gear).find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl < 
+                    if(this.totalSkillLevels(build, gear).find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl <= 
                         wishlistSkill._selectedLvl
                     ){
-                        gear._rating += 1 
+                        gear._flat_rating += 1 
+                    }else{
+                        
+                        //skilllvl exceeded give gear the difference of totalskilllvls without it, and the wishlvl of skill
+                        if(!catchOverflow.some(skill => skill._skill_name === gear._skill_array[skillIndex]._skill_name)){
+                            console.log(gear._skill_array[skillIndex]._skill_name)
+                            console.log(this.totalSkillLevels(build, null))
+
+                            var totalExceptGear = this.totalSkillLevels(build, null)
+                            console.log(totalExceptGear)
+                            var priorLvls
+                            if(totalExceptGear.length == 0 || totalExceptGear.some(skill => skill._name === gear._skill_array[skillIndex]._skill_name) == false){
+                                priorLvls = 0
+                            }else{
+                                priorLvls = totalExceptGear.find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl
+                            }
+                            //console.log(gear._skill_array[skillIndex]._skill_name)
+                            catchOverflow.push({
+                                _skill_name: gear._skill_array[skillIndex]._skill_name,
+                                _lvlToWantedRating: wishlistSkill._selectedLvl - priorLvls
+                            })
+                            //console.log(gear)
+                            //console.log(wishlistSkill._selectedLvl)
+                        }
                     }
+                    //if skillLvl is exceeded, search for a deco of that skill and lvl in build and run deco algorithm on this piece again
                 }
+            }
+            for(let skill in catchOverflow){
+                gear._flat_rating += catchOverflow[skill]._lvlToWantedRating
+                //console.log(catchOverflow)
             }
         },
         rateBuild: function(build){
@@ -319,6 +376,19 @@ import LoadingScreen from './LoadingScreen.vue'
             buildRating += build.buildTalisman._rating
 
             build._rating = buildRating
+
+            //testing
+            build._flat_rating = 0
+
+            var buildRating = build.buildWpn._flat_rating
+            buildRating += build.buildArmor.headGear._flat_rating
+            buildRating += build.buildArmor.chestGear._flat_rating
+            buildRating += build.buildArmor.armsGear._flat_rating
+            buildRating += build.buildArmor.waistGear._flat_rating
+            buildRating += build.buildArmor.legsGear._flat_rating
+            buildRating += build.buildTalisman._flat_rating
+
+            build._flat_rating = buildRating
         },
         clearDecos: function(gear){
             var skillArrLength = gear._skill_array.length
@@ -344,7 +414,7 @@ import LoadingScreen from './LoadingScreen.vue'
             }else{
                 return
             }
-            console.log(decoArray)
+           //console.log(decoArray)
 
            //loop gearslots big -> small
             for(let gearSlot in decoArray._slots){
@@ -356,7 +426,7 @@ import LoadingScreen from './LoadingScreen.vue'
                 //a=prio
                 var selectionArrLength = wishlist._skillSelectionArray.length
                 for(let prio = 1; repeatBcNoFit === true && prio <= selectionArrLength; prio++){
-                    //OuterLoop:
+                    OuterLoop:
                     for(let wlSkill in wishlist._skillSelectionArray){
                         //is prio = a
                         if(prio === wishlist._skillSelectionArray[wlSkill]._prio){
@@ -373,7 +443,7 @@ import LoadingScreen from './LoadingScreen.vue'
                             var decoArrLength = skillDecoArr.length
                             for(let i = decoArrLength; i > 0; i--){
                                 //changed from <= to == 
-                                if(skillDecoArr[i-1]._deco_lvl <= decoArray._slots[gearSlot]){
+                                if(skillDecoArr[i-1]._deco_lvl == decoArray._slots[gearSlot]){
                                     for(let j = 0; j < skillDecoArr[i-1]._skill_lvl; j++){
                                         gear._skill_array.push(
                                             {
@@ -383,96 +453,7 @@ import LoadingScreen from './LoadingScreen.vue'
                                         )
                                     }
                                     repeatBcNoFit = false 
-                                    break //DecoSet
-                                }
-                                repeatBcNoFit = true
-                            }
-                            /*
-                            //check if skill fits slotLvl of gearSlot
-                            if(this.findSkill(wishlist._skillSelectionArray[wlSkill]._name)._slot_id <= decoArray._slots[gearSlot]){
-                                //TODO: MAYBE check here, if the higher level decos overshoot again
-
-
-                                //if it fits, set deco on armor -> next slot 
-                                gear._skill_array.push(
-                                    {
-                                        _skill_name: wishlist._skillSelectionArray[wlSkill]._name,
-                                        _is_deco: true
-                                    }
-                                )
-                                ////console.log("deco set")
-                                ////console.log(gear)
-                                
-
-                                repeatBcNoFit = false
-                            }else {
-                                repeatBcNoFit = true
-                            }
-                            */
-                        }
-
-                    }
-                }
-            }
-            //console.log(gear)
-        },
-        decoRatingAlgorithm: function(gear, wishlist, build) {
-            //console.log(gear)
-            gear._rating = 0
-            this.clearDecos(gear)
-
-            //get decoArray of armor
-            var decoArray = null
-            if(gear.hasOwnProperty('_slot_array_name')){
-                if(gear._slot_array_name == ""){return}
-                decoArray = this.getSlotArray(gear._slot_array_name)
-            }else if(gear.hasOwnProperty('_slots')){
-                if(gear._slots == ""){return}
-                decoArray = {_slots: gear._slots}
-            }else{
-                return
-            }
-            //console.log(decoArray)
-
-           //loop gearslots big -> small
-            for(let gearSlot in decoArray._slots){
-                if(decoArray._slots[gearSlot] == 0){
-                    continue
-                }
-                
-                let repeatBcNoFit = true
-                //a=prio
-                var selectionArrLength = wishlist._skillSelectionArray.length
-                for(let prio = 1; repeatBcNoFit === true && prio <= selectionArrLength; prio++){
-                    //OuterLoop:
-                    for(let wlSkill in wishlist._skillSelectionArray){
-                        //is prio = a
-                        if(prio === wishlist._skillSelectionArray[wlSkill]._prio){
-                            //check if overall skills of current gear already fullfill wl condition
-                            //TODO better find wlSkill
-                            
-                            var currentSkillLevels = this.totalSkillLevels(build, gear)
-                            if(currentSkillLevels.some(skill => skill._name === wishlist._skillSelectionArray[wlSkill]._name)){
-                                if(wishlist._skillSelectionArray[wlSkill]._selectedLvl <= currentSkillLevels.find(skill => skill._name === wishlist._skillSelectionArray[wlSkill]._name)._lvl){
-                                    break //OuterLoop
-                                }
-                            }
-                            var skillDecoArr = this.findSkill(wishlist._skillSelectionArray[wlSkill]._name)._deco_array
-                            var decoArrLength = skillDecoArr.length
-                            for(let i = decoArrLength; i > 0; i--){
-                                //changed from <= to == 
-                                if(skillDecoArr[i-1]._deco_lvl <= decoArray._slots[gearSlot]){
-                                    for(let j = 0; j < skillDecoArr[i-1]._skill_lvl; j++){
-                                        gear._skill_array.push(
-                                            {
-                                                _skill_name: wishlist._skillSelectionArray[wlSkill]._name,
-                                                _is_deco: true
-                                            }
-                                        )
-                                        gear._rating += 1
-                                    }
-                                    repeatBcNoFit = false 
-                                    break //DecoSet
+                                    break OuterLoop//DecoSet
                                 }
                                 repeatBcNoFit = true
                             }
@@ -483,7 +464,6 @@ import LoadingScreen from './LoadingScreen.vue'
             }
             //console.log(gear)
         },
-
         totalSkillLevels: function(build, gear){
             const addedSkillList = []
             
@@ -526,17 +506,18 @@ import LoadingScreen from './LoadingScreen.vue'
                     var armorPieceVar = build.buildArmor[armorPiece]
                     var armorSkillArrLength = armorPieceVar._skill_array.length
                     for(let i = 0; i < armorSkillArrLength; i++){
-                        if(Object.keys(armorPieceVar._skill_array[i]).length !== 0){
+                        if(Object.keys(armorPieceVar._skill_array[i]).length != 0){
                             if(addedSkillList.some(skill => skill._name === armorPieceVar._skill_array[i]._skill_name)){
                                 addedSkillList.find(skill => skill._name === armorPieceVar._skill_array[i]._skill_name)._lvl += 1
                             }else {
-                                //if(this.findSkill(armorPieceVar._skill_array[i]._skill_name) != null){
-                                    console.log(armorPieceVar._skill_array[i]._skill_name)
-                                    console.log(this.findSkill(armorPieceVar._skill_array[i]._skill_name))
+                                //TESTING: remove if statement to find missing skills in db!
+                                if(this.findSkill(armorPieceVar._skill_array[i]._skill_name) != null){
+                                    //console.log(armorPieceVar._skill_array[i]._skill_name)
+                                    //console.log(this.findSkill(armorPieceVar._skill_array[i]._skill_name))
                                     
                                     addedSkillList[addedSkillList.length] = this.findSkill(armorPieceVar._skill_array[i]._skill_name)
                                     addedSkillList[addedSkillList.length-1]._lvl = 1 //as many entries as lvls -> build.buildArmor[i]._skill_array[i]._lvl
-                                //}
+                                }
                             }
                         }
                     }
@@ -545,6 +526,8 @@ import LoadingScreen from './LoadingScreen.vue'
             if(gear != null){
                 this.removeGearFromBuild(gear, build)
             }
+            //console.log(gear)
+            //console.log(addedSkillList)
             return addedSkillList
         },
         setGearInBuild: function(gear, build){
