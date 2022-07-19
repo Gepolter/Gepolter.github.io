@@ -21,7 +21,6 @@ router.get("/skillsAll", function(req, res) {
 router.get("/armorAll", function(req, res) {
     Armor.find({}, function(err, armor){
         var armorMap = []
-        console.log(armor)
         armor.forEach(function(armor){
             armorMap[armor._id] = armor
         })
