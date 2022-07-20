@@ -42,9 +42,14 @@
             <div class="flex-component3">
                 <SelectionFormTal/>
             </div>
+            <div class="flex-component4">
+                <button>
+                    <img src="" alt="">
+                </button>
+            </div>
         
         </div>
-        <GuidePanel @send="toggleGuide()"/>
+        <GuidePanel @close="toggleGuide()" v-if="showGuide"/>
         <LoadingScreen 
             v-if="isLoading"
             :buildsFinished="this.buildsFinished"
@@ -246,36 +251,7 @@ import GuidePanel from './GuidePanel.vue'
                         ////console.log(this.getBuilds[b])
 
                     }
-                    //fixing overshoots / optimizing for final loadout
-                    /*
-                    this.decoAlgorithm(this.getBuilds[b].buildArmor.headGear, this.wList, this.getBuilds[b], true)
-                    this.rateGear(this.getBuilds[b].buildArmor.headGear, this.wList, this.getBuilds[b], true)                        
-                    this.rateFlatGear(this.getBuilds[b].buildArmor.headGear, this.wList, this.getBuilds[b], true)
-                    
-                    this.decoAlgorithm(this.getBuilds[b].buildArmor.chestGear, this.wList, this.getBuilds[b], true)
-                    this.rateGear(this.getBuilds[b].buildArmor.chestGear, this.wList, this.getBuilds[b], true)                        
-                    this.rateFlatGear(this.getBuilds[b].buildArmor.chestGear, this.wList, this.getBuilds[b], true)
-                    
-                    this.decoAlgorithm(this.getBuilds[b].buildArmor.armsGear, this.wList, this.getBuilds[b], true)
-                    this.rateGear(this.getBuilds[b].buildArmor.armsGear, this.wList, this.getBuilds[b], true)                        
-                    this.rateFlatGear(this.getBuilds[b].buildArmor.armsGear, this.wList, this.getBuilds[b], true)
-
-                    this.decoAlgorithm(this.getBuilds[b].buildArmor.waistGear, this.wList, this.getBuilds[b], true)
-                    this.rateGear(this.getBuilds[b].buildArmor.waistGear, this.wList, this.getBuilds[b], true)                        
-                    this.rateFlatGear(this.getBuilds[b].buildArmor.waistGear, this.wList, this.getBuilds[b], true)
-
-                    this.decoAlgorithm(this.getBuilds[b].buildArmor.legsGear, this.wList, this.getBuilds[b], true)
-                    this.rateGear(this.getBuilds[b].buildArmor.legsGear, this.wList, this.getBuilds[b], true)                        
-                    this.rateFlatGear(this.getBuilds[b].buildArmor.legsGear, this.wList, this.getBuilds[b], true)
-
-                    this.decoAlgorithm(this.getBuilds[b].buildTalisman, this.wList, this.getBuilds[b], true)
-                    this.rateGear(this.getBuilds[b].buildTalisman, this.wList, this.getBuilds[b], true)                        
-                    this.rateFlatGear(this.getBuilds[b].buildTalisman, this.wList, this.getBuilds[b], true)
-
-                    this.decoAlgorithm(this.getBuilds[b].buildWpn, this.wList, this.getBuilds[b], true)
-                    this.rateGear(this.getBuilds[b].buildWpn, this.wList, this.getBuilds[b], true)                        
-                    this.rateFlatGear(this.getBuilds[b].buildWpn, this.wList, this.getBuilds[b], true)
-                    */
+                    //fixing overshoots / optimizing for final loadout?
 
                     //after build completion, get buildrating
                     this.rateBuild(this.getBuilds[b])    
@@ -696,8 +672,6 @@ import GuidePanel from './GuidePanel.vue'
     .assembly-div{
         display: flex;
         flex-direction: column;
-        
-        border: 1em solid green;
     }
     .flex-container{
         display: flex;

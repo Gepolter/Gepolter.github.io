@@ -56,14 +56,20 @@
                                 v-model="myLvl"
                                 :min = 1
                                 :max="selectedSkill._maxLvl"
-                                :height = 7
+                                :height = 20
                                 
-                                track-color='#FEFEFE'
-                                tooltip = "always"
-                                :marks = "marks">
-                                
+                                :rail-style="railStyle"
+                                :process-style="processStyle"
+                                :tooltip="'none'"
+                                :marks ="marks"
+                                :step-style="stepStyle"
+                                >
+                                <template v-slot:dot="{focus }">
+                                    <div :class="['custom-dot', {focus}]"></div>
+                                </template>
                                 <template v-slot:step="{active}">
-                                    <div :class="['custom-step', {active}]"></div>
+                                    <div :class="['custom-step', {active}]">
+                                    <img v-bind:src="marksImg"/></div>
                                 </template>
                             </v-slider>
                         </div>
@@ -88,11 +94,14 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex';
+    import { mapGetters, mapActions, mapMutations } from 'vuex';
     import SelectionItem from './SelectionItem.vue';
     
 
     export default {
+        components: {
+            SelectionItem,
+        },
 
         computed:{
 
@@ -197,11 +206,30 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
                 myLvl: 1,
                 selectedSkill: {_name: "blank", _maxLvl: 3},
                 value: 0,
-                marks: stuff => stuff % 1 === 0,
                 text: "",
-                //drag: false
-                //skillSelectionArray: [],
-                //wishlistArray:[]
+                marks: stuff => stuff % 1 === 0,
+                marksImg: require('../assets/unique-armor-mhw-wiki.png'),
+
+                railStyle:{
+                    //border: "3px solid #95844f",
+                    backgroundColor: "#13305a",
+                    color: "#95844f",
+                    border: "1px solid white"
+                },
+                processStyle:{
+                    border: "3px solid #8c1818",
+                    backgroundColor: "#1d0503",
+                    color: "green",
+                    top:"-2px"
+                },
+                stepStyle:{
+                    color: "green",
+                    backgroundColor:"black",
+                    border: "2px solid black"
+                },
+                stepActiveStyle:{
+
+                }
                 
             }
         },
@@ -221,44 +249,6 @@ import { mapGetters, mapActions, mapMutations } from 'vuex';
 
 
 </script>
-
-<script setup>
-/*
-    import { onMounted } from 'vue';
-    //import {useStore} from 'vuex'
-    // declare the store variable
-    //const store = useStore();
-
-    
-    onMounted (() => {
-        this.store.dispatch('skillsMod/fetchskills')
-    })
-
-
-    
-    import { defineProps } from 'vue'
-
-    defineProps({
-        isOpen: {
-            type: Boolean,
-            default: true
-        }
-    })
-    
-    //let arr = new Array(1,2,3,4,5)
-    let selectedSkill
-    //var sliderMax = 0
-    //let myLvl
-    //let maxLvl = selectedSkill._maxLvl
-
-    let multArr = [
-        {name:"name1", maxLvl: 1},
-        {name:"name2", maxLvl: 2}
-    ]
-    */
-</script>
-
-
 
 <style>
 

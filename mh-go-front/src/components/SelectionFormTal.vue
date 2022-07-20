@@ -68,7 +68,7 @@
                                 :marks ="marks"
                                 :step-style="stepStyle"
                                 >
-                                <template v-slot:dot="{focus }">
+                                <template v-slot:dot="{focus}">
                                     <div :class="['custom-dot', {focus}]"></div>
                                 </template>
                                 <template v-slot:step="{active}">
@@ -287,6 +287,9 @@
         color: black;
     }
 
+    .vue-slider-process {
+    z-index: inherit;
+    }
     .custom-dot{
         width: 100%;
         height: 100%;
@@ -294,6 +297,7 @@
         box-shadow: 0 0 0 4px var(--mh-gray);
         border: 1px solid var(--mh-gray);
         border-radius: 50%;
+        z-index: inherit;
     }
     .custom-step {
         width: 100%;
@@ -301,6 +305,7 @@
         border: 1px solid black;
 
         background-color: var(--mh-light-blue);
+        z-index: inherit;
     }
     .custom-step.active {
         width: 100%;
@@ -308,12 +313,16 @@
         border: 1px solid var(--mh-dark-red);
         box-shadow: 0 0 0 4px var(--mh-dark-green);
         background-color: #f0db98;
+        z-index: inherit;
     }
     .sliderDiv {
         padding-bottom: 20px;
         padding-top: 40px;
         padding-left: 15px;
         padding: 20px 20px 40px 20px;
+        z-index: inherit;
+        opacity: .99;
+
     }
     .selectionArrayCollapsible{
         border: 3px solid black;
@@ -348,16 +357,4 @@
     .addPanel{
         border-top: 3px dashed var(--mh-yellow);
     }
-    .addPanel > label{
-
-    }
-
-    /*
-    .collapsibleHeaderName{
-    }
-    .collapsibleHeaderBtn{        
-    }
-    */
-
-
 </style>
