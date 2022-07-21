@@ -98,7 +98,7 @@ import { mapGetters } from 'vuex'
             getHeader: function(column){
                 switch (column){
                     case 3:
-                        return this.getBuild.buildWpn._name
+                        return "Wpn"
                     case 4:
                         return this.getBuild.buildArmor.headGear._name
                     case 5:

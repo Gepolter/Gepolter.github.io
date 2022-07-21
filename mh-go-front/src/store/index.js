@@ -146,18 +146,6 @@ export default createStore({
         console.log(error)
       }
     },
-    /*
-    async fetchDecos({commit}) {
-      try {
-        const data = await axios.get("http://localhost:3000/builder/decosAll")
-          commit('SET_DECOS', data.data)
-      }
-      catch (error) {
-        alert (error)
-        console.log(error)
-      }
-    },
-    */
     async fetchWeapons({commit}) {
       try {
         const data = await axios.get("http://localhost:3000/builder/weaponsAll")

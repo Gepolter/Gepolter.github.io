@@ -4,7 +4,7 @@
             <div class="flex-component1">
     
                 <div class="buildOptions">
-                    <label>Select wishlist:</label>
+                    <p>Select wishlist:</p>
                     <div style="width: 25%">
                         <v-select
                             :options="getWishlists"
@@ -13,7 +13,7 @@
                             width="50px"
                         ></v-select>
                     </div>
-                    <label>Select weapon slots</label>
+                    <p style="display: inline">Select weapon slots:</p>
                     <div class="slotSelection" style="width:25%">
                         <SlotItemBtn @send="setWpnSlotLvl(findWeapon, 0, $event)"/>
                         <SlotItemBtn @send="setWpnSlotLvl(findWeapon, 1, $event)"/>
@@ -43,8 +43,9 @@
                 <SelectionFormTal/>
             </div>
             <div class="flex-component4">
-                <button>
-                    <img src="" alt="">
+                <button @click="toggleGuide()" class='guideBtn'>
+                    <img v-bind:src="guideImg">
+                    <p>Builders<br>Notes</p>
                 </button>
             </div>
         
@@ -127,13 +128,17 @@ import GuidePanel from './GuidePanel.vue'
                 buildsFinished: 0,
                 buildsTotal:0,
                 wList: null,
-                isLoading: false
+                isLoading: false,
+                guideImg: require('../assets/unique-armor-mhw-wiki.png')
             };
         },
 
         methods: {
             buildSetup(){
-                console.log("started")
+                if(this.wList == null){
+                    alert("No wishlist selected")
+                    return
+                }
                 this.isLoading = true
                 setTimeout(() =>{
                     this.buildAlgorithm()
@@ -144,7 +149,7 @@ import GuidePanel from './GuidePanel.vue'
                 
             },
             buildAlgorithm: function(){
-                if(this.wList == null){}
+               
                 const configWpn = this.findWeapon
                 this.isLoading = true
                 
@@ -678,8 +683,7 @@ import GuidePanel from './GuidePanel.vue'
     }
     .flex-component1{
         flex:3;
-        padding-left: 1em;
-        padding-right: 1em;
+        padding: 5px;
         
         display: flex;
         flex-direction: column;
@@ -695,40 +699,45 @@ import GuidePanel from './GuidePanel.vue'
     .flex-component1 > div{
         align-self: flex-start;
         width: 100%;
+        
     }
     .flex-component2{
         flex:1;
+        /*
         padding-left: 2%;
         padding-right: 2%;
-        padding-bottom: 2%;
+        padding-bottom: 2%;*/
+        padding: 5px;
     }
     .flex-component3{
         flex:1;
+        /*
         padding-left: 2%;
         padding-right: 2%;
         padding-bottom: 2%;
+        */
+        padding: 5px;
     }
     .buildOptions{
+        border: 3px solid black;
+        background: linear-gradient(black 0%, var(--mh-gray) 25%, var(--mh-gray)85%, var(--mh-yellow));
+        /*background: linear-gradient(#f24725, #fff790 ,var(--mh-white));*/
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px 5px 10px 5px;
+        padding: 0px 0px 5px 0px;
         
     }
-    /*
-    @media only screen and (max-width: 768px){
-        .buildTable {
-            transform:rotate(90deg);
-            position:relative;
-            transform-origin: 0% 120%;
-        }
-    }
-    */
     .buildTable{
         height: auto;
-        width: auto;
+        width: 100%;
+        padding: 5px 0px 5px 5px;
     }
     .buildOptions > label{
         flex: 0.2;
+    }
+    .guideBtn{
+        color: black;
+        background: linear-gradient(green, blue);
     }
 </style>

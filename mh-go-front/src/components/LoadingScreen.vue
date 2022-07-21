@@ -2,16 +2,22 @@
     <div class="loadingDiv">
         <!--div class="content-bundle"></div-->
         <div class="workingHard">
-            <div class="imgDiv">
-                <img v-bind:src="leftPal" class="left-pal"/>
+            <div class="imgDivCss">
+                <img v-bind:src='leftPal' id="pal"/>
+                <img v-bind:src="leftPal1" id="pal1"/>
+                <img v-bind:src="leftPal2" id="pal2"/>
+                <img v-bind:src="leftPal3" id="pal3"/>
             </div>
             <div class="loadingHeader">
                 <p>
                     Pawcessing Builds
                 </p>
             </div>
-            <div class="imgDiv">
-                <img v-bind:src="rightPal" class="right-pal"/>
+            <div class="imgDivCss">
+                <img v-bind:src='rightPal' id="pal"/>
+                <img v-bind:src="rightPal1" id="pal1"/>
+                <img v-bind:src="rightPal2" id="pal2"/>
+                <img v-bind:src="rightPal3" id="pal3"/>
             </div>
 
         </div>
@@ -34,47 +40,21 @@
         },
         data(){
             return{
-                palicoArrayRight:[
-                    {frame: 0, image: require('../assets/palicos/0000.png')},
-                    {frame: 1, image: require('../assets/palicos/0001.png')},
-                    {frame: 2, image: require('../assets/palicos/0002.png')},
-                    {frame: 3, image: require('../assets/palicos/0003.png')},                    
-                ],
-                palicoArrayLeft:[
-                    {frame: 0, image: require('../assets/palicos/0001mirror.png')},
-                    {frame: 1, image: require('../assets/palicos/0002mirror.png')},
-                    {frame: 2, image: require('../assets/palicos/0003mirror.png')},
-                    {frame: 3, image: require('../assets/palicos/0000mirror.png')},                    
-                ],
                 rightPal: require('../assets/palicos/0000.png'),
+                rightPal1: require('../assets/palicos/0001.png'),
+                rightPal2: require('../assets/palicos/0002.png'),
+                rightPal3: require('../assets/palicos/0003.png'),
+                
                 leftPal: require('../assets/palicos/0002mirror.png'),
+                leftPal1: require('../assets/palicos/0003mirror.png'),
+                leftPal2: require('../assets/palicos/0000mirror.png'),
+                leftPal3: require('../assets/palicos/0001mirror.png'),
 
                 rotator: 0,
                 timer: null
             }
         },
         methods: {
-            loop: async function(){
-                while(this.rotator == this.rotator){
-                    setTimeout(() =>{
-                        this.toggleImages()
-                    }, 300)
-
-                }
-            },
-            toggleImages: function(){
-                this.rotator = (this.rotator + 1) % 4
-                this.leftPal = this.palicoArrayLeft[this.rotator].image
-                this.rightPal = this.palicoArrayRight[this.rotator].image
-            }
-        },
-        mounted: function () {
-            this.timer = setInterval(() => {
-                this.toggleImages()
-            }, 300)
-        },
-        beforeUnmount() {
-            clearInterval(this.timer)
         }
     }
 </script>
@@ -83,7 +63,7 @@
     .loadingDiv{
         height: 100vh;
         width: 100vw;
-        background: rgb(9,25,55, 0.7);
+        background: rgb(9,25,55, 0.9);
         color: var(--mh-green);
         display: flex;
         flex-direction: column;
@@ -97,7 +77,8 @@
     }
 
     .workingHard{
-        border: 4px dashed var(--mh-dark-red);
+        border: 10px outset var(--mh-orange);
+        border-radius: 35%;
         font-size: 3em;
         
         width: 95%;
@@ -123,20 +104,48 @@
         padding: 10px;
        
     }
-    .left-pal{
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-    }
-    .right-pal{
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-    }
-    .imgDiv{
-        width: 30%;
-    }
     .progress-div{
         font-size: 4vw;
     }
+    .imgDivCss{
+        width: 30%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .imgDivCss img {     
+        position: fixed;
+        top: 40%;
+        animation-name: switch;
+        animation-iteration-count: infinite;
+        animation-duration: 1.2s;
+    }
+    @keyframes switch{
+        0% {opacity: 1;}
+        25% {opacity: 1;}
+        26% {opacity: 0;}
+        100% {opacity: 0;}
+    }
+
+    #pal{
+        width: 20%;
+        object-fit: cover;
+    }
+    #pal1{
+        animation-delay: -300ms;
+        width: 20%;
+        object-fit: cover;
+    }
+    #pal2{
+        animation-delay: -600ms;
+        width: 20%;
+        object-fit: cover;
+    }
+    #pal3{
+        animation-delay: -900ms;
+        width: 20%;
+        object-fit: cover;
+    }
+    
 </style>

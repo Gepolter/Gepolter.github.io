@@ -8,7 +8,7 @@
 
 <style lang="scss">
 #app {
-  font-family: "MonsterHunter";
+  font-family: "MonsterHunter", Arial, Helvetica, sans-serif;
   color: var(--mh-white);
 
   -webkit-font-smoothing: antialiased;
@@ -36,6 +36,23 @@
 
   --vs-dropdown-option--active-bg: var(--mh-light-blue);
   --vs-dropdown-option--active-color: #eeeeee;
+/*
+  --vs-transition-timing-function: cubic-bezier(1,-0.115,0.975,0.855);
+  --vs-transition-duration: 1500ms;
+*/
+  .vcp__header-icon{
+    border: 3px solid var(--mh-white);
+    height: 100%;
+  }
+  .vcp__header-title{
+    flex: 4;
+  }
+  .vcp__header{
+    display: flex;
+    justify-content: space-between;
+    align-items:stretch;
+    padding-bottom: 5px;
+  }
 
   button{
     background: radial-gradient(var(--mh-red), var(--mh-dark-red));

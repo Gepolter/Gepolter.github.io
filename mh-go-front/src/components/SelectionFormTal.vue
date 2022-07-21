@@ -344,9 +344,9 @@
     .collapsibleHeader{
         width: 100%;
         height: 100%;
-        background: linear-gradient(180deg, rgba(9,25,55,1) 0%, rgba(19,48,90,1) 100%);    
         display: flex;
         justify-content: space-between; 
+        background: linear-gradient(180deg, rgba(9,25,55,1) 0%, rgba(19,48,90,1) 100%);    
         border-top: 3px dashed var(--mh-yellow);
     }
     .slotSelection{
@@ -357,4 +357,5 @@
     .addPanel{
         border-top: 3px dashed var(--mh-yellow);
     }
+    
 </style>
