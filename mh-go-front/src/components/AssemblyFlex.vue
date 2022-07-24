@@ -152,7 +152,8 @@ import GuidePanel from './GuidePanel.vue'
                
                 const configWpn = this.findWeapon
                 this.isLoading = true
-                
+                this.buildsTotal = 0
+                this.buildsFinished = 0
                 const build ={ 
                     buildWpn: null,
                     buildArmor:{
@@ -239,7 +240,6 @@ import GuidePanel from './GuidePanel.vue'
                             this.setGearInBuild(secondHighestRatedGear, this.getBuilds[b])
                             
                             //store state of build
-                            //DELETED for testing
                             this.getBuilds.push(structuredClone(this.getBuilds[b]))
                             console.log("altBuildset")
                             this.removeGearFromBuild(secondHighestRatedGear, this.getBuilds[b])
@@ -256,22 +256,52 @@ import GuidePanel from './GuidePanel.vue'
                         ////console.log(this.getBuilds[b])
 
                     }
-                    //fixing overshoots / optimizing for final loadout?
+                    //for future release: loading progress
+                    this.buildsFinished += 1
+                    this.buildsTotal = this.getBuildsLength
 
+                    //fixing overshoots / optimizing for final loadout?
                     //after build completion, get buildrating
                     this.rateBuild(this.getBuilds[b])    
                     console.log("build completed")
                     console.log(this.getBuilds.length)
+
                 }
+
 
                 //after all builds are completed, find the one with max rating
                 const finalBuild = this.getBuilds.reduce((maxBuild, build) => maxBuild._rating > build._rating ? maxBuild : build)
+
+                this.decoAlgorithm(finalBuild.buildArmor.headGear, this.wList, finalBuild, true)
+                this.rateGear(finalBuild.buildArmor.headGear, this.wList, finalBuild, true)                        
+                this.rateFlatGear(finalBuild.buildArmor.headGear, this.wList, finalBuild, true)
+
+                this.decoAlgorithm(finalBuild.buildArmor.chestGear, this.wList, finalBuild, true)
+                this.rateGear(finalBuild.buildArmor.chestGear, this.wList, finalBuild, true)                        
+                this.rateFlatGear(finalBuild.buildArmor.chestGear, this.wList, finalBuild, true)
+
+                this.decoAlgorithm(finalBuild.buildArmor.armsGear, this.wList, finalBuild, true)
+                this.rateGear(finalBuild.buildArmor.armsGear, this.wList, finalBuild, true)                        
+                this.rateFlatGear(finalBuild.buildArmor.armsGear, this.wList, finalBuild, true)
+
+                this.decoAlgorithm(finalBuild.buildArmor.waistGear, this.wList, finalBuild, true)
+                this.rateGear(finalBuild.buildArmor.waistGear, this.wList, finalBuild, true)                        
+                this.rateFlatGear(finalBuild.buildArmor.waistGear, this.wList, finalBuild, true)
+
+                this.decoAlgorithm(finalBuild.buildArmor.legsGear, this.wList, finalBuild, true)
+                this.rateGear(finalBuild.buildArmor.legsGear, this.wList, finalBuild, true)                        
+                this.rateFlatGear(finalBuild.buildArmor.legsGear, this.wList, finalBuild, true)
+
+                this.decoAlgorithm(finalBuild.buildTalisman, this.wList, finalBuild, true)
+                this.rateGear(finalBuild.buildTalisman, this.wList, finalBuild, true)                        
+                this.rateFlatGear(finalBuild.buildTalisman, this.wList, finalBuild, true)
+
+
                 console.log(finalBuild)
                 this.setBuild(finalBuild)
                 this.setBuildSkills(this.totalSkillLevels(finalBuild))
                 this.isLoading = false
             },
-
             isGearTypeFree: function(gear, build){
                 ////console.log(gear)
                 ////console.log(build)
@@ -302,7 +332,6 @@ import GuidePanel from './GuidePanel.vue'
             },
             rateGear: function(gear, wishlist, build, buildWrapup){
                 //rate gear according to how many OPEN skilllvls of wl are fulfilled
-                //TODO optimize algorithm by multiplying rating with 1/prio or something
                 const catchOverflow = []
 
                 gear._rating = 0
@@ -314,7 +343,7 @@ import GuidePanel from './GuidePanel.vue'
                         //only if totalgearskills dont exceed selectedlvl
                         //console.log(this.totalSkillLevels(build, gear, buildWrapup).find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl)
                         //console.log(wishlistSkill._selectedLvl)
-                        if(this.totalSkillLevels(build, gear, buildWrapup, buildWrapup).find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl <= 
+                        if(this.totalSkillLevels(build, gear, buildWrapup).find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl <= 
                             wishlistSkill._selectedLvl
                         ){
                             gear._rating += 1 * (1/wishlistSkill._prio)
@@ -483,7 +512,7 @@ import GuidePanel from './GuidePanel.vue'
                                         //TODO try out effectiveness of if statement to check for overshooting 
                                         ///*
                                         if(
-                                        !currentSkillLevels.some(skill => skill._name === wishlist._skillSelectionArray[wlSkill]._name) ||
+                                        buildWrapup == true || !currentSkillLevels.some(skill => skill._name === wishlist._skillSelectionArray[wlSkill]._name) ||
                                         skillDecoArr[i-1]._skill_lvl +
                                         currentSkillLevels.find(skill => skill._name === wishlist._skillSelectionArray[wlSkill]._name)._lvl <=
                                         wishlist._skillSelectionArray[wlSkill]._selectedLvl){//*/
@@ -558,13 +587,13 @@ import GuidePanel from './GuidePanel.vue'
                                     addedSkillList.find(skill => skill._name === armorPieceVar._skill_array[i]._skill_name)._lvl += 1
                                 }else {
                                     //TESTING: remove if statement to find missing skills in db!
-                                    if(this.findSkill(armorPieceVar._skill_array[i]._skill_name) != null){
+                                    //if(this.findSkill(armorPieceVar._skill_array[i]._skill_name) != null){
                                         //console.log(armorPieceVar._skill_array[i]._skill_name)
                                         //console.log(this.findSkill(armorPieceVar._skill_array[i]._skill_name))
                                         
                                         addedSkillList[addedSkillList.length] = this.findSkill(armorPieceVar._skill_array[i]._skill_name)
                                         addedSkillList[addedSkillList.length-1]._lvl = 1 //as many entries as lvls -> build.buildArmor[i]._skill_array[i]._lvl
-                                    }
+                                    //}
                                 }
                             }
                         }

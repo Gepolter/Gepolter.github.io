@@ -7,7 +7,7 @@
     <div class="selectionArrayCollapsible">
         <vue-collapsible-panel-group accordion >
             <!--for every element in TAL array one collapsible. !!!no events from collapsible...... why?!-->
-            <vue-collapsible-panel v-for="talisman in getTalismans" :key="talisman._name" :expanded="false">
+            <vue-collapsible-panel v-for="talisman in getTalismans" :key="talisman._name" :expanded="true">
                 <template #title>
                     <div class="collapsibleHeader">
                         <div class="collapsibleHeaderName">

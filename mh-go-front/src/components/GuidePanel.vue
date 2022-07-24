@@ -1,46 +1,89 @@
 <template>
     <div class="borderWrapperGuide">
         <div class="guideWindow">
-            <button class="close" type="submit" @click="close">X</button>
             <div v-if="page == 0" class="guidePage">
-                <div class="borderWrapperHeading">
-                    <div class="guideHeading">Guide</div>
+                <div class="headingOneLine">
+                    <div class="borderWrapperHeading">
+                        <div class="guideHeading">Guide</div>
+                    </div>
+                    <button class="close" type="submit" @click="close">X</button>
                 </div>
-                <div  class="contentDiv">
-                    <p>Welcome Hunter!</p>
-                    <p>this <span class="keyword">Guide</span> is here to help you get a grasp configuring your setup,</p>
-                    <p>so our palicos can get to work assembling the perfect build for your hunting needs.</p>
-                    <p>If you ever need some refresher how to use the components of this site,</p>
-                    <p>just click the button titled "<span class="keyword">Guide</span>" in the upper right</p>
-                    <p>and this window will reopen for you.</p>
-                    <br><p></p>
-                    <p>Let's get to it on the next page!</p>
+                <div class="contentDiv">
+                    <div class="contentText">
+                        <p>Welcome Hunter!</p>
+                        <p>This <span class="keyword">Guide</span> is here to help you get a grasp on configuring your wishlists and talismans,</p>
+                        <p>so our palicos can get to work assembling the perfect build for your hunting needs.</p>
+                        <p>If you ever need some refresher on how to use any of the components,</p>
+                        <p>just click the button titled "<span class="keyword">Guide</span>" in the upper right</p>
+                        <p>and this panel will reopen for you.</p>
+                        <br><p></p>
+                        <p>Let's get to it on the next page!</p>
+                    </div>
+                    
                 </div>
             </div>
             <div v-if="page == 1" class="guidePage">
-                <div class="borderWrapperHeading">
-                    <div class="guideHeading">Wishlist</div>
+                <div class="headingOneLine">
+                    <div class="borderWrapperHeading">
+                        <div class="guideHeading">Wishlist</div>
+                    </div>
+                    <button class="close" type="submit" @click="close">X</button>
                 </div>
                 <div class="contentDiv">
-                    <p>page2</p>
-                    <p>next line</p>
+                    <div class="contentText">
+                        <p>Here you choose the skills you want for your build.</p>
+                        <p>Use Dropdown and Slider to choose the skills and levels you want.</p>
+                        <p>The button "Add Skill" will add a new Item to your <span class="keyword">Wishlist</span>.</p>
+                        <p>Their order is important though!</p>
+                        <p>You can Drag & Drop the skill items to change their priority.</p>
+                        <p>This heavily affects, how the palicos *cough* algorithm *cough*</p>
+                        <p>look for the right gear and decos for your build.</p>
+                        
+                    </div>
+                    <div class="contentImg">
+                        <img v-bind:src="wlExample">
+                    </div>
                 </div>
             </div>
             <div v-if="page == 2" class="guidePage" >
-                <div class="borderWrapperHeading">
-                    <div class="guideHeading">Talisman config</div>
+                <div class="headingOneLine">
+                    <div class="borderWrapperHeading">
+                        <div class="guideHeading">Talisman config</div>
+                    </div>
+                    <button class="close" type="submit" @click="close">X</button>
                 </div>
                 <div class="contentDiv">
-                    <p>page3</p>
+                    <div class="contentText">
+                        <p>This component is quite similar to the Wishlist.</p>
+                        <p>There is no priority here though.</p>
+                        <p>To configure the slots of a <span class="keyword">Talisman</span>, just click the buttons with the decos</p>
+                        <p>until the slots match your talisman.</p>
+                        <p>If your <span class="keyword">Talisman</span> has less than three slots,</p>
+                        <p>select the ones it has from left to right and leave the "empty" ones on the white symbol,</p>
+                        <p>just like in the picture. That's it!</p>
+
+
+                    </div>
+                    <div class="contentImg">
+                        <img v-bind:src="talExample">
+                    </div>
                 </div>
             </div>
             <div v-if="page == 3" class="guidePage">
-                <div class="borderWrapperHeading">
-                    <div class="guideHeading">Build options & table</div>
+                <div class="headingOneLine">
+                    <div class="borderWrapperHeading">
+                        <div class="guideHeading">Build options & table</div>
+                    </div>
+                    <button class="close" type="submit" @click="close">X</button>
                 </div>
                 <div class="contentDiv">
-                    <p>page4 rumor has it, some wild Palicos come out to help those, </p>
-                    <p>who brave the onslaught of options...</p>
+                    <div class="contentText">
+                        <p>page4 rumor has it, some wild Palicos come out to help those, </p>
+                        <p>who brave the onslaught of options...</p>
+                    </div>
+                    <div class="contentImg">
+                        <img v-bind:src="buildExample">
+                    </div>
                 </div>
             </div>
             <div class="nav">
@@ -57,7 +100,11 @@
     export default {
         data(){
             return{
-                page: 0
+                page: 0,
+                buildExample: require('../assets/Build-Example.png'),
+                wlExample: require('../assets/Wishlist-Example.png'),
+                talExample: require('../assets/Talisman-Example.png')
+
             }
         },
         methods: {
@@ -79,20 +126,20 @@
 </script>
 <style lang="scss">
     .borderWrapperGuide{
-        height: 40vh;
-        width: 50vw;
+        height: 50vh;
+        width: 80vw;
         border: 3px solid var(--mh-gray);
         background: linear-gradient(var(--mh-dark-yellow), var(--mh-yellow));
         color: var(--mh-white);
         position: absolute;
         top: 30vh;
-        left: 25vw;
+        left: 10vw;
         text-align: center;
         padding: 5px, 5px,5px,5px;
         display: flex;
         justify-content: center;
         align-items: center;
-        border-radius: 0.5%;
+        border-radius: 1%;
     }
     .guideWindow{
         background: linear-gradient(black, var(--mh-gray));
@@ -100,15 +147,12 @@
         flex-direction: column;
         align-items: center;
         height: 98%;
-        width: 98%;
+        width: 99%;
         border-radius: 1%;       
     }
     .guideWindow > div{
         width: 100%;
         font-family: "sans-serif";
-    }
-    .guideWindow > p{
-        height: 1em;
     }
     .close{
         align-self: flex-end;
@@ -128,7 +172,17 @@
         text-align: center;
         
     }
-    
+    .headingOneLine{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+
+    }
+    .headingOneLine > button{
+        
+    }
     .borderWrapperHeading{
         clip-path: polygon(5% 0%, 95% 0%, 100% 50%, 95% 100%, 5% 100%, 0% 50%);
         padding: 0px 5px 0px 5px;
@@ -137,20 +191,42 @@
         display: flex;
         width: 50%;
         margin: 3px;
+        margin-left: 25%;
     }
     .contentDiv{
         width: 95%;
+        max-height: 40vh;
         flex: 3;
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: flex-start;
         border: 4px solid orange;
-        text-align: left;
     }
     .contentDiv > p{
         border-bottom: 2px dashed rgba(128, 128, 128, 0.245);
         width: 100%;
+        max-height: 40vh;
         margin: 0px;
+    }
+    .contentText{
+        text-align: left;
+        flex: 1;
+        
+    }.contentText > p{
+        border-bottom: 2px dashed rgba(128, 128, 128, 0.245);
+        width: 100%;
+        margin: 0px;
+        flex: 1;
+        
+    }
+    .contentImg{
+        flex: 1;
+        width: 50%;
+    }
+    .contentImg > img{
+        max-height: 40vh;
+        max-width: 35vw;
+        object-fit: cover;
     }
     .nav{
         height: min-content;

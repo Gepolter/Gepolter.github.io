@@ -14,14 +14,17 @@ const express = require("express")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 const cors = require("cors")
+const dotenv = require("dotenv")
+
+dotenv.config()
 
 //require and use route files
 const builderRoute = require("./routes/builder")
 
 
 //require("dotenv").config({ path: `.env.${process.env.MONGO_ENV}` })
-
-const uri = "mongodb+srv://Gepolter:KrummeMhrGoDB239$@mhrgodb.h9kql.mongodb.net/MhrGoTestData?retryWrites=true&w=majority"
+const uri = process.env.MONGO_URL
+//const uri = "mongodb+srv://Gepolter:KrummeMhrGoDB239$@mhrgodb.h9kql.mongodb.net/MhrGoTestData?retryWrites=true&w=majority"
 //mongodb+srv://Gepolter:<password>@mhrgodb.h9kql.mongodb.net/?retryWrites=true&w=majority
 
 mongoose.connect(uri, {
@@ -69,7 +72,7 @@ app.put("/newBuild:customizedId", (req, res)=>{
 
 
 //start server
-let portNum = 3000
+let portNum = process.env.PORT
 app.listen(portNum, ()=>{
     console.log(`listening at port:${portNum}`)
 }) 

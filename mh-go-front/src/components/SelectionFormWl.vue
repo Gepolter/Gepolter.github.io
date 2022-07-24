@@ -7,7 +7,7 @@
     <div class="selectionArrayCollapsible">
         <vue-collapsible-panel-group accordion>
             <!--for every element in wl array one collapsible. !!!no events from collapsible...... why?!-->
-            <vue-collapsible-panel v-for="wishlist in getWishlists" :key="wishlist._name" :expanded="false">
+            <vue-collapsible-panel v-for="wishlist in getWishlists" :key="wishlist._name" :expanded="true">
                 <template #title>
                     <div class="collapsibleHeader">
                         {{wishlist._name}}

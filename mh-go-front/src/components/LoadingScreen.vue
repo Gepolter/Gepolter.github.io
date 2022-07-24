@@ -21,12 +21,12 @@
             </div>
 
         </div>
-        <div class="progress-div">
+        <!--div class="progress-div">
             {{buildsFinished}}
             /
             {{buildsTotal}}
              builds calculated
-        </div>
+        </div-->
     </div>
 </template>
 <script>
