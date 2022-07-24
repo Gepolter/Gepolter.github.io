@@ -80,18 +80,7 @@ nav {
 </style>
 
 <script>
-//import { useStore } from 'vuex';
-//import { onMounted } from 'vue';
-//fetch all relevant data for builder and register in state on mount 
 
 export default {
-  /*
-  setup () {
-    const store = useStore();
-    onMounted(() => {
-      store.commit('getSkills');
-    });
-  }
-  */
 }
 </script>
