@@ -75,6 +75,9 @@
 //https://weekendprojects.dev/posts/css-rotate-animations-examples/
 //https://jsfiddle.net/78kt1p5j/1/
 //http://test-a-tag.com/
+//https://medium.com/bb-tutorials-and-thoughts/how-to-build-mevn-stack-for-production-91a53534758f
+//https://medium.com/bb-tutorials-and-thoughts/reading-environment-variables-in-nodejs-rest-api-e75bb04b813d
+
 //import SelectionFormVue from './SelectionForm.vue'
 import SelectionFormWl from './SelectionFormWl.vue'
 import SelectionFormTal from './SelectionFormTal.vue'

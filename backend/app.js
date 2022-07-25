@@ -1,47 +1,34 @@
-//this is the express API
-//here, the connection to the db is established
-//and functions are provided that the frontend may consume via http requests
-/*
-CRUD    HTTP
-Create  POST 
-Read    GET
-Update  PUT
-Delete  DELETE
-
-*/
-
 const express = require("express")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 const cors = require("cors")
-const dotenv = require("dotenv")
-
-dotenv.config()
-
-//require and use route files
-const builderRoute = require("./routes/builder")
-
-
-//require("dotenv").config({ path: `.env.${process.env.MONGO_ENV}` })
-const uri = process.env.MONGO_URL
-//const uri = "mongodb+srv://Gepolter:KrummeMhrGoDB239$@mhrgodb.h9kql.mongodb.net/MhrGoTestData?retryWrites=true&w=majority"
-//mongodb+srv://Gepolter:<password>@mhrgodb.h9kql.mongodb.net/?retryWrites=true&w=majority
-
-mongoose.connect(uri, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  })
-  .then(() => {
-    console.log('MongoDB Connected')
-  })
-  .catch(err => console.log(err))
 
 // create our express app
 const app = express()
+
+const environment = process.env.NODE_ENV
+console.log(environment)
+
+
+
+//const uri = process.env.MONGO_URL
+const uri = DB_CONNECTION_STR
+
+mongoose.connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
+.then(() => {
+  console.log('MongoDB Connected')
+})
+.catch(err => console.log(err))
+
 // middleware
 app.use(bodyParser.json())
 app.use(cors())
 
+//require and use route files
+const builderRoute = require("./routes/builder")
 // routes
 app.use("/builder", builderRoute)
 // routes correspond with middleware functions implemented here
@@ -72,7 +59,7 @@ app.put("/newBuild:customizedId", (req, res)=>{
 
 
 //start server
-let portNum = process.env.PORT
+let portNum = process.env.PORT || 3000
 app.listen(portNum, ()=>{
     console.log(`listening at port:${portNum}`)
 }) 
