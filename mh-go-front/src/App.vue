@@ -41,8 +41,9 @@
   --vs-transition-duration: 1500ms;
 */
   .vcp__header-icon{
-    border: 3px solid var(--mh-white);
-    height: 100%;
+    height: 0%;
+    width: 0%;
+    overflow: hidden;
   }
   .vcp__header-title{
     flex: 4;
@@ -52,6 +53,9 @@
     justify-content: space-between;
     align-items:stretch;
     padding-bottom: 5px;
+  }
+  .vcp__body{
+    max-height: fit-content;
   }
 
   button{
@@ -81,6 +85,4 @@ nav {
 
 <script>
 
-export default {
-}
 </script>
