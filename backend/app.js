@@ -43,7 +43,8 @@ app.use("/builder", builderRoute)
 //have to write custom method
 
 app.get("/", (req,res)=>{
-    res.send('backend app connected on port: ${process.env.PORT}')
+    res.send('backend app connected')
+    console.log(`listening at port:${portNum}`)
 })
 
 app.get("/newBuild", (req, res)=>{
