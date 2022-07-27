@@ -7,8 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js",
     "build": "webpack --config ./webpack/webpack-dev.config.js",
-    "prod": "node dist/api.bundle.js",
-    "heroku-postbuild": "node backend/dist/api.bundle.js && mh-go-front && npm install && npm run prod"
+    "prod": "node dist/api.bundle.js"
   },
   "keywords": [],
   "author": "",
