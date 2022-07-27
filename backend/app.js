@@ -10,6 +10,7 @@ const app = express()
 
 const environment = process.env.NODE_ENV
 console.log(environment)
+const PORT = 0
 
 let uri = 0
 try{
@@ -61,13 +62,14 @@ app.put("/newBuild:customizedId", (req, res)=>{
   //making this an Update/PUT method
 })
 
-app.use(express.static(path.join(__dirname, '../views')))
-app.get('*', (req, res) =>{
-  res.sendFile(path.join(__dirname + '/..views/index.html'))
+app.use(express.static(path.join(__dirname, './views')))
+
+app.get('/*', (req, res) =>{
+  res.sendFile(path.join(__dirname + './views', 'index.html'))
 })
 
 //start server
-let portNum = PORT || 3000
+let portNum = process.env.PORT || 3000
 app.listen(portNum, ()=>{
     console.log(`listening at port:${portNum}`)
 }) 

@@ -1,1 +1,1 @@
-web: node backend/webpack/dist/api.bundle.js
+web: node backend/dist/api.bundle.js
