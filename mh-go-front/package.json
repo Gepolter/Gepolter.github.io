@@ -2,10 +2,12 @@
   "name": "mh-go-front",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http:localhost:3000",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "prod": "cd dist && node index.html"
   },
   "dependencies": {
     "@dafcoe/vue-collapsible-panel": "^0.2.0",

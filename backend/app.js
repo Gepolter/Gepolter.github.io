@@ -2,6 +2,8 @@ const express = require("express")
 const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 const cors = require("cors")
+const path = require("path")
+
 
 // create our express app
 const app = express()
@@ -59,7 +61,10 @@ app.put("/newBuild:customizedId", (req, res)=>{
   //making this an Update/PUT method
 })
 
-
+app.use(express.static(path.join(__dirname, '../views')))
+app.get('*', (req, res) =>{
+  res.sendFile(path.join(__dirname + '/..views/index.html'))
+})
 
 //start server
 let portNum = PORT || 3000
