@@ -31,17 +31,17 @@ const Wishlist = mongoose.model("Wishlist", wishlistSchema)
 module.exports = Wishlist
 
 const skillSchema = new mongoose.Schema({
-    "_id": String,
+    "_id": Number,
     "_name": String,
-    "_maxLvl": Number,
+    "_maxLvl": String,
     "_deco_array":Array
 }/*{collection: 'skills'}*/)
 const Skill = mongoose.model("Skill", skillSchema, "skills_master_rank")
 module.exports = Skill
 
 const armorSchema = new mongoose.Schema({
-    "_id": String,
-    "_set": String,
+    "_id": Number,
+    "_name": String,
     "_type_id": String,
     "_skill_array": [],
     "_slot_array_name": String
