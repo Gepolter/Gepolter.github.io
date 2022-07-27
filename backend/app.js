@@ -62,10 +62,10 @@ app.put("/newBuild:customizedId", (req, res)=>{
   //making this an Update/PUT method
 })
 
-app.use(express.static(path.join(__dirname, './views')))
+app.use(express.static(path.join(__dirname, '/views')))
 
 app.get('/*', (req, res) =>{
-  res.sendFile(path.join(__dirname + './views', 'index.html'))
+  res.sendFile(path.join(__dirname + '/views', 'index.html'))
 })
 
 //start server
