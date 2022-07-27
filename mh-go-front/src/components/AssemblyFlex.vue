@@ -44,8 +44,8 @@
             </div>
             <div class="flex-component4">
                 <button @click="toggleGuide()" class='guideBtn'>
+                    <p>Guide</p>
                     <img v-bind:src="guideImg">
-                    <p>Builders<br>Notes</p>
                 </button>
             </div>
         

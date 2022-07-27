@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon app.js",
-    "build": "webpack",
-    "prod": "node dist/api.bundle.js"
+    "build": "webpack --config ./webpack/webpack-dev.config.js",
+    "prod": "node webpack/dist/api.bundle.js"
   },
   "keywords": [],
   "author": "",

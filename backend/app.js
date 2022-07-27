@@ -9,10 +9,13 @@ const app = express()
 const environment = process.env.NODE_ENV
 console.log(environment)
 
-
-
+let uri = 0
+try{
+   uri = DB_CONNECTION_STR
+}catch (err){
+   uri = 'mongodb+srv://Gepolter:KrummeMhrGoDB239$@mhrgodb.h9kql.mongodb.net/MhrGoTestData?retryWrites=true&w=majority'
+}
 //const uri = process.env.MONGO_URL
-const uri = DB_CONNECTION_STR
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
@@ -59,7 +62,7 @@ app.put("/newBuild:customizedId", (req, res)=>{
 
 
 //start server
-let portNum = process.env.PORT || 3000
+let portNum = PORT || 3000
 app.listen(portNum, ()=>{
     console.log(`listening at port:${portNum}`)
 }) 

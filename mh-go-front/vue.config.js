@@ -1,4 +1,5 @@
 const { defineConfig } = require('@vue/cli-service')
+const path = require('path')
 module.exports = defineConfig({
   transpileDependencies: true,
   chainWebpack: config => {
@@ -13,5 +14,9 @@ module.exports = defineConfig({
         }
       }))
       
-  }
+  },
+  /*
+  publicPath: process.env.NODE_ENV === 'production'
+    ?'mhBuildPawcessor'
+    : ''*/
 })

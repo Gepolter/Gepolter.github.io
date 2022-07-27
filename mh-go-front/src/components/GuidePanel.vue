@@ -11,11 +11,13 @@
                 <div class="contentDiv">
                     <div class="contentText">
                         <p>Welcome Hunter!</p>
-                        <p>This <span class="keyword">Guide</span> is here to help you get a grasp on configuring your wishlists and talismans,</p>
-                        <p>so our palicos can get to work assembling the perfect build for your hunting needs.</p>
+                        <p>This <span class="keyword">Guide</span> is here to help you to get a grasp on configuring your </p>
+                        <p>wishlists and talismans, so our palicos can get to work</p>
+                        <p>assembling the perfect build for your hunting needs.</p>
+                        <br><p></p>
                         <p>If you ever need some refresher on how to use any of the components,</p>
-                        <p>just click the button titled "<span class="keyword">Guide</span>" in the upper right</p>
-                        <p>and this panel will reopen for you.</p>
+                        <p>just click the button titled "<span class="keyword">Guide</span>" in the upper right and this panel will reopen for you.</p>
+                        
                         <br><p></p>
                         <p>Let's get to it on the next page!</p>
                     </div>
@@ -78,8 +80,14 @@
                 </div>
                 <div class="contentDiv">
                     <div class="contentText">
-                        <p>page4 rumor has it, some wild Palicos come out to help those, </p>
-                        <p>who brave the onslaught of options...</p>
+                        <p>Everything that's left to do is select your wishlist</p>
+                        <p>and the decoration slots of the weapon you want to use.</p>
+                        <p>The <span class="keyword">Calculate Build</span> button will pass your order along</p>
+                        <p>and our Palicos will take care of the rest.</p>
+                        <br><p></p>
+                        <p>They will hurry along and you will have your custom taylored mixed set</p>
+                        <p>faster than a Zinogre can charge up</p>
+                        <p>...while beeing clobbered on, if you're here on your mobile.</p>
                     </div>
                     <div class="contentImg">
                         <img v-bind:src="buildExample">
@@ -127,13 +135,12 @@
 <style lang="scss">
     .borderWrapperGuide{
         height: 50vh;
-        width: 80vw;
         border: 3px solid var(--mh-gray);
         background: linear-gradient(var(--mh-dark-yellow), var(--mh-yellow));
         color: var(--mh-white);
         position: absolute;
         top: 30vh;
-        left: 10vw;
+        align-self: center;
         text-align: center;
         padding: 5px, 5px,5px,5px;
         display: flex;
@@ -147,7 +154,7 @@
         flex-direction: column;
         align-items: center;
         height: 98%;
-        width: 99%;
+        width: 98%;
         border-radius: 1%;       
     }
     .guideWindow > div{
@@ -200,7 +207,6 @@
         display: flex;
         flex-direction: row;
         align-items: flex-start;
-        border: 4px solid orange;
     }
     .contentDiv > p{
         border-bottom: 2px dashed rgba(128, 128, 128, 0.245);
@@ -217,15 +223,13 @@
         width: 100%;
         margin: 0px;
         flex: 1;
-        
     }
     .contentImg{
         flex: 1;
-        width: 50%;
     }
     .contentImg > img{
         max-height: 40vh;
-        max-width: 35vw;
+        max-width: 100%;
         object-fit: cover;
     }
     .nav{
