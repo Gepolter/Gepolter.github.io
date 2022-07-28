@@ -16,7 +16,7 @@ let uri = 0
 try{
    uri = DB_CONNECTION_STR
 }catch (err){
-   uri = 'mongodb+srv://Gepolter:KrummeMhrGoDB239$@mhrgodb.h9kql.mongodb.net/MhrGoTestData?retryWrites=true&w=majority'
+   
 }
 //const uri = process.env.MONGO_URL
 
@@ -41,11 +41,11 @@ app.use("/builder", builderRoute)
 //this design seems to couple all functions defined in the backend / API
 //to uri addresses...
 //have to write custom method
-
+/*
 app.get("/", (req,res)=>{
     res.send('backend app connected')
     console.log(`listening at port:${portNum}`)
-})
+})*/
 
 app.get("/newBuild", (req, res)=>{
   res.send("newBuild route working")
