@@ -9,6 +9,7 @@
 
 
   </nav>
+  <GoogleAdSense adSlot="5373754521" :timeout="200" classNames="page-top"/>
   <router-view/>
 </template>
 
@@ -84,11 +85,40 @@ nav {
     }
   }
 }
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+}
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: var(--mh-gray); 
+  background: linear-gradient(var(--mh-dark-green), var(--mh-light-blue));
+  border: 2px solid black;
+  border-radius: 50%;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--mh-dark-red), var(--mh-red));
+  border:2px solid var(--mh-orange);
+  border-radius: 70%;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(var(--mh-dark-green), var(--mh-light-blue));
+}
 
 
 </style>
 
 <script>
-
+  import GoogleAdSense from "../src/components/GoogleAdSense"
+  export default {
+  name: "App",
+  components: {
+    GoogleAdSense
+  }
+};
 </script>

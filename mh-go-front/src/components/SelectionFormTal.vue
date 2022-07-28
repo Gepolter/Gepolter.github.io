@@ -1,96 +1,97 @@
 <template>
-
-    <div  class="header">
-        talismans
-    </div>
-    <!-- talismans/talismans: array of collapsibles v-for-->
-    <div class="selectionArrayCollapsible">
-        <vue-collapsible-panel-group accordion >
-            <!--for every element in TAL array one collapsible. !!!no events from collapsible...... why?!-->
-            <vue-collapsible-panel v-for="talisman in getTalismans" :key="talisman._name" :expanded="true">
-                <template #title>
-                    <div class="collapsibleHeader">
-                        <div class="collapsibleHeaderName">
-                            {{talisman._name}}
+    <div class="borderWrapperConfig">
+        <div  class="header">
+            talismans
+        </div>
+        <!-- talismans/talismans: array of collapsibles v-for-->
+        <div class="selectionArrayCollapsible">
+            <vue-collapsible-panel-group accordion >
+                <!--for every element in TAL array one collapsible. !!!no events from collapsible...... why?!-->
+                <vue-collapsible-panel v-for="talisman in getTalismans" :key="talisman._name" :expanded="true">
+                    <template #title>
+                        <div class="collapsibleHeader">
+                            <div class="collapsibleHeaderName">
+                                {{talisman._name}}
+                            </div>
+                            <!--button type="submit" style="display: inline;" @click="activateTAL(talisman)">activate</button-->
+                            <div class="collapsibleHeaderBtn">
+                                <button type="submit" style="display: inline;" @click="deleteTal(talisman)">X</button>
+                            </div>
                         </div>
-                        <!--button type="submit" style="display: inline;" @click="activateTAL(talisman)">activate</button-->
-                        <div class="collapsibleHeaderBtn">
-                            <button type="submit" style="display: inline;" @click="deleteTal(talisman)">X</button>
+                    </template>
+                    <template #content>
+                        <!-- here four of these cyclestates are needed and the labels have to display the tal picture + hold a gettable value / pseudo button has to emit event to cycle state in tal obj(store)-->
+                        <div class="slotSelection">
+                            <SlotItemBtn @send="setSlotLvl(talisman, 0, $event)"/>
+                            <SlotItemBtn @send="setSlotLvl(talisman, 1, $event)"/>
+                            <SlotItemBtn @send="setSlotLvl(talisman, 2, $event)"/>                     
                         </div>
-                    </div>
-                </template>
-                <template #content>
-                    <!-- here four of these cyclestates are needed and the labels have to display the tal picture + hold a gettable value / pseudo button has to emit event to cycle state in tal obj(store)-->
-                    <div class="slotSelection">
-                        <SlotItemBtn @send="setSlotLvl(talisman, 0, $event)"/>
-                        <SlotItemBtn @send="setSlotLvl(talisman, 1, $event)"/>
-                        <SlotItemBtn @send="setSlotLvl(talisman, 2, $event)"/>                     
-                    </div>
-                    
-                    <div class ="selectionHeader">
-                        <label style="flex:5">Skill</label>
-                        <label>Lvl</label>
-                        <label>Del</label>
-                    </div>
-                    <!-- items of TAL/tals array of selectionItems(custom class)-->
-                    <!-- this should be draggable to select prios-->
-                    <div class="selectionItems">
-                        <SelectionItem 
-                            v-for="selectedSkill in talisman._nat_skill_arr"
-                            :key="selectedSkill._skill_name"
-                            :skillName="selectedSkill._skill_name"
-                            :skillLvl="selectedSkill._selectedLvl"
-                            :skillPrio="selectedSkill._prio"
-                            @send="removeSkill(talisman, $event)">
-                            
-                        </SelectionItem>
-                    </div>
-                    <div class="selectionItemBuilder">
-                        <v-select 
-                            :options="getSkills"
-                            label="_name"
-                            v-model="selectedSkill"
-                            @option:selected="resetSlider()"
-                            >
-
-                        </v-select>
-                        <!--:reduce="getSkills => getSkills._maxLvl" -->
-                        <div class="sliderDiv">
-                            <v-slider 
-                                v-model="myLvl"
-                                :min = 1
-                                :max="selectedSkill._maxLvl"
-                                :height = 20
+                        
+                        <div class ="selectionHeader">
+                            <label style="flex:5">Skill</label>
+                            <label>Lvl</label>
+                            <label>Del</label>
+                        </div>
+                        <!-- items of TAL/tals array of selectionItems(custom class)-->
+                        <!-- this should be draggable to select prios-->
+                        <div class="selectionItems">
+                            <SelectionItem 
+                                v-for="selectedSkill in talisman._nat_skill_arr"
+                                :key="selectedSkill._skill_name"
+                                :skillName="selectedSkill._skill_name"
+                                :skillLvl="selectedSkill._selectedLvl"
+                                :skillPrio="selectedSkill._prio"
+                                @send="removeSkill(talisman, $event)">
                                 
-                                :rail-style="railStyle"
-                                :process-style="processStyle"
-                                :tooltip="'none'"
-                                :marks ="marks"
-                                :step-style="stepStyle"
-                                >
-                                <template v-slot:dot="{focus}">
-                                    <div :class="['custom-dot', {focus}]"></div>
-                                </template>
-                                <template v-slot:step="{active}">
-                                    <div :class="['custom-step', {active}]">
-                                    <img v-bind:src="marksImg"/></div>
-                                </template>
-                            </v-slider>
-                            
+                            </SelectionItem>
                         </div>
-
-                        <button type="submit" class="btn btn__primary btn__lg" @click="addSkill(selectedSkill._name, myLvl, talisman)">
-                            Add Skill
-                        </button>
-                    </div>
-                </template>
-            </vue-collapsible-panel>
-        </vue-collapsible-panel-group>
-        <div class="addPanel">
-            <input v-model="text" placeholder="Talisman Name"/>
-            <button type="submit" @click="addTalisman(text)">
-                create talisman
-            </button>
+                        <div class="selectionItemBuilder">
+                            <v-select 
+                                :options="getSkills"
+                                label="_name"
+                                v-model="selectedSkill"
+                                @option:selected="resetSlider()"
+                                >
+    
+                            </v-select>
+                            <!--:reduce="getSkills => getSkills._maxLvl" -->
+                            <div class="sliderDiv">
+                                <v-slider 
+                                    v-model="myLvl"
+                                    :min = 1
+                                    :max="selectedSkill._maxLvl"
+                                    :height = 20
+                                    
+                                    :rail-style="railStyle"
+                                    :process-style="processStyle"
+                                    :tooltip="'none'"
+                                    :marks ="marks"
+                                    :step-style="stepStyle"
+                                    >
+                                    <template v-slot:dot="{focus}">
+                                        <div :class="['custom-dot', {focus}]"></div>
+                                    </template>
+                                    <template v-slot:step="{active}">
+                                        <div :class="['custom-step', {active}]">
+                                        <img v-bind:src="marksImg"/></div>
+                                    </template>
+                                </v-slider>
+                                
+                            </div>
+    
+                            <button type="submit" class="btn btn__primary btn__lg" @click="addSkill(selectedSkill._name, myLvl, talisman)">
+                                Add Skill
+                            </button>
+                        </div>
+                    </template>
+                </vue-collapsible-panel>
+            </vue-collapsible-panel-group>
+            <div class="addPanel">
+                <input v-model="text" placeholder="Talisman Name"/>
+                <button type="submit" @click="addTalisman(text)">
+                    create talisman
+                </button>
+            </div>
         </div>
     </div>
 </template>
@@ -326,6 +327,17 @@
     }
     .selectionArrayCollapsible{
         border: 3px solid black;
+        background: var(--mh-gray);
+        margin: 3px 3px 3px 3px;
+    }
+    .borderWrapperConfig{
+        border: 1px solid var(--mh-gray);
+        background: linear-gradient(var(--mh-dark-yellow), var(--mh-yellow));
+        border-radius: 1%;
+        box-shadow: 5px 10px 5px black;
+        display: flex;
+        flex-direction: column;
+        padding: 2px;
     }
 
     .selectionHeader{

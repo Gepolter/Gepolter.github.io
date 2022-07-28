@@ -249,38 +249,18 @@ import { mapGetters } from 'vuex'
                         break
                 }
             }
-            /*
-            addImage: function(colNum){
-
-            },
-            addLabel: function(contentString){
-                
-            },
-            displayBuild: function(build){
-                this.clearGrid()
-
-            }
-            */
         }
     }
 </script>
 
 <style lang="scss">
     .animated-grid {
-        /*vh => % of viewport*/ 
         height: 100%;
         width: 100%;
         display: grid;
-        /*gap: 0.5rem;
-
-        /*grid-template-areas: ;*/
-        
-
         grid-template-columns: auto 1fr repeat(7 , 1fr);
         grid-auto-rows: repeat(auto-fit, 1fr);
-
         --stagger-delay: 100ms
-
     }
 
     
@@ -312,6 +292,9 @@ import { mapGetters } from 'vuex'
     .cell:hover {
         box-shadow: rgba(2, 8, 20, 0.1) 0px 0.35em 1.175em, rgba(2, 8, 20, 0.08) 0px 0.175em 0.5em;
         transform: translateY(-3px) scale(1.1);
+        animation: cellEntrance;
+        animation: cellEntrance 700ms ease-out;
+        animation-fill-mode: backwards;
     }
     .decoDiv{      
         display: flex;

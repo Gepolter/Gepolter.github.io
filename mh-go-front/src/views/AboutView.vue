@@ -6,7 +6,7 @@
      thank you for trying out the Gear Optimizer!<br>
      I hope you can get some use out of this project.
      If you find any bugs, problems, or have some ideas about how to make the site more intuitive,<br>
-     please let me know via <a rel="stylesheet" href="mailto: mhGearOptimizer@gmail.com" target="_blank">mhGearOptimizer@gmail.com</a>. Any kind of feedback is welcome, really.<br>
+     please let me know via <a rel="stylesheet" href="mailto: pawcessor@gmail.com" target="_blank">pawcessor@gmail.com</a>. Any kind of feedback is welcome, really.<br>
     <br>
      This Website kinda grew out of an idea I had, when I was first learning how to code in 2020,<br>
      Back then, I wrote a small algorithm for setting decorations that displayed its results in the console 
@@ -24,14 +24,15 @@
     <hr>
     <h2>roadmap</h2>
     <hr>
-    <p>Next steps in development are:
+    <p>In case some people actually start using the builder, the next steps of development i'd have in mind are these:
       <ul>
-        <li>Adding user registration, so you can save your talisman and wishlist configurations</li>
+        <li>Adding user registration, so you can save your talisman and wishlist configurations.</li>
         <li>Make the page more intuitive, especially on mobile devices.<br>
-          Therefore I'd like to overhaul some of the styling and add animations to make expanding/shrinking dropdowns less confusing</li>
-        <li>Expand the Database, so i can make builders for other titles, beginning with Iceborn</li>
-        <li>Afterwards I would love to add a sidebar to navigate builers for different titles</li>
-        <li>More puns, better cat animations</li>
+          Therefore I'd like to overhaul some of the styling and add animations to make expanding/shrinking dropdowns less confusing.</li>
+        <li>Expand the Database, so i can make builders for other titles, beginning with Iceborn.</li>
+        <li>Afterwards I would love to add a sidebar to navigate builers for different titles.</li>
+        <li>Upgrade cat animations in the loading screen.</li>
+        <li>More puns.</li>
       </ul>
     </p>
   </div>
@@ -49,14 +50,32 @@
 
 <style scoped>
   .about{
+    width: 95%;
+    align-self: center;
+    border: 2px solid var(--mh-dark-yellow);
+    border-radius: 1%;
+    padding: 10px  10px 10px 10px;
+    margin: 10px 0 10px 0;
     text-align: left;
     background: linear-gradient(180deg, rgba(9,25,55,1) 0%, rgba(19,48,90,1) 100%);
   }
   .roadmap{
+    width: 95%;
+    align-self: center;
+    border: 2px solid var(--mh-dark-yellow);
+    border-radius: 1%;
+    padding: 10px  10px 10px 10px;
+    margin: 10px 0 10px 0;
     text-align: left;
     background: linear-gradient(var(--mh-dark-green),var(--mh-green));
   }
   .toolsUsed{
+    width: 95%;
+    align-self: center;
+    border: 2px solid var(--mh-dark-yellow);
+    border-radius: 1%;
+    padding: 10px  10px 10px 10px;
+    margin: 10px 0 10px 0;
     text-align: left;
     background: linear-gradient(var(--mh-dark-red),var(--mh-red));
   }
@@ -84,6 +103,4 @@
   a{
     color: var(--mh-orange);
   }
-  
-
 </style>

@@ -2,38 +2,38 @@
     <div class="assembly-div">
         <div class="flex-container">
             <div class="flex-component1">
-    
-                <div class="buildOptions">
-                    <p>Select wishlist:</p>
-                    <div style="width: 25%">
-                        <v-select
-                            :options="getWishlists"
-                            label="_name"
-                            v-model="wList"
-                            width="50px"
-                        ></v-select>
+                <div class="borderWrapperBuild">
+                    <div class="buildOptions">
+                        <p>Select wishlist:</p>
+                        <div style="width: 25%">
+                            <v-select
+                                :options="getWishlists"
+                                label="_name"
+                                v-model="wList"
+                                width="50px"
+                            ></v-select>
+                        </div>
+                        <p style="display: inline">Select weapon slots:</p>
+                        <div class="slotSelection" style="width:25%">
+                            <SlotItemBtn @send="setWpnSlotLvl(findWeapon, 0, $event)"/>
+                            <SlotItemBtn @send="setWpnSlotLvl(findWeapon, 1, $event)"/>
+                            <SlotItemBtn @send="setWpnSlotLvl(findWeapon, 2, $event)"/>                     
+                        </div>
+                        <!--div style="width:25%">
+                            <v-select
+                                :options="getWeapons"
+                                label="_name"
+                                v-model="findWpn"
+                            ></v-select>
+                        </div-->
                     </div>
-                    <p style="display: inline">Select weapon slots:</p>
-                    <div class="slotSelection" style="width:25%">
-                        <SlotItemBtn @send="setWpnSlotLvl(findWeapon, 0, $event)"/>
-                        <SlotItemBtn @send="setWpnSlotLvl(findWeapon, 1, $event)"/>
-                        <SlotItemBtn @send="setWpnSlotLvl(findWeapon, 2, $event)"/>                     
+                    <div class="buildTable">
+                        <Buildtable/>
                     </div>
-                    <!--div style="width:25%">
-                        <v-select
-                            :options="getWeapons"
-                            label="_name"
-                            v-model="findWpn"
-                        ></v-select>
-                    </div-->
+                    <div>
+                        <button @click="buildSetup()" style="width:100%">Calculate build</button>
+                    </div>
                 </div>
-                <div class="buildTable">
-                    <Buildtable/>
-                </div>
-                <div>
-                    <button @click="buildSetup()" style="width:100%">Calculate build</button>
-                </div>
-                 
             </div>
             
             <div class="flex-component2">
@@ -131,7 +131,7 @@ import GuidePanel from './GuidePanel.vue'
                 buildsFinished: 0,
                 buildsTotal:0,
                 wList: null,
-                isLoading: false,
+                isLoading: true,
                 guideImg: require('../assets/unique-armor-mhw-wiki.png')
             };
         },
@@ -715,7 +715,7 @@ import GuidePanel from './GuidePanel.vue'
     }
     .flex-component1{
         flex:3;
-        padding: 5px;
+        padding: 10px;
         
         display: flex;
         flex-direction: column;
@@ -739,7 +739,7 @@ import GuidePanel from './GuidePanel.vue'
         padding-left: 2%;
         padding-right: 2%;
         padding-bottom: 2%;*/
-        padding: 5px;
+        padding: 10px;
     }
     .flex-component3{
         flex:1;
@@ -748,11 +748,11 @@ import GuidePanel from './GuidePanel.vue'
         padding-right: 2%;
         padding-bottom: 2%;
         */
-        padding: 5px;
+        padding: 10px;
     }
     .buildOptions{
         border: 3px solid black;
-        background: linear-gradient(black 0%, var(--mh-gray) 25%, var(--mh-gray)85%, var(--mh-yellow));
+        background: linear-gradient(black 0%, var(--mh-gray) 25%, var(--mh-gray)85%, black);
         /*background: linear-gradient(#f24725, #fff790 ,var(--mh-white));*/
         display: flex;
         justify-content: space-between;
@@ -762,14 +762,23 @@ import GuidePanel from './GuidePanel.vue'
     }
     .buildTable{
         height: auto;
-        width: 100%;
-        padding: 5px 0px 5px 5px;
+        padding: 5px 5px 5px 5px;
     }
     .buildOptions > label{
         flex: 0.2;
     }
     .guideBtn{
+        margin: 10px;
         color: black;
         background: linear-gradient(green, blue);
+    }
+    .borderWrapperBuild{
+        border: 1px solid var(--mh-gray);
+        background: linear-gradient(var(--mh-dark-red), black);
+        border-radius: 1%;
+        box-shadow: 5px 10px 5px black;
+        display: flex;
+        flex-direction: column;
+        padding: 2px;
     }
 </style>

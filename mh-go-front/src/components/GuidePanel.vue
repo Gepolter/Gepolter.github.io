@@ -11,13 +11,15 @@
                 <div class="contentDiv">
                     <div class="contentText">
                         <p>Welcome Hunter!</p>
-                        <p>This <span class="keyword">Guide</span> is here to help you to get a grasp on configuring your </p>
-                        <p>wishlists and talismans, so our palicos can get to work</p>
-                        <p>assembling the perfect build for your hunting needs.</p>
+                        <p>If like optimizing your builds,</p>
+                        <p>or want to work around not owning any god level Talismans yet</p>
+                        <p>you've come to the right place.</p>
+                        <p>This <span class="keyword">Guide</span> is here to explain the basics of the Pawcessor</p>
+                        <p>and help you to get a grasp on configuring your wishlists and talismans,</p>
+                        <p>so our palicos can get to work assembling the purrfect build for your hunting needs.</p>
                         <br><p></p>
                         <p>If you ever need some refresher on how to use any of the components,</p>
                         <p>just click the button titled "<span class="keyword">Guide</span>" in the upper right and this panel will reopen for you.</p>
-                        
                         <br><p></p>
                         <p>Let's get to it on the next page!</p>
                     </div>
@@ -88,6 +90,11 @@
                         <p>They will hurry along and you will have your custom taylored mixed set</p>
                         <p>faster than a Zinogre can charge up</p>
                         <p>...while beeing clobbered on, if you're here on your mobile.</p>
+                        <p>seriously though, the calculation will need about a minute</p>
+                        <br><p></p>
+                        <p>Lastly, if you like the builder please consider disabling your Adblocker,</p>
+                        <p>as I'm planning to host some ads on this page,</p>
+                        <p>to help pay for the hosting costs.</p>
                     </div>
                     <div class="contentImg">
                         <img v-bind:src="buildExample">
@@ -147,6 +154,7 @@
         justify-content: center;
         align-items: center;
         border-radius: 1%;
+        box-shadow: 5px 10px 5px black;
     }
     .guideWindow{
         background: linear-gradient(black, var(--mh-gray));
@@ -248,26 +256,6 @@
     }
     .keyword{
         color: var(--mh-orange);
-    }
-    /* width */
-    ::-webkit-scrollbar {
-    width: 10px;
-    }
-
-    /* Track */
-    ::-webkit-scrollbar-track {
-    background: black;
-    }
-
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-    background: var(--mh-dark-blue);
-    border-radius: 5%;
-    }
-
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-    background: var(--mh-light-blue);
     }
 
 </style>

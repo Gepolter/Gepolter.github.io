@@ -1,91 +1,93 @@
 <template>
+    <div class="borderWrapperConfig">
 
-    <div  class="headerWl">
-        wishlists
-    </div>
-    <!-- wishlists/talismans: array of collapsibles v-for-->
-    <div class="selectionArrayCollapsible">
-        <vue-collapsible-panel-group accordion>
-            <!--for every element in wl array one collapsible. !!!no events from collapsible...... why?!-->
-            <vue-collapsible-panel v-for="wishlist in getWishlists" :key="wishlist._name" :expanded="true">
-                <template #title>
-                    <div class="collapsibleHeader">
-                        {{wishlist._name}}
-                        <!--button type="submit" style="display: inline;" @click="activateWl(wishlist)">activate</button-->
-                        <button type="submit" style="display: inline;" @click="deleteWl(wishlist)">X</button>
-                    </div>
-                </template>
-                <template #content>
-                    <!-- header for columns-->
-                    <div class="selectionHeader">
-                        <label>Prio</label>
-                        <label style="flex : 3;">Skill</label>
-                        <label>Lvl</label>
-                        <label>Del</label>
-                    </div>
-                    <!-- items of wl/tals array of selectionItems(custom class)-->
-                    <!-- this should be draggable to select prios-->
-                    <div class="selectionItems">
-                        <!--deleted: tag="SelectionItem" from draggable-->
-                        <draggable
-                            
-                            :list="wishlist._skillSelectionArray" 
-                            item-key="_name"
-                            :onUpdated = "reorderWl(wishlist._skillSelectionArray)">
-                            <template #item="{element}">
-                                <SelectionItem
-                                    :skillName= "element._name"
-                                    :skillLvl="element._selectedLvl"
-                                    :skillPrio="element._prio"
-                                    @send="removeSkill(wishlist, $event)"/>
-                            </template>
-                        </draggable>
-                    </div>
-                    <div class="selectionItemBuilder">
-                        <v-select 
-                            :options="getSkills"
-                            label="_name"
-                            v-model="selectedSkill"
-                            @option:selected="resetSlider()"
-                            >
-
-                        </v-select>
-                        <!--:reduce="getSkills => getSkills._maxLvl" deleted: color="#FB278D"-->
-                        <div class="sliderDiv">
-                            <v-slider 
-                                v-model="myLvl"
-                                :min = 1
-                                :max="selectedSkill._maxLvl"
-                                :height = 20
-                                
-                                :rail-style="railStyle"
-                                :process-style="processStyle"
-                                :tooltip="'none'"
-                                :marks ="marks"
-                                :step-style="stepStyle"
-                                >
-                                <template v-slot:dot="{focus }">
-                                    <div :class="['custom-dot', {focus}]"></div>
-                                </template>
-                                <template v-slot:step="{active}">
-                                    <div :class="['custom-step', {active}]">
-                                    <img v-bind:src="marksImg"/></div>
-                                </template>
-                            </v-slider>
+        <div  class="headerWl">
+            wishlists
+        </div>
+        <!-- wishlists/talismans: array of collapsibles v-for-->
+        <div class="selectionArrayCollapsible">
+            <vue-collapsible-panel-group accordion>
+                <!--for every element in wl array one collapsible. !!!no events from collapsible...... why?!-->
+                <vue-collapsible-panel v-for="wishlist in getWishlists" :key="wishlist._name" :expanded="true">
+                    <template #title>
+                        <div class="collapsibleHeader">
+                            {{wishlist._name}}
+                            <!--button type="submit" style="display: inline;" @click="activateWl(wishlist)">activate</button-->
+                            <button type="submit" style="display: inline;" @click="deleteWl(wishlist)">X</button>
                         </div>
-
-                        <button type="submit" class="btn btn__primary btn__lg" @click="addSkill(selectedSkill._name, myLvl, wishlist)">
-                            Add Skill
-                        </button>
-                    </div>
-                </template>
-            </vue-collapsible-panel>
-        </vue-collapsible-panel-group>
-        <div class="addPanel">
-            <input v-model="text" placeholder="Wishlist Name"/>
-            <button type="submit" style="display: inline;" @click="addWishlist(text)">
-                create Wishlist
-            </button>
+                    </template>
+                    <template #content>
+                        <!-- header for columns-->
+                        <div class="selectionHeader">
+                            <label>Prio</label>
+                            <label style="flex : 3;">Skill</label>
+                            <label>Lvl</label>
+                            <label>Del</label>
+                        </div>
+                        <!-- items of wl/tals array of selectionItems(custom class)-->
+                        <!-- this should be draggable to select prios-->
+                        <div class="selectionItems">
+                            <!--deleted: tag="SelectionItem" from draggable-->
+                            <draggable
+                                
+                                :list="wishlist._skillSelectionArray" 
+                                item-key="_name"
+                                :onUpdated = "reorderWl(wishlist._skillSelectionArray)">
+                                <template #item="{element}">
+                                    <SelectionItem
+                                        :skillName= "element._name"
+                                        :skillLvl="element._selectedLvl"
+                                        :skillPrio="element._prio"
+                                        @send="removeSkill(wishlist, $event)"/>
+                                </template>
+                            </draggable>
+                        </div>
+                        <div class="selectionItemBuilder">
+                            <v-select 
+                                :options="getSkills"
+                                label="_name"
+                                v-model="selectedSkill"
+                                @option:selected="resetSlider()"
+                                >
+    
+                            </v-select>
+                            <!--:reduce="getSkills => getSkills._maxLvl" deleted: color="#FB278D"-->
+                            <div class="sliderDiv">
+                                <v-slider 
+                                    v-model="myLvl"
+                                    :min = 1
+                                    :max="selectedSkill._maxLvl"
+                                    :height = 20
+                                    
+                                    :rail-style="railStyle"
+                                    :process-style="processStyle"
+                                    :tooltip="'none'"
+                                    :marks ="marks"
+                                    :step-style="stepStyle"
+                                    >
+                                    <template v-slot:dot="{focus }">
+                                        <div :class="['custom-dot', {focus}]"></div>
+                                    </template>
+                                    <template v-slot:step="{active}">
+                                        <div :class="['custom-step', {active}]">
+                                        <img v-bind:src="marksImg"/></div>
+                                    </template>
+                                </v-slider>
+                            </div>
+    
+                            <button type="submit" class="btn btn__primary btn__lg" @click="addSkill(selectedSkill._name, myLvl, wishlist)">
+                                Add Skill
+                            </button>
+                        </div>
+                    </template>
+                </vue-collapsible-panel>
+            </vue-collapsible-panel-group>
+            <div class="addPanel">
+                <input v-model="text" placeholder="Wishlist Name"/>
+                <button type="submit" style="display: inline;" @click="addWishlist(text)">
+                    create Wishlist
+                </button>
+            </div>
         </div>
     </div>
 
@@ -257,6 +259,7 @@
     background: linear-gradient(var(--mh-dark-yellow),var(--mh-yellow));
     color: black;
   }
+ 
   .custom-step {
     width: 100%;
     height: 100%;

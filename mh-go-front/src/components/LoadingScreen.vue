@@ -8,10 +8,12 @@
                 <img v-bind:src="leftPal2" id="pal2"/>
                 <img v-bind:src="leftPal3" id="pal3"/>
             </div>
-            <div class="loadingHeader">
-                <p>
-                    Pawcessing Builds
-                </p>
+            <div class="loadingWrapper">
+                <div class="loadingHeader">
+                    <p>
+                        Pawcessing Builds
+                    </p>
+                </div>
             </div>
             <div class="imgDivCss">
                 <img v-bind:src='rightPal' id="pal"/>
@@ -64,12 +66,12 @@
         height: 100vh;
         width: 100vw;
         background: rgb(9,25,55, 0.9);
-        color: var(--mh-green);
+        color: var(--mh-yellow);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content:center;
-        position: absolute;
+        position: fixed;
         top: 0px;
         left: 0px;
         text-align: center;
@@ -77,12 +79,13 @@
     }
 
     .workingHard{
-        border: 10px outset var(--mh-orange);
-        border-radius: 35%;
+        border: 10px solid var(--mh-orange);
+        background: radial-gradient(var(--mh-green), var(--mh-dark-green));
+        border-radius: 5%;
         font-size: 3em;
         
-        width: 95%;
-        height: 70%;
+        width: 75%;
+        height: 50%;
         overflow: hidden;
         display: flex;
         flex-direction: row;
@@ -90,12 +93,24 @@
         justify-content:space-around;
        
     }
-    .loadingHeader{
-        border: 4px dashed var(--mh-dark-yellow);
-        font-size: 7vw;
-        
+    .loadingWrapper{
+        clip-path:polygon(20% 0, 80% 0, 100% 20%, 100% 40%, 65% 100%, 35% 100%, 0 40%, 0 20%);
+        background: radial-gradient(var(--mh-yellow), var(--mh-dark-yellow));
         width: 40%;
-        height: 40%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content:space-around;
+        padding: 10px;
+    }
+    .loadingHeader{
+        clip-path:polygon(20% 0, 80% 0, 100% 20%, 100% 40%, 65% 100%, 35% 100%, 0 40%, 0 20%);
+        background: radial-gradient(var(--mh-orange), var(--mh-dark-red));
+        font-size: 5vw;
+        
+        width: 90%;
+        height: 90%;
         overflow: hidden;
         display: flex;
         flex-direction: column;
