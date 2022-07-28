@@ -6,7 +6,7 @@
                     <div class="borderWrapperHeading">
                         <div class="guideHeading">Guide</div>
                     </div>
-                    <button class="close" type="submit" @click="close">X</button>
+                    <button class="close" type="submit" @click.self="close">X</button>
                 </div>
                 <div class="contentDiv">
                     <div class="contentText">
@@ -29,7 +29,7 @@
                     <div class="borderWrapperHeading">
                         <div class="guideHeading">Wishlist</div>
                     </div>
-                    <button class="close" type="submit" @click="close">X</button>
+                    <button class="close" type="submit" @click.self="close">X</button>
                 </div>
                 <div class="contentDiv">
                     <div class="contentText">
@@ -52,7 +52,7 @@
                     <div class="borderWrapperHeading">
                         <div class="guideHeading">Talisman config</div>
                     </div>
-                    <button class="close" type="submit" @click="close">X</button>
+                    <button class="close" type="submit" @click.self="close">X</button>
                 </div>
                 <div class="contentDiv">
                     <div class="contentText">
@@ -76,7 +76,7 @@
                     <div class="borderWrapperHeading">
                         <div class="guideHeading">Build options & table</div>
                     </div>
-                    <button class="close" type="submit" @click="close">X</button>
+                    <button class="close" type="submit" @click.self="close">X</button>
                 </div>
                 <div class="contentDiv">
                     <div class="contentText">
@@ -95,8 +95,8 @@
                 </div>
             </div>
             <div class="nav">
-                <button class="skip" type="submit" @click="prevPage" v-if="page > 0">back</button>
-                <button class="skip" type="submit" @click="nextPage" v-if="page < 3">next</button>
+                <button class="skip" type="submit" @click.self="prevPage" v-if="page > 0">back</button>
+                <button class="skip" type="submit" @click.self="nextPage" v-if="page < 3">next</button>
             </div>
             <div class="pageCount">{{page + 1}} / 4</div>
         </div>
@@ -163,6 +163,7 @@
     }
     .close{
         align-self: flex-end;
+        justify-self: center;
     }
     .guidePage{
         flex: 2;
@@ -207,6 +208,7 @@
         display: flex;
         flex-direction: row;
         align-items: flex-start;
+        overflow-y: scroll;
     }
     .contentDiv > p{
         border-bottom: 2px dashed rgba(128, 128, 128, 0.245);
@@ -217,6 +219,7 @@
     .contentText{
         text-align: left;
         flex: 1;
+        max-height: 100%;
         
     }.contentText > p{
         border-bottom: 2px dashed rgba(128, 128, 128, 0.245);
@@ -246,4 +249,25 @@
     .keyword{
         color: var(--mh-orange);
     }
+    /* width */
+    ::-webkit-scrollbar {
+    width: 10px;
+    }
+
+    /* Track */
+    ::-webkit-scrollbar-track {
+    background: black;
+    }
+
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+    background: var(--mh-dark-blue);
+    border-radius: 5%;
+    }
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+    background: var(--mh-light-blue);
+    }
+
 </style>

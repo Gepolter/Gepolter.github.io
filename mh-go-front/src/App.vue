@@ -2,6 +2,12 @@
   <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">About</router-link>
+    
+    <div id="donate-button-container">
+      <div id="donate-button"></div>
+    </div>
+
+
   </nav>
   <router-view/>
 </template>

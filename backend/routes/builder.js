@@ -53,8 +53,6 @@ router.get("/slotArraysAll", function(req, res) {
         var slotArrayMap = []
         
         slotArrays.forEach(function(slotArray){
-            
-            
             slotArrayMap[slotArray._id] = slotArray
         })
         res.send(slotArrayMap)
