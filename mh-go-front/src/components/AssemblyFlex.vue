@@ -63,14 +63,7 @@
 
 <script>
 /* eslint-disable */
-//TODO: fill in missing skills (Document!)
-    //make guide and loading screen
-    //paypal business account + adsense account
-    //2 build options calculate for prio, calculate for skill total (fry my cpu!)? rating seems to be better in all cases than flat rating
-    //give out ammount of free slots in final build
-//https://developer.paypal.com/api/nvp-soap/paypal-payments-standard/integration-guide/donate-step-1/
-//https://makeshiftinsights.com/blog/adsense-vue-js-app/#:~:text=First%2C%20install%20the%20vue-google-adsensepackage%20to%20your%20project%20as,page%29%3A%20npm%20install%20vue-script2%20vue-google-adsense%20--save%20Step%202.
-//https://support.google.com/adsense/answer/9274025?hl=en&visit_id=637932184737370532-2653476057&rd=1
+
 //https://dev.to/dd8888/how-to-create-a-simple-loading-screen-using-vue-4h7m
 //https://weekendprojects.dev/posts/css-rotate-animations-examples/
 //https://jsfiddle.net/78kt1p5j/1/
@@ -131,7 +124,7 @@ import GuidePanel from './GuidePanel.vue'
                 buildsFinished: 0,
                 buildsTotal:0,
                 wList: null,
-                isLoading: true,
+                isLoading: false,
                 guideImg: require('../assets/unique-armor-mhw-wiki.png')
             };
         },

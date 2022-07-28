@@ -38,12 +38,22 @@
   </div>
   <div class="toolsUsed">
     <h2>Tools Used</h2>
-    <p>For everyone interested in the Coding process,</p>
-    <p>I would also like to give Credit to the Creators of the packages I used:</p>
-    <ul>
-      <li><a href="https://github.com/dafcoe/vue-collapsible-panel" target="_blank">Vue-Collapsible-Panel by dafcoe</a></li>
-      <li><a href="https://www.npmjs.com/package/vue-slider-component" target="_blank">Vue-Slider-Component by NightCatSama</a></li>
-    </ul>
+    <p>For everyone interested in the technical aspects of this project, I thought, I'd share some information about the building process. <br>
+      First up, this app was created with the MEVN stack and is currently deployed on Heroku. <br>
+      The majority of the stack was set up in a pretty standard way, following popular guides on <a href="medium.com" target="_blank">Medium</a>, <a href="https://fireship.io/">Fireship</a>, and StackOverflow for more finicky parts. <br>
+
+      Regarding the Design, these are some of the packages I used in the frontend:
+        <ul>
+          <li> <a href="https://github.com/sagalbot/vue-select" target="_blank">Vue Select by Jeff Sagal</a></li>
+          <li><a href="https://github.com/dafcoe/vue-collapsible-panel" target="_blank">Vue-Collapsible-Panel by dafcoe</a></li>
+          <li><a href="https://www.npmjs.com/package/vue-slider-component" target="_blank">Vue-Slider-Component by NightCatSama</a></li>
+          <li><a href="https://github.com/shkilo/vue3-draggable">Vue 3 Draggable by Shkilo</a></li>
+        </ul>
+    </p>
+    <p>
+      The font I used for most of the UI elements is called<a href="http://www.iconian.com/about.html" target="_blank">"Monster Hunter"</a>  <br>
+      If you have any questions concerning details of the setup, or are interested in working together, you're also welcome to contact me via <a rel="stylesheet" href="mailto: pawcessor@gmail.com" target="_blank">Mail</a>. <br>
+    </p>
   </div>
   
 </template>
@@ -52,7 +62,7 @@
   .about{
     width: 95%;
     align-self: center;
-    border: 2px solid var(--mh-dark-yellow);
+    border: 3px solid var(--mh-dark-yellow);
     border-radius: 1%;
     padding: 10px  10px 10px 10px;
     margin: 10px 0 10px 0;
@@ -62,7 +72,7 @@
   .roadmap{
     width: 95%;
     align-self: center;
-    border: 2px solid var(--mh-dark-yellow);
+    border: 3px solid var(--mh-dark-yellow);
     border-radius: 1%;
     padding: 10px  10px 10px 10px;
     margin: 10px 0 10px 0;
@@ -72,7 +82,7 @@
   .toolsUsed{
     width: 95%;
     align-self: center;
-    border: 2px solid var(--mh-dark-yellow);
+    border: 3px solid var(--mh-dark-yellow);
     border-radius: 1%;
     padding: 10px  10px 10px 10px;
     margin: 10px 0 10px 0;
