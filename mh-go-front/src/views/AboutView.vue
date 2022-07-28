@@ -5,18 +5,18 @@
     <p>Hey there,<br>
      thank you for trying out the Gear Optimizer!<br>
      I hope you can get some use out of this project.
-     If you find any bugs, problems, or have some ideas about how to make the site more intuitive,<br>
+     If you find any bugs, problems, or have some ideas about how to make this site better,<br>
      please let me know via <a rel="stylesheet" href="mailto: pawcessor@gmail.com" target="_blank">pawcessor@gmail.com</a>. Any kind of feedback is welcome, really.<br>
     <br>
-     This Website kinda grew out of an idea I had, when I was first learning how to code in 2020,<br>
-     Back then, I wrote a small algorithm for setting decorations that displayed its results in the console 
+     This website kinda grew out of an idea I had, when I was first learning how to code in 2020,<br>
+     Back then, I wrote a small algorithm for setting decorations that displayed its results in the console. 
      With that in mind, please be patient with updates to this site, as i can't guarantee that progress will be fast 'n steady,<br>
      but I'd love to keep working on expanding the builder to support further titles of the Monster Hunter Series and features,
      if there is some interest. <br> 
-     For more details on what I'm playing around with atm, have a look at the "roadmap" section further down. 
+     For more details on what I'm playing around with atm, have a look at the "roadmap" section further down. <br>
      
-     Thanks again for stopping by, and have a blast Hunting! <br><br>
-     Sincerely, Dominik
+     Thanks again for stopping by, and have a blast hunting! <br><br>
+     Sincerely, <br> Dominik
      
     </p>
   </div>
@@ -24,7 +24,7 @@
     <hr>
     <h2>roadmap</h2>
     <hr>
-    <p>In case some people actually start using the builder, the next steps of development i'd have in mind are these:
+    <p>The next steps of development i'd have in mind are these:
       <ul>
         <li>Adding user registration, so you can save your talisman and wishlist configurations.</li>
         <li>Make the page more intuitive, especially on mobile devices.<br>
@@ -40,9 +40,9 @@
     <h2>Tools Used</h2>
     <p>For everyone interested in the technical aspects of this project, I thought, I'd share some information about the building process. <br>
       First up, this app was created with the MEVN stack and is currently deployed on Heroku. <br>
-      The majority of the stack was set up in a pretty standard way, following popular guides on <a href="medium.com" target="_blank">Medium</a>, <a href="https://fireship.io/">Fireship</a>, and StackOverflow for more finicky parts. <br>
+      The majority of the stack was set up in a pretty standard way, following popular guides on <a href="medium.com" target="_blank">Medium</a>, <a href="https://fireship.io/">Fireship</a>, and StackOverflow for the more finicky parts. <br>
 
-      Regarding the Design, these are some of the packages I used in the frontend:
+      Regarding the design, these are some of the packages I used in the frontend:
         <ul>
           <li> <a href="https://github.com/sagalbot/vue-select" target="_blank">Vue Select by Jeff Sagal</a></li>
           <li><a href="https://github.com/dafcoe/vue-collapsible-panel" target="_blank">Vue-Collapsible-Panel by dafcoe</a></li>
@@ -61,6 +61,7 @@
 <style scoped>
   .about{
     width: 95%;
+    max-width: 80em;
     align-self: center;
     border: 3px solid var(--mh-dark-yellow);
     border-radius: 1%;
@@ -71,6 +72,7 @@
   }
   .roadmap{
     width: 95%;
+    max-width: 80em;
     align-self: center;
     border: 3px solid var(--mh-dark-yellow);
     border-radius: 1%;
@@ -81,6 +83,7 @@
   }
   .toolsUsed{
     width: 95%;
+    max-width: 80em;
     align-self: center;
     border: 3px solid var(--mh-dark-yellow);
     border-radius: 1%;

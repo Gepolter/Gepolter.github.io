@@ -11,9 +11,10 @@
                 <div class="contentDiv">
                     <div class="contentText">
                         <p>Welcome Hunter!</p>
-                        <p>If like optimizing your builds,</p>
+                        <p>If you like optimizing builds,</p>
                         <p>or want to work around not owning any god level Talismans yet</p>
-                        <p>you've come to the right place.</p>
+                        <p>you've come to the right place!</p>
+                        <br><p></p>
                         <p>This <span class="keyword">Guide</span> is here to explain the basics of the Pawcessor</p>
                         <p>and help you to get a grasp on configuring your wishlists and talismans,</p>
                         <p>so our palicos can get to work assembling the purrfect build for your hunting needs.</p>
@@ -36,11 +37,11 @@
                 <div class="contentDiv">
                     <div class="contentText">
                         <p>Here you choose the skills you want for your build.</p>
-                        <p>Use Dropdown and Slider to choose the skills and levels you want.</p>
-                        <p>The button "Add Skill" will add a new Item to your <span class="keyword">Wishlist</span>.</p>
+                        <p>Use dropdown and slider to choose the skills and levels you want.</p>
+                        <p>The button "Add Skill" will add a new item to your <span class="keyword">Wishlist</span>.</p>
                         <p>Their order is important though!</p>
-                        <p>You can Drag & Drop the skill items to change their priority.</p>
-                        <p>This heavily affects, how the palicos *cough* algorithm *cough*</p>
+                        <p>You can drag & drop the skill items to change their priority.</p>
+                        <p>This heavily affects how the palicos *cough* algorithm *cough*</p>
                         <p>look for the right gear and decos for your build.</p>
                         
                     </div>
@@ -60,8 +61,8 @@
                     <div class="contentText">
                         <p>This component is quite similar to the Wishlist.</p>
                         <p>There is no priority here though.</p>
-                        <p>To configure the slots of a <span class="keyword">Talisman</span>, just click the buttons with the decos</p>
-                        <p>until the slots match your talisman.</p>
+                        <p>To configure the slots of a <span class="keyword">Talisman</span>, just click the buttons with the decos images</p>
+                        <p>until the their slots match your talisman.</p>
                         <p>If your <span class="keyword">Talisman</span> has less than three slots,</p>
                         <p>select the ones it has from left to right and leave the "empty" ones on the white symbol,</p>
                         <p>just like in the picture. That's it!</p>
@@ -85,10 +86,9 @@
                         <p>Everything that's left to do is select your wishlist</p>
                         <p>and the decoration slots of the weapon you want to use.</p>
                         <p>The <span class="keyword">Calculate Build</span> button will pass your order along</p>
-                        <p>and our Palicos will take care of the rest.</p>
-                        <br><p></p>
-                        <p>They will hurry along and you will have your custom taylored mixed set</p>
+                        <p>and our Palicos will hurry along to assemble your custom taylored mixed set</p>
                         <p>faster than a Zinogre can charge up</p>
+                        <br><p></p>
                         <p>...while beeing clobbered on, if you're here on your mobile.</p>
                         <p>seriously though, the calculation will need about a minute</p>
                         <br><p></p>
