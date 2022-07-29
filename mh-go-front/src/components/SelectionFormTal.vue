@@ -22,9 +22,9 @@
                     <template #content>
                         <!-- here four of these cyclestates are needed and the labels have to display the tal picture + hold a gettable value / pseudo button has to emit event to cycle state in tal obj(store)-->
                         <div class="slotSelection">
-                            <SlotItemBtn @send="setSlotLvl(talisman, 0, $event)"/>
-                            <SlotItemBtn @send="setSlotLvl(talisman, 1, $event)"/>
-                            <SlotItemBtn @send="setSlotLvl(talisman, 2, $event)"/>                     
+                            <SlotItemBtn @send="setSlotLvl(talisman, 0, $event)" :slotId=talisman._slots[0] />
+                            <SlotItemBtn @send="setSlotLvl(talisman, 1, $event)" :slotId=talisman._slots[1] />
+                            <SlotItemBtn @send="setSlotLvl(talisman, 2, $event)" :slotId=talisman._slots[2] />                     
                         </div>
                         
                         <div class ="selectionHeader">
@@ -59,7 +59,7 @@
                                 <v-slider 
                                     v-model="myLvl"
                                     :min = 1
-                                    :max="selectedSkill._maxLvl"
+                                    :max="selectedSkill._maxLvl" 
                                     :height = 20
                                     
                                     :rail-style="railStyle"
@@ -201,7 +201,7 @@
                         _name: talName,
                         _skill_array: [],
                         _nat_skill_arr: [],
-                        _slots: [0,1,2],
+                        _slots: [0,0,0],
                         _type_id: "5"
                     })
                 }

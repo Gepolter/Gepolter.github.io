@@ -7,7 +7,11 @@
 <script>
 
     export default{
+        props:{
+            slotId: Number
+        },
         data() {
+            
             return {
                 stateArray:[
                     {selectedState: 0, image: require('../assets/mhw-decorations-wiki.png')},
@@ -17,22 +21,37 @@
                     {selectedState: 4, image: require('../assets/gem_level_4.png')},                    
                 ],
                 slotLvl: 0,
-                selectedImg: require('../assets/mhw-decorations-wiki.png')
-                
+                //selectedImg: stateArray[this.slotId].image
             }
         },
-        computed: {
-            //slotLvl: 0
+        computed:{
+            selectedImg(){
+                console.log(this.slotId)
+                try{
+                    return this.stateArray[this.slotId].image
+                }catch (err){
+                    return this.stateArray[0].image
+                }
+            }
+        },
+        watch: {
+            slotId(){
+                
+                let selectedImg = this.stateArray[this.slotId].image
+                console.log(selectedImg)
+                return selectedImg
+            }
         },
         methods:{
             toggleBtnState(){
-                this.slotLvl = (this.slotLvl + 1) % 5
+                //this.slotId = (this.slotId + 1) % 5
+                /*
                 for(var i = 0; i < this.stateArray.length; i++){
-                    if(this.stateArray[i].selectedState === this.slotLvl){
+                    if(this.stateArray[i].selectedState === (this.slotId+1) % 5){
                         this.selectedImg = this.stateArray[i].image
                     }
-                }
-                this.$emit('send', this.slotLvl)
+                }*/
+                this.$emit('send', (this.slotId+1) % 5)
             }
         }
 
