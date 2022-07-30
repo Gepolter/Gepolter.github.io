@@ -111,7 +111,7 @@ import GuidePanel from './GuidePanel.vue'
                 getSlots: 'getSlots',
 
                 //testing
-                findWeapon: 'findWeapon'
+                //findWeapon: 'findWeapon'
 
             })
         },
@@ -125,7 +125,13 @@ import GuidePanel from './GuidePanel.vue'
                 buildsTotal:0,
                 wList: null,
                 isLoading: false,
-                guideImg: require('../assets/unique-armor-mhw-wiki.png')
+                guideImg: require('../assets/unique-armor-mhw-wiki.png'),
+                findWeapon: {
+                    _name: "wpn",
+                    _skill_array: [],
+                    _type_id: "6",
+                    _slots: [0,0,0]
+                }
             };
         },
 
@@ -164,14 +170,10 @@ import GuidePanel from './GuidePanel.vue'
                 
                 this.setBuilds([])
                 this.getBuilds.push(build)
-                //Vue.$set(this.getBuilds, 0, build)
 
-                //const branchMemory = []
-                //const typeExclusion = []
                 const evaluationList = []
 
-                this.decoAlgorithm(configWpn, this.wList, build, false)
-                //this.rateGear(configWpn, this.wList, build)
+                //this.decoAlgorithm(configWpn, this.wList, build, false)
                 this.rateGear(configWpn, this.wList, build, false)
                 this.rateFlatGear(configWpn, this.wList, build, false)
                 
@@ -181,6 +183,165 @@ import GuidePanel from './GuidePanel.vue'
                 //loop alt builds. elements are added in case of equal ratings
                 for(let b = 0; b < this.getBuildsLength; b++){
                     
+                    //while current build b has null elements in armor =at(2), repeat this to select one armorpiece
+                    while(
+                        this.getBuilds[b].buildArmor.headGear == null ||
+                        this.getBuilds[b].buildArmor.chestGear == null ||
+                        this.getBuilds[b].buildArmor.armsGear == null ||
+                        this.getBuilds[b].buildArmor.waistGear == null ||
+                        this.getBuilds[b].buildArmor.legsGear == null ||
+                        //buildTalisman
+                        this.getBuilds[b].buildTalisman === null
+                    ){
+                        //clear eval list, while having references remaining intact
+                        evaluationList.length = 0
+
+                        for(let armor in this.getArmor){
+                            if(this.getArmor[armor] != null){
+                                if(this.isGearTypeFree(this.getArmor[armor], this.getBuilds[b])){
+                                    evaluationList.push(this.getArmor[armor])
+                                }
+                            }
+                        }
+                        for(let tal in this.getTalismans){
+                            if(this.isGearTypeFree(this.getTalismans[tal], this.getBuilds[b])){
+                                evaluationList.push(this.getTalismans[tal])
+                            }
+                        }
+
+
+                        //before adding deco skills, set all armor back to base skills
+                        //other possibility: new skills get some tag _deco: true
+                        //this.getArmor = structuredClone(this.getArmor)
+                        
+                        //set optimal decos for all gear and rate gear according to wip wl
+                        //also recalculate rating based on wip wl
+                        
+                        for(let gearPiece in evaluationList){
+                            //this.decoAlgorithm(evaluationList[gearPiece], this.wList, this.getBuilds[b], false)
+                            this.rateGear(evaluationList[gearPiece], this.wList, this.getBuilds[b], false)                        
+                            this.rateFlatGear(evaluationList[gearPiece], this.wList, this.getBuilds[b], false)                        
+                        }
+                        
+                        //check equal results. if equally good max lvls are there, save all to buildlist
+                        var highestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._flat_rating > gear._flat_rating ? maxGear : gear)
+                        var secondHighestRatedGear = {_flat_rating : 0}
+                        //with just one gearpiece left to set, maybe just one tal is left in eval list
+                        if(evaluationList.length > 2){
+                            evaluationList.splice(evaluationList.indexOf(highestRatedGear),1)
+                            secondHighestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._flat_rating > gear._flat_rating ? maxGear : gear)
+                        }
+                        let plsDontFryCpu = 0
+                        while(highestRatedGear._flat_rating == secondHighestRatedGear._flat_rating && evaluationList.length > 3 && plsDontFryCpu < 1){
+                            //set highest, save build in builds, remove highest, loop
+                            this.setGearInBuild(secondHighestRatedGear, this.getBuilds[b])
+                            
+                            //store state of build
+                            this.getBuilds.push(structuredClone(this.getBuilds[b]))
+                            console.log("altBuildset")
+                            this.removeGearFromBuild(secondHighestRatedGear, this.getBuilds[b])
+
+                            //remove second highest from eval, set new secondhighest
+                            evaluationList.splice(evaluationList.indexOf(secondHighestRatedGear), 1)
+                            secondHighestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._flat_rating > gear._flat_rating ? maxGear : gear)
+
+                            plsDontFryCpu ++
+                        }
+
+                        
+                        var highestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._rating > gear._rating ? maxGear : gear)
+                        var secondHighestRatedGear = {_rating : 0}
+                        //with just one gearpiece left to set, maybe just one tal is left in eval list
+                        if(evaluationList.length > 2){
+                            evaluationList.splice(evaluationList.indexOf(highestRatedGear),1)
+                            secondHighestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._rating > gear._rating ? maxGear : gear)
+                        }
+                        //let plsDontFryCpu = 0
+                        while(highestRatedGear._rating == secondHighestRatedGear._rating && evaluationList.length > 3 && plsDontFryCpu < 1){
+                            //set highest, save build in builds, remove highest, loop
+                            this.setGearInBuild(secondHighestRatedGear, this.getBuilds[b])
+                            
+                            //store state of build
+                            this.getBuilds.push(structuredClone(this.getBuilds[b]))
+                            console.log("altBuildset")
+                            this.removeGearFromBuild(secondHighestRatedGear, this.getBuilds[b])
+
+                            //remove second highest from eval, set new secondhighest
+                            evaluationList.splice(evaluationList.indexOf(secondHighestRatedGear), 1)
+                            secondHighestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._rating > gear._rating ? maxGear : gear)
+
+                            plsDontFryCpu ++
+                        }
+                        //after loops, secondhighest is the last
+                        this.setGearInBuild(highestRatedGear, this.getBuilds[b])
+                        console.log("gearPieceSet")
+                        ////console.log(this.getBuilds[b])
+
+                    }
+                    
+                    //for future release: loading progress
+                    this.buildsFinished += 1
+                    this.buildsTotal = this.getBuildsLength
+
+                    //fixing overshoots / optimizing for final loadout?
+                    //after build completion, get buildrating
+                    this.rateBuild(this.getBuilds[b]) 
+                    this.rateBuild(this.getBuilds[b])   
+                    console.log("build completed")
+                    //console.log(this.getBuilds.length)
+                }
+                /*
+                
+                */
+
+                //after all builds are completed, find the one with max rating
+                const finalBuild = this.getBuilds.reduce((maxBuild, build) => maxBuild._rating > build._rating ? maxBuild : build)
+                console.log(finalBuild)
+                
+
+                this.decoAlgorithm(finalBuild.buildArmor.headGear, this.wList, finalBuild, true)
+                this.rateGear(finalBuild.buildArmor.headGear, this.wList, finalBuild, true)                        
+                this.rateFlatGear(finalBuild.buildArmor.headGear, this.wList, finalBuild, true)
+
+                this.decoAlgorithm(finalBuild.buildArmor.chestGear, this.wList, finalBuild, true)
+                this.rateGear(finalBuild.buildArmor.chestGear, this.wList, finalBuild, true)                        
+                this.rateFlatGear(finalBuild.buildArmor.chestGear, this.wList, finalBuild, true)
+
+                this.decoAlgorithm(finalBuild.buildArmor.armsGear, this.wList, finalBuild, true)
+                this.rateGear(finalBuild.buildArmor.armsGear, this.wList, finalBuild, true)                        
+                this.rateFlatGear(finalBuild.buildArmor.armsGear, this.wList, finalBuild, true)
+
+                this.decoAlgorithm(finalBuild.buildArmor.waistGear, this.wList, finalBuild, true)
+                this.rateGear(finalBuild.buildArmor.waistGear, this.wList, finalBuild, true)                        
+                this.rateFlatGear(finalBuild.buildArmor.waistGear, this.wList, finalBuild, true)
+
+                this.decoAlgorithm(finalBuild.buildArmor.legsGear, this.wList, finalBuild, true)
+                this.rateGear(finalBuild.buildArmor.legsGear, this.wList, finalBuild, true)                        
+                this.rateFlatGear(finalBuild.buildArmor.legsGear, this.wList, finalBuild, true)
+
+                this.decoAlgorithm(finalBuild.buildTalisman, this.wList, finalBuild, true)
+                this.rateGear(finalBuild.buildTalisman, this.wList, finalBuild, true)                        
+                this.rateFlatGear(finalBuild.buildTalisman, this.wList, finalBuild, true)
+
+                this.decoAlgorithm(finalBuild.buildWpn, this.wList, finalBuild, true)
+                this.rateGear(finalBuild.buildWpn, this.wList, finalBuild, true)                        
+                this.rateFlatGear(finalBuild.buildWpn, this.wList, finalBuild, true)
+
+
+                const build2 ={ 
+                    buildWpn: configWpn,
+                    buildArmor:{
+                        headGear: null,
+                        chestGear: null,
+                        armsGear: null,
+                        waistGear: null,
+                        legsGear: null
+                    },
+                    buildTalisman: null
+                }
+                this.getBuilds.push(build2)
+                for(let b = 1; b < this.getBuildsLength; b++){
+                    console.log(this.getBuilds[b])
                     //while current build b has null elements in armor =at(2), repeat this to select one armorpiece
                     while(
                         this.getBuilds[b].buildArmor.headGear == null ||
@@ -230,8 +391,7 @@ import GuidePanel from './GuidePanel.vue'
                             secondHighestRatedGear = evaluationList.reduce((maxGear, gear) => maxGear._rating > gear._rating ? maxGear : gear)
                         }
                         let plsDontFryCpu = 0
-                        while(highestRatedGear._rating == secondHighestRatedGear._rating && evaluationList.length > 3 && plsDontFryCpu < 1){                        
-                            //onsole.log(evaluationList)
+                        while(highestRatedGear._rating == secondHighestRatedGear._rating && evaluationList.length > 3 && plsDontFryCpu < 1){
                             //set highest, save build in builds, remove highest, loop
                             this.setGearInBuild(secondHighestRatedGear, this.getBuilds[b])
                             
@@ -252,60 +412,50 @@ import GuidePanel from './GuidePanel.vue'
                         ////console.log(this.getBuilds[b])
 
                     }
-                    //for future release: loading progress
-                    this.buildsFinished += 1
-                    this.buildsTotal = this.getBuildsLength
-
-                    //fixing overshoots / optimizing for final loadout?
-                    //after build completion, get buildrating
-                    this.rateBuild(this.getBuilds[b])    
-                    console.log("build completed")
-                    console.log(this.getBuilds.length)
-
                 }
 
-
                 //after all builds are completed, find the one with max rating
-                const finalBuild = this.getBuilds.reduce((maxBuild, build) => maxBuild._rating > build._rating ? maxBuild : build)
-
+                const finalFinalBuild = this.getBuilds.reduce((maxBuild, build) => maxBuild._rating > build._rating ? maxBuild : build)
+                console.log(finalFinalBuild)
                 
 
-                this.decoAlgorithm(finalBuild.buildArmor.headGear, this.wList, finalBuild, true)
-                this.rateGear(finalBuild.buildArmor.headGear, this.wList, finalBuild, true)                        
-                this.rateFlatGear(finalBuild.buildArmor.headGear, this.wList, finalBuild, true)
+                this.decoAlgorithm(finalFinalBuild.buildArmor.headGear, this.wList, finalFinalBuild, true)
+                this.rateGear(finalFinalBuild.buildArmor.headGear, this.wList, finalFinalBuild, true)                        
+                this.rateFlatGear(finalFinalBuild.buildArmor.headGear, this.wList, finalFinalBuild, true)
 
-                this.decoAlgorithm(finalBuild.buildArmor.chestGear, this.wList, finalBuild, true)
-                this.rateGear(finalBuild.buildArmor.chestGear, this.wList, finalBuild, true)                        
-                this.rateFlatGear(finalBuild.buildArmor.chestGear, this.wList, finalBuild, true)
+                this.decoAlgorithm(finalFinalBuild.buildArmor.chestGear, this.wList, finalFinalBuild, true)
+                this.rateGear(finalFinalBuild.buildArmor.chestGear, this.wList, finalFinalBuild, true)                        
+                this.rateFlatGear(finalFinalBuild.buildArmor.chestGear, this.wList, finalFinalBuild, true)
 
-                this.decoAlgorithm(finalBuild.buildArmor.armsGear, this.wList, finalBuild, true)
-                this.rateGear(finalBuild.buildArmor.armsGear, this.wList, finalBuild, true)                        
-                this.rateFlatGear(finalBuild.buildArmor.armsGear, this.wList, finalBuild, true)
+                this.decoAlgorithm(finalFinalBuild.buildArmor.armsGear, this.wList, finalFinalBuild, true)
+                this.rateGear(finalFinalBuild.buildArmor.armsGear, this.wList, finalFinalBuild, true)                        
+                this.rateFlatGear(finalFinalBuild.buildArmor.armsGear, this.wList, finalFinalBuild, true)
 
-                this.decoAlgorithm(finalBuild.buildArmor.waistGear, this.wList, finalBuild, true)
-                this.rateGear(finalBuild.buildArmor.waistGear, this.wList, finalBuild, true)                        
-                this.rateFlatGear(finalBuild.buildArmor.waistGear, this.wList, finalBuild, true)
+                this.decoAlgorithm(finalFinalBuild.buildArmor.waistGear, this.wList, finalFinalBuild, true)
+                this.rateGear(finalFinalBuild.buildArmor.waistGear, this.wList, finalFinalBuild, true)                        
+                this.rateFlatGear(finalFinalBuild.buildArmor.waistGear, this.wList, finalFinalBuild, true)
 
-                this.decoAlgorithm(finalBuild.buildArmor.legsGear, this.wList, finalBuild, true)
-                this.rateGear(finalBuild.buildArmor.legsGear, this.wList, finalBuild, true)                        
-                this.rateFlatGear(finalBuild.buildArmor.legsGear, this.wList, finalBuild, true)
+                this.decoAlgorithm(finalFinalBuild.buildArmor.legsGear, this.wList, finalFinalBuild, true)
+                this.rateGear(finalFinalBuild.buildArmor.legsGear, this.wList, finalFinalBuild, true)                        
+                this.rateFlatGear(finalFinalBuild.buildArmor.legsGear, this.wList, finalFinalBuild, true)
 
-                this.decoAlgorithm(finalBuild.buildTalisman, this.wList, finalBuild, true)
-                this.rateGear(finalBuild.buildTalisman, this.wList, finalBuild, true)                        
-                this.rateFlatGear(finalBuild.buildTalisman, this.wList, finalBuild, true)
+                this.decoAlgorithm(finalFinalBuild.buildTalisman, this.wList, finalFinalBuild, true)
+                this.rateGear(finalFinalBuild.buildTalisman, this.wList, finalFinalBuild, true)                        
+                this.rateFlatGear(finalFinalBuild.buildTalisman, this.wList, finalFinalBuild, true)
 
-                this.decoAlgorithm(finalBuild.buildWpn, this.wList, finalBuild, true)
-                this.rateGear(finalBuild.buildWpn, this.wList, finalBuild, true)                        
-                this.rateFlatGear(finalBuild.buildWpn, this.wList, finalBuild, true)
+                this.decoAlgorithm(finalFinalBuild.buildWpn, this.wList, finalFinalBuild, true)
+                this.rateGear(finalFinalBuild.buildWpn, this.wList, finalFinalBuild, true)                        
+                this.rateFlatGear(finalFinalBuild.buildWpn, this.wList, finalFinalBuild, true)
 
-                console.log(finalBuild)
-                this.setBuild(finalBuild)
-                this.setBuildSkills(this.totalSkillLevels(finalBuild, null, true, this.wList))
+
+
+
+
+                console.log(finalFinalBuild)
+                this.setBuild(finalFinalBuild)
+                this.setBuildSkills(this.totalSkillLevels(finalFinalBuild, null, true, this.wList))
                 this.isLoading = false
             },
-            sortForWl: function(buildSkills, wishlist){
-                
-            },  
             isGearTypeFree: function(gear, build){
                 ////console.log(gear)
                 ////console.log(build)
@@ -368,21 +518,20 @@ import GuidePanel from './GuidePanel.vue'
                                 }else{
                                     priorLvls = totalExceptGear.find(skill => skill._name === gear._skill_array[skillIndex]._skill_name)._lvl
                                 }
-                                console.log(wishlistSkill._selectedLvl - priorLvls)
                                 catchOverflow.push({
                                     _skill_name: gear._skill_array[skillIndex]._skill_name,
                                     _lvlToWantedRating: (wishlistSkill._selectedLvl - priorLvls) * (1/wishlistSkill._prio),
-                                    _prioFactor: 1 / wishlistSkill._prio                                
+                                                           
                                 })
-                                //console.log(gear)
-                                //console.log(wishlistSkill._selectedLvl)
+                                //console.log(gear._name)
+                                //console.log(wishlistSkill._selectedLvl - priorLvls)
                             }
                         }
 
                     }
                 }
                 for(let skill in catchOverflow){
-                    gear._rating += catchOverflow[skill]._lvlToWantedRating * catchOverflow[skill]._prioFactor
+                    gear._rating += catchOverflow[skill]._lvlToWantedRating
                     //console.log(catchOverflow)
                 }
             },
@@ -473,8 +622,8 @@ import GuidePanel from './GuidePanel.vue'
             },
             decoAlgorithm: function(gear, wishlist, build, buildWrapup) {
                 //console.log(gear)
-                
                 this.clearDecos(gear)
+                
 
                 //get decoArray of armor
                 var decoArray = null
@@ -521,7 +670,7 @@ import GuidePanel from './GuidePanel.vue'
                                         if(!currentSkillLevels.some(skill => skill._name === wishlist._skillSelectionArray[wlSkill]._name) ||
                                         skillDecoArr[i-1]._skill_lvl +
                                         currentSkillLevels.find(skill => skill._name === wishlist._skillSelectionArray[wlSkill]._name)._lvl <=
-                                        wishlist._skillSelectionArray[wlSkill]._selectedLvl){//*/
+                                        wishlist._skillSelectionArray[wlSkill]._selectedLvl){
 
                                             for(let j = 0; j < skillDecoArr[i-1]._skill_lvl; j++){
                                                 gear._skill_array.push(
@@ -531,12 +680,42 @@ import GuidePanel from './GuidePanel.vue'
                                                     }
                                                 )
                                             }
+                                            if(gear._name == "Valstrax Braces - Eclipse"){
+                                                console.log(gear)
+                                                //this.brtek()
+                                            }
                                             repeatBcNoFit = false 
                                             break OuterLoop//DecoSet
-                                        ///*
                                         }
-                                        //*/
                                     }
+                                    ///*
+                                    if(skillDecoArr[i-1]._deco_lvl <= decoArray._slots[gearSlot]){
+                                        //TODO try out effectiveness of if statement to check for overshooting 
+                                        ///*
+                                        if(!currentSkillLevels.some(skill => skill._name === wishlist._skillSelectionArray[wlSkill]._name) ||
+                                        skillDecoArr[i-1]._skill_lvl +
+                                        currentSkillLevels.find(skill => skill._name === wishlist._skillSelectionArray[wlSkill]._name)._lvl <=
+                                        wishlist._skillSelectionArray[wlSkill]._selectedLvl){
+
+                                            for(let j = 0; j < skillDecoArr[i-1]._skill_lvl; j++){
+                                                gear._skill_array.push(
+                                                    {
+                                                        _skill_name: wishlist._skillSelectionArray[wlSkill]._name,
+                                                        _is_deco: true
+                                                    }
+                                                )
+                                            }
+                                            if(gear._name == "Valstrax Braces - Eclipse"){
+                                                console.log("whyyyyyyyyyyyyyy")
+                                                console.log(gear)
+                                                //this.brtek()
+                                            }
+                                            repeatBcNoFit = false 
+                                            break OuterLoop//DecoSet
+                                        }
+                                    }
+                                    //*/
+
                                     repeatBcNoFit = true
                                 }
                             }

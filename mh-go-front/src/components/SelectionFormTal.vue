@@ -59,7 +59,7 @@
                                 <v-slider 
                                     v-model="myLvl"
                                     :min = 1
-                                    :max="selectedSkill._maxLvl" 
+                                    :max="parseInt(selectedSkill._maxLvl)" 
                                     :height = 20
                                     
                                     :rail-style="railStyle"

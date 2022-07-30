@@ -26,7 +26,6 @@
         },
         computed:{
             selectedImg(){
-                console.log(this.slotId)
                 try{
                     return this.stateArray[this.slotId].image
                 }catch (err){
@@ -38,7 +37,6 @@
             slotId(){
                 
                 let selectedImg = this.stateArray[this.slotId].image
-                console.log(selectedImg)
                 return selectedImg
             }
         },
