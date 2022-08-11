@@ -1,0 +1,9 @@
+@font-face {
+  font-family: MonsterHunter;
+  src: url("monsterhunter.ttf") format("truetype");
+  /*~@/assets/fonts/*/
+  font-weight: normal;
+  font-style: normal;
+  font-display: auto;
+}
+/*# sourceMappingURL=fonts.css.map */
