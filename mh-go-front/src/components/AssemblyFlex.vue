@@ -70,6 +70,7 @@
 //http://test-a-tag.com/
 //https://medium.com/bb-tutorials-and-thoughts/how-to-build-mevn-stack-for-production-91a53534758f
 //https://medium.com/bb-tutorials-and-thoughts/reading-environment-variables-in-nodejs-rest-api-e75bb04b813d
+//https://policies.google.com/technologies/partner-sites
 
 //import SelectionFormVue from './SelectionForm.vue'
 import SelectionFormWl from './SelectionFormWl.vue'
