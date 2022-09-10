@@ -2,7 +2,9 @@
 
 This Node.js SPA is my playground for exploring webdevelopment, while trying to provide a service to part of the Monster Hunter community.
 
-- [live Demo] (https://mhbuildpawcessor.com/)
+- [live Demo](https://mhbuildpawcessor.com/)
+
+![](https://github.com/Gepolter/mhGoApp/blob/master/mh-go-front/src/assets/Build-Example.png)
 
 ## Architecture
 
