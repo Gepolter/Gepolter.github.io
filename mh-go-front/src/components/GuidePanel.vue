@@ -117,7 +117,7 @@
             return{
                 page: 0,
                 buildExample: require('../assets/Build-Example.png'),
-                wlExample: require('../assets/Wishlist-Example.png'),
+                wlExample: require('../assets/Wishlist-example.png'),
                 talExample: require('../assets/Talisman-Example.png')
 
             }
