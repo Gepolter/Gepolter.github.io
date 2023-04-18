@@ -3,7 +3,10 @@ const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 const cors = require("cors")
 const path = require("path")
+const dotenv = require("dotenv")
 
+dotenv.config()
+//console.log(process.env)
 
 // create our express app
 const app = express()
@@ -14,10 +17,11 @@ const PORT = 0
 
 let uri = 0
 try{
-   uri = DB_CONNECTION_STR
+   uri = process.env.DB_CONNECTION_STR
 }catch (err){
    
 }
+console.log(uri)
 //const uri = process.env.MONGO_URL
 
 mongoose.connect(uri, {
