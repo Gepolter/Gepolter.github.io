@@ -5,6 +5,9 @@ const cors = require("cors")
 const path = require("path")
 const dotenv = require("dotenv")
 
+// former build script of json
+//"webpack --config ./webpack/webpack-dev.config.js",
+
 dotenv.config()
 //console.log(process.env)
 
@@ -21,12 +24,13 @@ try{
 }catch (err){
    
 }
+console.log("URI:")
 console.log(uri)
-//const uri = process.env.MONGO_URL
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  dbName: "MhrGoTestData"
 })
 .then(() => {
   console.log('MongoDB Connected')

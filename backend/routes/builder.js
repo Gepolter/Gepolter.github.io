@@ -10,11 +10,13 @@ router.get('/', (req,res)=>{
 //getter routes
 router.get("/skillsAll", function(req, res) {
     Skill.find({}, function(err, skills){
+
         var skillMap = []
         skills.forEach(function(skill){
             skillMap[skill._id] = skill
         })
         res.send(skillMap)
+        
     })
 })
 

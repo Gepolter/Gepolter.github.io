@@ -127,8 +127,10 @@ export default createStore({
     
     async fetchSkills({commit}) {
       try {
-        const data = await axios.get("https://pawcessor.herokuapp.com/builder/skillsAll")
-          commit('SET_SKILLS', data.data)
+        //const data = await axios.get("https://pawcessor.herokuapp.com/builder/skillsAll")
+        const data = await axios.get("http://localhost:3030/builder/skillsAll")
+        console.log(data)  
+        commit('SET_SKILLS', data.data)
           
       }
       catch (error) {
@@ -138,7 +140,8 @@ export default createStore({
     },
     async fetchArmor({commit}) {
       try {
-        const data = await axios.get("https://pawcessor.herokuapp.com/builder/armorAll")
+        //const data = await axios.get("https://pawcessor.herokuapp.com/builder/armorAll")
+        const data = await axios.get("http://localhost:3030/builder/armorAll")
           commit('SET_ARMOR', data.data)
       }
       catch (error) {
@@ -148,7 +151,8 @@ export default createStore({
     },
     async fetchWeapons({commit}) {
       try {
-        const data = await axios.get("https://pawcessor.herokuapp.com/builder/weaponsAll")
+        //const data = await axios.get("https://pawcessor.herokuapp.com/builder/weaponsAll")
+        const data = await axios.get("http://localhost:3030/builder/weaponsAll")
         commit('SET_WEAPONS', data.data)
       }
       catch (error) {
@@ -158,7 +162,8 @@ export default createStore({
     },
     async fetchGearTypes({commit}) {
       try {
-        const data = await axios.get("https://pawcessor.herokuapp.com/builder/gearTypesAll")
+        //const data = await axios.get("https://pawcessor.herokuapp.com/builder/gearTypesAll")
+        const data = await axios.get("http://localhost:3030/builder/gearTypesAll")
           commit('SET_GEAR_TYPES', data.data)
       }
       catch (error) {
@@ -168,7 +173,8 @@ export default createStore({
     },
     async fetchSlots({commit}) {
       try {
-        const data = await axios.get("https://pawcessor.herokuapp.com/builder/slotsAll")
+        //const data = await axios.get("https://pawcessor.herokuapp.com/builder/slotsAll")
+        const data = await axios.get("http://localhost:3030/builder/slotsAll")
           commit('SET_SLOTS', data.data)
       }
       catch (error) {
@@ -178,7 +184,8 @@ export default createStore({
     },
     async fetchSlotArrays({commit}) {
       try {
-        const data = await axios.get("https://pawcessor.herokuapp.com/builder/slotArraysAll")
+        //const data = await axios.get("https://pawcessor.herokuapp.com/builder/slotArraysAll")
+        const data = await axios.get("http://localhost:3030/builder/slotArraysAll")
           commit('SET_SLOT_ARRAYS', data.data)
       }
       catch (error) {
