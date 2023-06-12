@@ -10,7 +10,6 @@ router.get('/', (req,res)=>{
 //getter routes
 router.get("/skillsAll", function(req, res) {
     Skill.find({}, function(err, skills){
-
         var skillMap = []
         skills.forEach(function(skill){
             skillMap[skill._id] = skill
@@ -32,7 +31,6 @@ router.get("/armorAll", function(req, res) {
 router.get("/weaponsAll", function(req, res) {
     Weapon.find({}, function(err, weapons){
         var weaponMap = []
-
         weapons.forEach(function(weapon){
             weaponMap[weapon._id] = weapon
         })
@@ -42,7 +40,6 @@ router.get("/weaponsAll", function(req, res) {
 router.get("/slotsAll", function(req, res) {
     Slot.find({}, function(err, slots){
         var slotMap = []
-
         slots.forEach(function(slot){
             slotMap[slot._id] = slot
         })
@@ -53,7 +50,6 @@ router.get("/slotsAll", function(req, res) {
 router.get("/slotArraysAll", function(req, res) {
     SlotArray.find({}, function(err, slotArrays){
         var slotArrayMap = []
-        
         slotArrays.forEach(function(slotArray){
             slotArrayMap[slotArray._id] = slotArray
         })

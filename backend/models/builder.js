@@ -12,7 +12,7 @@ const talismanSchema = new mongoose.Schema({
     "_slotArrays_id":String
 })
 const Talisman = mongoose.model('Talisman', talismanSchema)
-module.exports = Talisman
+//module.exports = Talisman
 
 const wishlistSchema = new mongoose.Schema({
         "_id": String,
@@ -28,7 +28,7 @@ const wishlistSchema = new mongoose.Schema({
         ]
 })
 const Wishlist = mongoose.model("Wishlist", wishlistSchema)
-module.exports = Wishlist
+//module.exports = Wishlist
 
 const skillSchema = new mongoose.Schema({
     "_id": Number,
@@ -37,7 +37,7 @@ const skillSchema = new mongoose.Schema({
     "_deco_array":Array
 }/*{collection: 'skills'}*/)
 const Skill = mongoose.model("Skill", skillSchema, "skills_master_rank")
-module.exports = Skill
+//module.exports = Skill
 
 const armorSchema = new mongoose.Schema({
     "_id": Number,
@@ -48,7 +48,7 @@ const armorSchema = new mongoose.Schema({
 
 })
 const Armor = mongoose.model("Armor", armorSchema, 'armor_master_rank')
-module.exports = Armor
+//module.exports = Armor
 
 //trying to rewrite algorithm in a way, that no deco objects are needed
 //instead, skills will be applied directly, when fitting slots are available in gear
@@ -70,21 +70,21 @@ const weaponSchema = new mongoose.Schema({
 
 })
 const Weapon = mongoose.model("weapon", weaponSchema)
-module.exports = Weapon
+//module.exports = Weapon
 
 const gearTypeSchema = new mongoose.Schema({
     "_id": String,
     "_name": String
 })
 const GearType = mongoose.model("gearType", gearTypeSchema)
-module.exports = GearType
+//module.exports = GearType
 
 const slotSchema = new mongoose.Schema({
     "_id": String,
     "_lvl": Number
 })
 const Slot = mongoose.model("slot", slotSchema)
-module.exports = Slot
+//module.exports = Slot
 
 const slotArraySchema = new mongoose.Schema({
     "_id": String,
@@ -92,4 +92,5 @@ const slotArraySchema = new mongoose.Schema({
     "_slots": Array   
 })
 const SlotArray = mongoose.model("slotArray", slotArraySchema, "slotArrays")
+
 module.exports = {Talisman, Wishlist, Armor, Skill, Weapon, Slot, SlotArray}
