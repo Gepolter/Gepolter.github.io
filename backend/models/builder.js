@@ -36,7 +36,7 @@ const skillSchema = new mongoose.Schema({
     "_maxLvl": String,
     "_deco_array":Array
 }/*{collection: 'skills'}*/)
-const Skill = mongoose.model("Skill", skillSchema, "MhrGoTestData/skills_master_rank")
+const Skill = mongoose.model("Skill", skillSchema, "skills_master_rank")
 module.exports = Skill
 
 const armorSchema = new mongoose.Schema({

@@ -24,8 +24,6 @@ try{
 }catch (err){
    
 }
-console.log("URI:")
-console.log(uri)
 
 mongoose.connect(uri, {
   useNewUrlParser: true,
