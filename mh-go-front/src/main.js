@@ -16,7 +16,8 @@ import draggable from 'vuedraggable'
 import './assets/fonts/fonts.scss'
 import './assets/styles/global.scss'
 
-import rg4js from 'raygun4js'
+//import rg4js from 'raygun4js'
+
 //.component('v-select-3', vSelect)
 let app = createApp(App)
     .use(store)
@@ -27,13 +28,14 @@ let app = createApp(App)
     .component("draggable", draggable)
     //.mount('#app')
 
-  
+/*
 app.config.errorHandler = function(err, vm, info) {
     rg4js('send', {
         error: err,
         customData: [{ info: info }]
     });
-    };
+};
+*/
     
 app.mount('#app');
 

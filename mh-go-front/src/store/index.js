@@ -127,11 +127,10 @@ export default createStore({
     
     async fetchSkills({commit}) {
       try {
-        const data = await axios.get("https://https://mhbuildpawcessor.com/.com/builder/skillsAll")
+        const data = await axios.get("https://mhgoapp-production.up.railway.app/builder/skillsAll")
         //const data = await axios.get("http://localhost:3030/builder/skillsAll")
-        console.log(data)  
         commit('SET_SKILLS', data.data)
-          
+        
       }
       catch (error) {
         alert (error)
@@ -142,7 +141,7 @@ export default createStore({
       try {
         const data = await axios.get("https://mhgoapp-production.up.railway.app/builder/armorAll")
         //const data = await axios.get("http://localhost:3030/builder/armorAll")
-        //  commit('SET_ARMOR', data.data)
+        commit('SET_ARMOR', data.data)
       }
       catch (error) {
         alert (error)
