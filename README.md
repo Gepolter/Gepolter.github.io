@@ -10,8 +10,7 @@ This Node.js SPA is my playground for exploring webdevelopment, while trying to 
 
 - MEVN stack
 - VueX for state management
-- Raygun for Monitoring
-- Hosted on Heroku
+- Hosted on Railway
 
 ## Features
 
