@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const dotenv = require("dotenv");
 
 module.exports = {
   entry: './app.js',
@@ -16,7 +17,7 @@ module.exports = {
       API_WORKS_MESSAGE: JSON.stringify('API_WORKS_MESSAGE'),
       DB_USERNAME: JSON.stringify('DB_USERNAME'),
       DB_PASSWORD: JSON.stringify('DB_PASSWORD'),
-      DB_CONNECTION_STR: JSON.stringify('mongodb+srv://Gepolter:KrummeMhrGoDB239$@mhrgodb.h9kql.mongodb.net/MhrGoTestData?retryWrites=true&w=majority'),
+      DB_CONNECTION_STR: JSON.stringify(process.env.DB_CONNECTION_STR),
      // 'process.env.NODE_ENV': JSON.stringify('production')
     }),
   ],
